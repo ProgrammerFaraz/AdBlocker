@@ -25,9 +25,7 @@ struct TabBarView: View {
                     Text("Status")
                         .font(.system(size: 15))
                 }.tag(0)
-            
-            Text("How To Use")
-                .font(.system(size: 30, weight: .bold, design: .rounded))
+            HowToUseView()
                 .tabItem {
                     if selection == 1 {
                         Image(uiImage: UIImage(named: "howtouse_selected")!)

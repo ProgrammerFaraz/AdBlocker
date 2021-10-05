@@ -79,6 +79,8 @@
 		0DF3495626DE5C8800566AD7 /* WelcomeAndDownloadFiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF3495526DE5C8800566AD7 /* WelcomeAndDownloadFiltersView.swift */; };
 		0DF3495826DE67EE00566AD7 /* HintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF3495726DE67EE00566AD7 /* HintView.swift */; };
 		0DF3495A26DE7C3D00566AD7 /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF3495926DE7C3D00566AD7 /* SlideView.swift */; };
+		1810D5C4270B895B009759E8 /* PagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810D5C3270B895B009759E8 /* PagerView.swift */; };
+		1810D5C9270B8A80009759E8 /* HowToUseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810D5C8270B8A80009759E8 /* HowToUseView.swift */; };
 		18735DBA26F74B9700BDA7BB /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 18735DB926F74B9700BDA7BB /* SwiftUIX */; };
 		18F2F7C727078824000D743B /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2F7C627078824000D743B /* TabBarView.swift */; };
 		18F2F7CE2707A00D000D743B /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2F7CD2707A00C000D743B /* StatusView.swift */; };
@@ -185,6 +187,8 @@
 		0DF3495726DE67EE00566AD7 /* HintView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HintView.swift; sourceTree = "<group>"; };
 		0DF3495926DE7C3D00566AD7 /* SlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideView.swift; sourceTree = "<group>"; };
 		1553242AE234BBCD2B8A37A8 /* Pods-Security Manager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Security Manager.release.xcconfig"; path = "Target Support Files/Pods-Security Manager/Pods-Security Manager.release.xcconfig"; sourceTree = "<group>"; };
+		1810D5C3270B895B009759E8 /* PagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerView.swift; sourceTree = "<group>"; };
+		1810D5C8270B8A80009759E8 /* HowToUseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToUseView.swift; sourceTree = "<group>"; };
 		18F2F7C627078824000D743B /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		18F2F7CD2707A00C000D743B /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		18F2F7D22707ABC1000D743B /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
@@ -274,8 +278,6 @@
 		0D808BF526D40D08001FBEEC /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				18F2F7D12707ABA3000D743B /* SettingView */,
-				18F2F7CC27079FEC000D743B /* StatusView */,
 				18F2F7C52707880D000D743B /* TabBar */,
 				0D269B3526E0C74C0099A3DB /* LockView */,
 				0D269B1C26E032DC0099A3DB /* BrowserPage.swift */,
@@ -355,6 +357,7 @@
 				0D8FE57526E22AE9000EF3A4 /* Subscriptions */,
 				0D1901FE26DD87A900C911AA /* NotesViewModel.swift */,
 				0D808BF526D40D08001FBEEC /* Views */,
+				1810D5C2270B893D009759E8 /* PagerView */,
 				0DD2C55326D2C1E20092CB30 /* GlobalSettings.swift */,
 				0DC789B826CAEDC3007310DE /* PasswordGenerator.swift */,
 				0D13BE6F26D840CA0081D593 /* Color+hex.swift */,
@@ -376,9 +379,28 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		1810D5C2270B893D009759E8 /* PagerView */ = {
+			isa = PBXGroup;
+			children = (
+				1810D5C3270B895B009759E8 /* PagerView.swift */,
+			);
+			path = PagerView;
+			sourceTree = "<group>";
+		};
+		1810D5C7270B8A69009759E8 /* HowToUseView */ = {
+			isa = PBXGroup;
+			children = (
+				1810D5C8270B8A80009759E8 /* HowToUseView.swift */,
+			);
+			path = HowToUseView;
+			sourceTree = "<group>";
+		};
 		18F2F7C52707880D000D743B /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
+				1810D5C7270B8A69009759E8 /* HowToUseView */,
+				18F2F7D12707ABA3000D743B /* SettingView */,
+				18F2F7CC27079FEC000D743B /* StatusView */,
 				18F2F7C627078824000D743B /* TabBarView.swift */,
 			);
 			path = TabBar;
@@ -645,6 +667,7 @@
 				0D481B8226DE599B007416BB /* ELFilterParser.swift in Sources */,
 				0D269B3D26E0C74C0099A3DB /* KeypadView.swift in Sources */,
 				0D269B4326E0CC530099A3DB /* LockoutManager.swift in Sources */,
+				1810D5C4270B895B009759E8 /* PagerView.swift in Sources */,
 				0D13BE7026D840CA0081D593 /* Color+hex.swift in Sources */,
 				0D481B8026DE599B007416BB /* ELBlockerEntry+Serialize.swift in Sources */,
 				0D9B29DD26D5569C00E1651A /* EditCreditCardView.swift in Sources */,
@@ -652,6 +675,7 @@
 				0DC789A526CAE66D007310DE /* SceneDelegate.swift in Sources */,
 				0DF3495626DE5C8800566AD7 /* WelcomeAndDownloadFiltersView.swift in Sources */,
 				0D269B2426E032E50099A3DB /* URLBarView.swift in Sources */,
+				1810D5C9270B8A80009759E8 /* HowToUseView.swift in Sources */,
 				0D19020326DD87A900C911AA /* NotesView.swift in Sources */,
 				0D269B1526DFFC300099A3DB /* BlackListDomainView.swift in Sources */,
 				0DF3495426DE5B9700566AD7 /* ADBlockView.swift in Sources */,
