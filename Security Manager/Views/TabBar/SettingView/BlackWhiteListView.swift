@@ -66,6 +66,25 @@ struct BlackWhiteListView: View {
                 }
             }
             .navigationTitle("Black List")
+            .toolbar {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        self.viewControllerHolder?.present(style: .fullScreen) {
+                            AddURLView(fromEdit: false, type: self.type)
+                        }
+                        print("Add tapped!")
+                    }) {
+                        Image("plus_icon")
+                    }
+                    
+                    Button("Edit") {
+                        self.viewControllerHolder?.present(style: .fullScreen) {
+                            AddURLView(fromEdit: true, type: self.type)
+                        }
+                        print("Edit tapped!")
+                    }
+                }
+            }
         }
     }
     var body: some View {
