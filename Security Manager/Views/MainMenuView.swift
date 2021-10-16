@@ -108,12 +108,12 @@ struct MainMenuView: View {
                                              name: "Website Block",
                                              description: "Unwanted and annoying websites blocker",
                                              iconName: "umbrella.fill",
-                                             destinationID: 5, isLocked: true, isSubscribeScreenShowing: $isSubscribeScreenShowing, isSubscribedUser: $isSubscribedUser)
+                                             destinationID: 5, isLocked: false, isSubscribeScreenShowing: $isSubscribeScreenShowing, isSubscribedUser: $isSubscribedUser)
                                 MenuItemView(color: Colors.purpleColor,
                                              name: "Secure browser",
                                              description: "Secure and anonymous web browser",
                                              iconName: "network",
-                                             destinationID: 6, isLocked: true, isSubscribeScreenShowing: $isSubscribeScreenShowing, isSubscribedUser: $isSubscribedUser)
+                                             destinationID: 6, isLocked: false, isSubscribeScreenShowing: $isSubscribeScreenShowing, isSubscribedUser: $isSubscribedUser)
                             }
                             .padding()
                             if !isSubscribedUser { BannerVC().frame(width: 320, height: 50, alignment: .center) }

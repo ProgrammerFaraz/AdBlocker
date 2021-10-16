@@ -73,7 +73,7 @@ struct BlackListDomainView: View {
                                     domains.append(domainText)
                                     domainText = ""
                                 }
-                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                             }, label: {
                                 Text("Add to list")
                                     .bold()

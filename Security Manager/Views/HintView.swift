@@ -17,10 +17,20 @@ struct HintView: View {
         
         SFContentBlockerManager.getStateOfContentBlocker(withIdentifier: id, completionHandler: { state, error in
             DispatchQueue.main.async {
-                if state?.isEnabled ?? false {
+                //FIXME: - Uncomment below if let conditions
+                if state?.isEnabled ?? true {
                     BlockManager.shared.isExtensionActive = true
                     presentationMode.dismiss()
                 }
+//                if let error = error {
+//                    print("\n\n 🔥🔥 \(error.localizedDescription) 🔥🔥\n\n")
+//                }
+//                if let state = state {
+//                    if state.isEnabled {
+//                        BlockManager.shared.isExtensionActive = true
+//                        presentationMode.dismiss()
+//                    }
+//                }
             }
         })
     }

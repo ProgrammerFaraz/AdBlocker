@@ -129,7 +129,7 @@ class BlockManager {
         let id = Config.App.extensionBundleId
         SFContentBlockerManager.getStateOfContentBlocker(withIdentifier: id, completionHandler: { state, error in
             DispatchQueue.main.async {
-                if state?.isEnabled ?? false {
+                if state?.isEnabled ?? true {
                     self.isExtensionActive = true
                 } else {
                     self.isExtensionActive = false

@@ -81,6 +81,9 @@
 		0DF3495A26DE7C3D00566AD7 /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF3495926DE7C3D00566AD7 /* SlideView.swift */; };
 		1810D5C4270B895B009759E8 /* PagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810D5C3270B895B009759E8 /* PagerView.swift */; };
 		1810D5C9270B8A80009759E8 /* HowToUseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810D5C8270B8A80009759E8 /* HowToUseView.swift */; };
+		182EC61E2714C12B00191980 /* SettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182EC61D2714C12B00191980 /* SettingModel.swift */; };
+		182EC6242714C14E00191980 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182EC6232714C14E00191980 /* SettingViewModel.swift */; };
+		182EC6292714CC0E00191980 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182EC6282714CC0E00191980 /* UserDefaultsManager.swift */; };
 		185E478D2711AAC400AE3F66 /* BlackWhiteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185E478C2711AAC400AE3F66 /* BlackWhiteListView.swift */; };
 		185E47912711AC9200AE3F66 /* BlackWhiteListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185E47902711AC9200AE3F66 /* BlackWhiteListViewModel.swift */; };
 		185E47962711D13000AE3F66 /* AddURLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185E47952711D13000AE3F66 /* AddURLView.swift */; };
@@ -192,6 +195,9 @@
 		1553242AE234BBCD2B8A37A8 /* Pods-Security Manager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Security Manager.release.xcconfig"; path = "Target Support Files/Pods-Security Manager/Pods-Security Manager.release.xcconfig"; sourceTree = "<group>"; };
 		1810D5C3270B895B009759E8 /* PagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerView.swift; sourceTree = "<group>"; };
 		1810D5C8270B8A80009759E8 /* HowToUseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToUseView.swift; sourceTree = "<group>"; };
+		182EC61D2714C12B00191980 /* SettingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingModel.swift; sourceTree = "<group>"; };
+		182EC6232714C14E00191980 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
+		182EC6282714CC0E00191980 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		185E478C2711AAC400AE3F66 /* BlackWhiteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackWhiteListView.swift; sourceTree = "<group>"; };
 		185E47902711AC9200AE3F66 /* BlackWhiteListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackWhiteListViewModel.swift; sourceTree = "<group>"; };
 		185E47952711D13000AE3F66 /* AddURLView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddURLView.swift; sourceTree = "<group>"; };
@@ -345,6 +351,7 @@
 		0DC789A126CAE66D007310DE /* Security Manager */ = {
 			isa = PBXGroup;
 			children = (
+				182EC6272714CBFB00191980 /* Helper */,
 				0D269B1126DF97E90099A3DB /* Security Manager.entitlements */,
 				0D8FE58F26E22C6E000EF3A4 /* Configuration.storekit */,
 				0DF3495126DE5AB500566AD7 /* Config.swift */,
@@ -401,6 +408,38 @@
 			path = HowToUseView;
 			sourceTree = "<group>";
 		};
+		182EC6192714C10900191980 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				18F2F7D22707ABC1000D743B /* SettingView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		182EC61A2714C10F00191980 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				182EC6232714C14E00191980 /* SettingViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		182EC61C2714C11A00191980 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				182EC61D2714C12B00191980 /* SettingModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		182EC6272714CBFB00191980 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				182EC6282714CC0E00191980 /* UserDefaultsManager.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		185E478B2711AA9000AE3F66 /* BlackList WhiteList */ = {
 			isa = PBXGroup;
 			children = (
@@ -440,9 +479,11 @@
 		18F2F7D12707ABA3000D743B /* SettingView */ = {
 			isa = PBXGroup;
 			children = (
+				182EC61C2714C11A00191980 /* Model */,
+				182EC61A2714C10F00191980 /* ViewModel */,
+				182EC6192714C10900191980 /* View */,
 				185E47942711D11900AE3F66 /* AddURLView */,
 				185E478B2711AA9000AE3F66 /* BlackList WhiteList */,
-				18F2F7D22707ABC1000D743B /* SettingView.swift */,
 			);
 			path = SettingView;
 			sourceTree = "<group>";
@@ -664,7 +705,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				182EC6242714C14E00191980 /* SettingViewModel.swift in Sources */,
 				0D481B8126DE599B007416BB /* ELOptionParser.swift in Sources */,
+				182EC6292714CC0E00191980 /* UserDefaultsManager.swift in Sources */,
 				0D269B3226E0333C0099A3DB /* PersistenceController.swift in Sources */,
 				0D13BE6E26D83D6A0081D593 /* WalletManager.swift in Sources */,
 				0D269B3426E0C5D50099A3DB /* PasscodeManager.swift in Sources */,
@@ -708,6 +751,7 @@
 				0DC789B926CAEDC3007310DE /* PasswordGenerator.swift in Sources */,
 				0D19020226DD87A900C911AA /* NotesViewModel.swift in Sources */,
 				0D8FE59026E22F23000EF3A4 /* ProductsStore.swift in Sources */,
+				182EC61E2714C12B00191980 /* SettingModel.swift in Sources */,
 				0DF3495826DE67EE00566AD7 /* HintView.swift in Sources */,
 				0DC789DD26CB1336007310DE /* SavePasswordView.swift in Sources */,
 				18F2F7CE2707A00D000D743B /* StatusView.swift in Sources */,
@@ -762,7 +806,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Security Manager Blocker/Security Manager Blocker.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3PX9M5243D;
+				DEVELOPMENT_TEAM = XML5929TVD;
 				INFOPLIST_FILE = "Security Manager Blocker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -786,7 +830,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Security Manager Blocker/Security Manager Blocker.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3PX9M5243D;
+				DEVELOPMENT_TEAM = XML5929TVD;
 				INFOPLIST_FILE = "Security Manager Blocker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -931,7 +975,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Security Manager/Preview Content\"";
-				DEVELOPMENT_TEAM = 3PX9M5243D;
+				DEVELOPMENT_TEAM = XML5929TVD;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Security Manager/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -957,7 +1001,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Security Manager/Preview Content\"";
-				DEVELOPMENT_TEAM = 3PX9M5243D;
+				DEVELOPMENT_TEAM = XML5929TVD;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Security Manager/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
