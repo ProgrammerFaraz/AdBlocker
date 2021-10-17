@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Drops
 
 enum ListType {
     case whiteList
@@ -28,67 +29,86 @@ struct BlackWhiteListView: View {
         return BlackWhiteListViewModel()
     }()
     
+    @State var domains: [String] = []
+    @State var domainText: String = ""
+    
+    @State var isActivated = true
+    @State var showingHintView = false
+    
+    
     @ViewBuilder var list: some View {
-        if type == .whiteList {
-            NavigationView {
-                List{
-                    Spacer()
-                        .frame(width: 2)
-                    Text("add data from white list model")
-                }
-            }
-            .navigationTitle("White List")
-            .toolbar {
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        self.viewControllerHolder?.present(style: .fullScreen) {
-                            AddURLView(fromEdit: false, type: self.type)
-                        }
-                        print("Add tapped!")
-                    }) {
-                        Image("plus_icon")
+        
+        NavigationView {
+            List{
+                Section(header: Text("Block list").foregroundColor(.gray).font(.custom(FontNames.exo, size: 14))) {
+                    Text("example.com")
+                        .listRowBackground(Color.white.opacity(0.02))
+                    ForEach(domains, id: \.self) { domain in
+                        Text(domain)
+                            .listRowBackground(Color.white.opacity(0.02))
                     }
-                    
-                    Button("Edit") {
-                        self.viewControllerHolder?.present(style: .fullScreen) {
-                            AddURLView(fromEdit: true, type: self.type)
-                        }
-                        print("Edit tapped!")
-                    }
+                    .onDelete(perform: { index in
+                        domains.remove(atOffsets: index)
+                    })
                 }
-            }
-        }else {
-            NavigationView {
-                List{
-                    Spacer()
-                        .frame(width: 2)
-                    Text("add data from black list model")
+                Section(header: Text("add domain").foregroundColor(.gray).font(.custom(FontNames.exo, size: 14))) {
+                    TextField("domain.com", text: $domainText)
+                        .listRowBackground(Color.white.opacity(0.02))
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
                 }
-            }
-            .navigationTitle("Black List")
-            .toolbar {
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        self.viewControllerHolder?.present(style: .fullScreen) {
-                            AddURLView(fromEdit: false, type: self.type)
-                        }
-                        print("Add tapped!")
-                    }) {
-                        Image("plus_icon")
+                Button(action: {
+                    if domainText == "" { return }
+                    if !domainText.contains(".") {
+                        Drops.show(Drop(title: "Invalid Domain, please enter again."))
+                        return
                     }
-                    
-                    Button("Edit") {
-                        self.viewControllerHolder?.present(style: .fullScreen) {
-                            AddURLView(fromEdit: true, type: self.type)
-                        }
-                        print("Edit tapped!")
+                    withAnimation() {
+                        domains.append(domainText)
+                        domainText = ""
                     }
-                }
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                }, label: {
+                    Text("Add to list")
+                        .bold()
+                        .fill(alignment: .center)
+                })
+                .font(.custom(FontNames.exo, size: 18))
+                .listRowBackground(Colors.blueColor)
             }
         }
+        .onChange(of: domains) { _ in
+            if type == .blackList {
+                BlockManager.shared.blockDomains = domains
+                isActivated = false
+            }else {
+                BlockManager.shared.trustDomains = domains
+                isActivated = false
+            }
+        }
+        .onAppear() {
+            if type == .blackList {
+                domains = BlockManager.shared.blockDomains
+                BlockManager.shared.getActivationState(completion: { result in
+                    isActivated = result
+                })
+            }else {
+                domains = BlockManager.shared.trustDomains
+                BlockManager.shared.getActivationState(completion: { result in
+                    isActivated = result
+                })
+            }
+            
+        }
+        .navigationTitle(setupNavigationTitle(type: self.type))
     }
+    
     var body: some View {
         list
+    }
+    
+    func setupNavigationTitle(type: ListType) -> String {
+        return "\(self.type == .blackList ? "Black List" : "White List")"
     }
 }
 

@@ -9,22 +9,30 @@
 import Foundation
 import SwiftUI
 
-class FilterSource {
-    init(name: String, url: String, description: String, free: Bool, imageName: String, color: Color) {
+struct SettingListData: Identifiable {
+    var id: Int
+    let header: String
+    let settingData: [FilterSource]
+}
+
+class FilterSource: Identifiable {
+    init(name: String, url: String, description: String, free: Bool, imageName: String, color: Color, whiteBlackList: Bool) {
         self.color = color
         self.imageName = imageName
         self.name = name
         self.url = url
         self.description = description
         self.free = free
+        self.whiteBlackList = whiteBlackList
     }
-    
+    let id = UUID()
     let color: Color
     let imageName: String
     let name: String
     let url: String
     let description: String
     let free: Bool
+    let whiteBlackList: Bool
     var version: String {
         get {
             return UserDefaults.standard.string(forKey: "\(self.name)-version") ?? ""

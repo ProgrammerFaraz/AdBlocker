@@ -68,7 +68,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, GADFullScreenContentDel
             
             window = UIWindow(windowScene: windowScene)
             
-            let mainView = MainMenuView()
+//            let mainView = MainMenuView()
+            let mainView = TabBarView()
                 .environmentObject(passcodeManager)
 
 

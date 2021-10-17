@@ -15,8 +15,8 @@ struct SettingData: Identifiable {
     let whiteBlackList: Bool
 }
 
-struct SettingListData: Identifiable {
-    var id: Int
-    let header: String
-    let settingData: [SettingData]
-}
+//struct SettingListData: Identifiable {
+//    var id: Int
+//    let header: String
+//    let settingData: [SettingData]
+//}
