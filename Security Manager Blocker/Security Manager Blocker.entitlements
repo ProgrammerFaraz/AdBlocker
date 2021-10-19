@@ -4,7 +4,7 @@
 <dict>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.securityBlock2</string>
+		<string>group.securityBlock3</string>
 	</array>
 </dict>
 </plist>

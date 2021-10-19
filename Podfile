@@ -8,6 +8,7 @@ target 'Security Manager' do
   # Pods for Security Manager
   pod 'Google-Mobile-Ads-SDK'
   pod 'abseil'
+  pod 'Purchases', '~> 3.12.3'
 end
 
 target 'Security Manager Blocker' do
