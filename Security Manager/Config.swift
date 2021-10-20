@@ -12,9 +12,9 @@ var strings: [String] = []
 
 struct Config {
     struct App {
-        static let appBundleId = "com.gsmith.adblocker"
-        static let extensionBundleId = "com.gsmith.adblocker.Security-Manager-Blocker"
-        static let appGroupId = "group.securityBlock3"
+        static let appBundleId = "com.gsmith.adblockerSM"
+        static let extensionBundleId = "com.gsmith.adblockerSM.Security-Manager-Blocker"
+        static let appGroupId = "group.securityBlock4"
         static let subscribeProductId = "sub7"
     }
     

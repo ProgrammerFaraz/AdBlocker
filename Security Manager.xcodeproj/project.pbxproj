@@ -93,6 +93,7 @@
 		18F2F7D32707ABC1000D743B /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2F7D22707ABC1000D743B /* SettingView.swift */; };
 		2E1E740CA8526E515894E75F /* Pods_Security_Manager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4025D145F98141064109093F /* Pods_Security_Manager.framework */; };
 		9C08896993FFBD472D11C588 /* Pods_Security_Manager_Blocker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01E6482D8570FDC4DF67B833 /* Pods_Security_Manager_Blocker.framework */; };
+		D024EDBE272002E7009107E6 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D024EDBD272002E7009107E6 /* StoreKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -207,6 +208,7 @@
 		3B2FB8961529A7424CDA4E64 /* Pods-Security Manager Blocker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Security Manager Blocker.debug.xcconfig"; path = "Target Support Files/Pods-Security Manager Blocker/Pods-Security Manager Blocker.debug.xcconfig"; sourceTree = "<group>"; };
 		4025D145F98141064109093F /* Pods_Security_Manager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Security_Manager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55E98E049E661AD99E6811A2 /* Pods-Security Manager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Security Manager.debug.xcconfig"; path = "Target Support Files/Pods-Security Manager/Pods-Security Manager.debug.xcconfig"; sourceTree = "<group>"; };
+		D024EDBD272002E7009107E6 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		E405873121463D5CB375112B /* Pods-Security Manager Blocker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Security Manager Blocker.release.xcconfig"; path = "Target Support Files/Pods-Security Manager Blocker/Pods-Security Manager Blocker.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -230,6 +232,7 @@
 				0D8FE57226E22557000EF3A4 /* FirebaseDynamicLinks in Frameworks */,
 				0DC789C026CAEE96007310DE /* KeychainSwift in Frameworks */,
 				0D9B29E026D5684C00E1651A /* PartialSheet in Frameworks */,
+				D024EDBE272002E7009107E6 /* StoreKit.framework in Frameworks */,
 				0D1B2EC526DD44EE00CE45DA /* OmenTextField in Frameworks */,
 				2E1E740CA8526E515894E75F /* Pods_Security_Manager.framework in Frameworks */,
 			);
@@ -491,6 +494,7 @@
 		4C97CA2CD2C012E2C2BA2D2F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D024EDBD272002E7009107E6 /* StoreKit.framework */,
 				4025D145F98141064109093F /* Pods_Security_Manager.framework */,
 				01E6482D8570FDC4DF67B833 /* Pods_Security_Manager_Blocker.framework */,
 			);
@@ -806,7 +810,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Security Manager Blocker/Security Manager Blocker.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WW5S6TNLTK;
+				DEVELOPMENT_TEAM = 3PX9M5243D;
 				INFOPLIST_FILE = "Security Manager Blocker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -814,7 +818,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.gsmith.adblocker.Security-Manager-Blocker";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gsmith.adblockerSM.Security-Manager-Blocker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -831,7 +835,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Security Manager Blocker/Security Manager Blocker.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WW5S6TNLTK;
+				DEVELOPMENT_TEAM = 3PX9M5243D;
 				INFOPLIST_FILE = "Security Manager Blocker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -839,7 +843,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.gsmith.adblocker.Security-Manager-Blocker";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gsmith.adblockerSM.Security-Manager-Blocker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -977,7 +981,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Security Manager/Preview Content\"";
-				DEVELOPMENT_TEAM = WW5S6TNLTK;
+				DEVELOPMENT_TEAM = 3PX9M5243D;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Security Manager/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -985,7 +989,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gsmith.adblocker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gsmith.adblockerSM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -1004,7 +1008,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Security Manager/Preview Content\"";
-				DEVELOPMENT_TEAM = WW5S6TNLTK;
+				DEVELOPMENT_TEAM = 3PX9M5243D;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Security Manager/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1012,7 +1016,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gsmith.adblocker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gsmith.adblockerSM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
