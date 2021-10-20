@@ -131,7 +131,19 @@ struct SettingView: View {
         }
         .onChange(of: isActivated, perform: { value in
             if !value {
-                //BlockManager.shared.deactivateFilters { _ in }
+                BlockManager.shared.deactivateFilters { _ in }
+            }else {
+                BlockManager.shared.activateFilters { error in
+//                    view.isLoading = false
+                    if error != nil {
+                        Drops.show(Drop(title: error!.localizedDescription))
+//                        view.resetState()
+                    } else {
+                        withAnimation() {
+                            isActivated = true
+                        }
+                    }
+                }
             }
         })
         .sheet(isPresented: $showingDownloadFiltersView) {

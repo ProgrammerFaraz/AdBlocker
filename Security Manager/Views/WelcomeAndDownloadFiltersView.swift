@@ -64,7 +64,7 @@ struct WelcomeAndDownloadFiltersView: View {
             VStack {
                 HStack {
                     Text("Filter downloader and updater")
-                        .font(.custom(FontNames.exoSemiBold, size: 22))
+                        .font(.system(size: 22, weight: .semibold, design: .rounded))
                     Spacer()
                 }.padding([.top, .leading, .trailing])
                 Spacer().frame(height: 18)
@@ -115,7 +115,7 @@ struct WelcomeAndDownloadFiltersView: View {
                                 .fill(alignment: .center)
                         }
                     })
-                    .font(.custom(FontNames.exo, size: 18))
+                    .font(.system(size: 18, weight: .regular, design: .rounded))
                     .frame(height: 45)
                     .background(Colors.blueColor)
                     .foregroundColor(.white)
@@ -125,7 +125,7 @@ struct WelcomeAndDownloadFiltersView: View {
             }
             .foregroundColor(.white)
         }
-        .font(.custom(FontNames.exo, size: 18))
+        .font(.system(size: 18, weight: .regular, design: .rounded))
     }
 }
 

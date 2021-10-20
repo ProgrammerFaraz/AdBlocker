@@ -40,7 +40,7 @@ struct BlackWhiteListView: View {
         
         NavigationView {
             List{
-                Section(header: Text("Block list").foregroundColor(.gray).font(.custom(FontNames.exo, size: 14))) {
+                Section(header: Text("Block list").foregroundColor(.gray).font(.system(size: 17, weight: .semibold, design: .rounded))) {
                     Text("example.com")
                         .listRowBackground(Color.white.opacity(0.02))
                     ForEach(domains, id: \.self) { domain in
@@ -51,7 +51,7 @@ struct BlackWhiteListView: View {
                         domains.remove(atOffsets: index)
                     })
                 }
-                Section(header: Text("add domain").foregroundColor(.gray).font(.custom(FontNames.exo, size: 14))) {
+                Section(header: Text("add domain").foregroundColor(.gray).font(.system(size: 17, weight: .semibold, design: .rounded))) {
                     TextField("domain.com", text: $domainText)
                         .listRowBackground(Color.white.opacity(0.02))
                         .disableAutocorrection(true)
@@ -73,7 +73,7 @@ struct BlackWhiteListView: View {
                         .bold()
                         .fill(alignment: .center)
                 })
-                .font(.custom(FontNames.exo, size: 18))
+                .font(.system(size: 18, weight: .medium, design: .rounded))
                 .listRowBackground(Colors.blueColor)
             }
         }

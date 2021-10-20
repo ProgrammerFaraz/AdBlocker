@@ -27,4 +27,9 @@ struct FontNames {
     static let exoMedium = "Exo2-Regular_Medium"
     static let exoSemiBold = "Exo2-Regular_SemiBold"
     static let exoBold = "Exo2-Regular_Bold"
+    
+    static let systemRegular = UIFont.systemFont(ofSize: 17, weight: .regular)
+    static let systemMedium = UIFont.systemFont(ofSize: 17, weight: .medium)
+    static let systemSemiBold = UIFont.systemFont(ofSize: 17, weight: .semibold)
+    static let systemBold = UIFont.systemFont(ofSize: 17, weight: .bold)
 }

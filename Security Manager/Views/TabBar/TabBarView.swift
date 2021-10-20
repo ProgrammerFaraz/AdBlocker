@@ -13,9 +13,11 @@ struct TabBarView: View {
 //        UITabBar.appearance().barTintColor = .systemBackground
     }
     @State private var selection = 0
+    @State var isActivated = false
+
     var body: some View {
         TabView(selection: $selection) {
-            StatusView()
+            StatusView(isActivated: $isActivated)
                 .tabItem {
                     if selection == 0 {
                         Image(uiImage: UIImage(named: "status_selected")!)

@@ -9,12 +9,16 @@ import SwiftUI
 
 struct StatusView: View {
     
-    @State private var toggleOn = false
-    
+//    @State private var toggleOn = false
+    @Binding var isActivated: Bool
+    @State var showingDownloadFiltersView = false
+    @State var showingHintView = false
+    @State var filter = Constants.filtersSources[0]
+    @State var isActive = false
     var body: some View {
         
         VStack {
-            if toggleOn {
+            if isActive {
                 Image(uiImage: UIImage(named: "logo_gray")!)
                     .resizable()
                     .frame(width: 150, height: 180)
@@ -29,15 +33,49 @@ struct StatusView: View {
             }
             Spacer()
                 .frame(height: 50)
-            Toggle("", isOn: $toggleOn)
+            Toggle("", isOn: $isActive)
             .toggleStyle(SwitchToggleStyle(tint: .red))
             .labelsHidden()
+        }
+        .onAppear() {
+            if isActivated {
+                isActive = filter.activate
+            } else {
+                isActive = false
+            }
+//            if !BlockManager.shared.isFiltersDownloaded() {
+//                showingDownloadFiltersView = true
+//            }
+//            
+//            BlockManager.shared.getActivationState(completion: { result in
+//                    isActivated = result
+//            })
+        }
+        .onChange(of: isActive, perform: { value in
+            if value != filter.activate {
+                isActivated = false
+                filter.activate = value
+                if !value {
+                    BlockManager.shared.deactivateFilters { _ in }
+                }
+            }
+        })
+//        .onChange(of: isActivated, perform: { value in
+//            if !value {
+//                //BlockManager.shared.deactivateFilters { _ in }
+//            }
+//        })
+        .sheet(isPresented: $showingDownloadFiltersView) {
+            WelcomeAndDownloadFiltersView()
+        }
+        .sheet(isPresented: $showingHintView) {
+            HintView()
         }
     }
 }
 
-struct StatusView_Previews: PreviewProvider {
-    static var previews: some View {
-        StatusView()
-    }
-}
+//struct StatusView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        StatusView(isActivated: <#Binding<Bool>#>)
+//    }
+//}
