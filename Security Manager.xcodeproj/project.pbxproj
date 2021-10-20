@@ -81,6 +81,7 @@
 		0DF3495A26DE7C3D00566AD7 /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF3495926DE7C3D00566AD7 /* SlideView.swift */; };
 		1810D5C4270B895B009759E8 /* PagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810D5C3270B895B009759E8 /* PagerView.swift */; };
 		1810D5C9270B8A80009759E8 /* HowToUseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810D5C8270B8A80009759E8 /* HowToUseView.swift */; };
+		181634022720AF310075B698 /* NewPurchaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181634012720AF310075B698 /* NewPurchaseView.swift */; };
 		182EC61E2714C12B00191980 /* SettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182EC61D2714C12B00191980 /* SettingModel.swift */; };
 		182EC6242714C14E00191980 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182EC6232714C14E00191980 /* SettingViewModel.swift */; };
 		182EC6292714CC0E00191980 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182EC6282714CC0E00191980 /* UserDefaultsManager.swift */; };
@@ -196,6 +197,7 @@
 		1553242AE234BBCD2B8A37A8 /* Pods-Security Manager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Security Manager.release.xcconfig"; path = "Target Support Files/Pods-Security Manager/Pods-Security Manager.release.xcconfig"; sourceTree = "<group>"; };
 		1810D5C3270B895B009759E8 /* PagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerView.swift; sourceTree = "<group>"; };
 		1810D5C8270B8A80009759E8 /* HowToUseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToUseView.swift; sourceTree = "<group>"; };
+		181634012720AF310075B698 /* NewPurchaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPurchaseView.swift; sourceTree = "<group>"; };
 		182EC61D2714C12B00191980 /* SettingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingModel.swift; sourceTree = "<group>"; };
 		182EC6232714C14E00191980 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		182EC6282714CC0E00191980 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 		0D808BF526D40D08001FBEEC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				181633F92720AEA20075B698 /* Purchase View */,
 				18F2F7C52707880D000D743B /* TabBar */,
 				0D269B3526E0C74C0099A3DB /* LockView */,
 				0D269B1C26E032DC0099A3DB /* BrowserPage.swift */,
@@ -409,6 +412,38 @@
 				1810D5C8270B8A80009759E8 /* HowToUseView.swift */,
 			);
 			path = HowToUseView;
+			sourceTree = "<group>";
+		};
+		181633F92720AEA20075B698 /* Purchase View */ = {
+			isa = PBXGroup;
+			children = (
+				181633FE2720AEC90075B698 /* Model */,
+				181633FD2720AEBF0075B698 /* View */,
+				181633FC2720AEB60075B698 /* ViewModel */,
+			);
+			path = "Purchase View";
+			sourceTree = "<group>";
+		};
+		181633FC2720AEB60075B698 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ViewModel;
+			sourceTree = "<group>";
+		};
+		181633FD2720AEBF0075B698 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				181634012720AF310075B698 /* NewPurchaseView.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		181633FE2720AEC90075B698 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		182EC6192714C10900191980 /* View */ = {
@@ -721,6 +756,7 @@
 				0DD2C55226D2BA520092CB30 /* MainMenuView.swift in Sources */,
 				0D8FE58926E22AE9000EF3A4 /* Extensions.swift in Sources */,
 				0DC789CB26CAF677007310DE /* PasswordManager.swift in Sources */,
+				181634022720AF310075B698 /* NewPurchaseView.swift in Sources */,
 				185E47962711D13000AE3F66 /* AddURLView.swift in Sources */,
 				0D269B3E26E0C74C0099A3DB /* LockView.swift in Sources */,
 				0D481B8A26DE59C2007416BB /* FilterSource.swift in Sources */,
