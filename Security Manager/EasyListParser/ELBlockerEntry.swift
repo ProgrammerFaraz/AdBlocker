@@ -14,6 +14,7 @@ public class ELBlockerEntry {
             case Block
             case BlockCookies
             case CssDisplayNone
+            case Trust
         }
         
         var type: String?

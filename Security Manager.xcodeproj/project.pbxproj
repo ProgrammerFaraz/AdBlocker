@@ -95,6 +95,7 @@
 		2E1E740CA8526E515894E75F /* Pods_Security_Manager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4025D145F98141064109093F /* Pods_Security_Manager.framework */; };
 		9C08896993FFBD472D11C588 /* Pods_Security_Manager_Blocker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01E6482D8570FDC4DF67B833 /* Pods_Security_Manager_Blocker.framework */; };
 		D024EDBE272002E7009107E6 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D024EDBD272002E7009107E6 /* StoreKit.framework */; };
+		D05FF4CC27217E0700CF0888 /* easylist_content_blocker.json in Resources */ = {isa = PBXBuildFile; fileRef = D05FF4CB27217E0700CF0888 /* easylist_content_blocker.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -211,6 +212,7 @@
 		4025D145F98141064109093F /* Pods_Security_Manager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Security_Manager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55E98E049E661AD99E6811A2 /* Pods-Security Manager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Security Manager.debug.xcconfig"; path = "Target Support Files/Pods-Security Manager/Pods-Security Manager.debug.xcconfig"; sourceTree = "<group>"; };
 		D024EDBD272002E7009107E6 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		D05FF4CB27217E0700CF0888 /* easylist_content_blocker.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = easylist_content_blocker.json; sourceTree = "<group>"; };
 		E405873121463D5CB375112B /* Pods-Security Manager Blocker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Security Manager Blocker.release.xcconfig"; path = "Target Support Files/Pods-Security Manager Blocker/Pods-Security Manager Blocker.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -380,11 +382,9 @@
 				0DD2C55326D2C1E20092CB30 /* GlobalSettings.swift */,
 				0DC789B826CAEDC3007310DE /* PasswordGenerator.swift */,
 				0D13BE6F26D840CA0081D593 /* Color+hex.swift */,
-				0DC789A826CAE66E007310DE /* Assets.xcassets */,
-				0DC789AD26CAE66E007310DE /* LaunchScreen.storyboard */,
-				0D8FE56C26E22426000EF3A4 /* GoogleService-Info.plist */,
+				D05FF4CA27217DE000CF0888 /* Resources */,
 				0DC789B026CAE66E007310DE /* Info.plist */,
-				0DD2C55526D2F4470092CB30 /* exo2.ttf */,
+				0DC789AD26CAE66E007310DE /* LaunchScreen.storyboard */,
 				0DC789AA26CAE66E007310DE /* Preview Content */,
 			);
 			path = "Security Manager";
@@ -547,6 +547,17 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		D05FF4CA27217DE000CF0888 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D05FF4CB27217E0700CF0888 /* easylist_content_blocker.json */,
+				0DD2C55526D2F4470092CB30 /* exo2.ttf */,
+				0D8FE56C26E22426000EF3A4 /* GoogleService-Info.plist */,
+				0DC789A826CAE66E007310DE /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -658,6 +669,7 @@
 			files = (
 				0DC789AF26CAE66E007310DE /* LaunchScreen.storyboard in Resources */,
 				0DC789AC26CAE66E007310DE /* Preview Assets.xcassets in Resources */,
+				D05FF4CC27217E0700CF0888 /* easylist_content_blocker.json in Resources */,
 				0D8FE56D26E22426000EF3A4 /* GoogleService-Info.plist in Resources */,
 				0DD2C55626D2F4470092CB30 /* exo2.ttf in Resources */,
 				0DC789A926CAE66E007310DE /* Assets.xcassets in Resources */,

@@ -38,18 +38,18 @@ struct StatusView: View {
             .labelsHidden()
         }
         .onAppear() {
+           
+            if !BlockManager.shared.isFiltersDownloaded() {
+                showingDownloadFiltersView = true
+            }
+            BlockManager.shared.getActivationState(completion: { result in
+                    isActivated = result
+            })
             if isActivated {
                 isActive = filter.activate
             } else {
                 isActive = false
             }
-//            if !BlockManager.shared.isFiltersDownloaded() {
-//                showingDownloadFiltersView = true
-//            }
-//            
-//            BlockManager.shared.getActivationState(completion: { result in
-//                    isActivated = result
-//            })
         }
         .onChange(of: isActive, perform: { value in
             if value != filter.activate {
@@ -57,6 +57,8 @@ struct StatusView: View {
                 filter.activate = value
                 if !value {
                     BlockManager.shared.deactivateFilters { _ in }
+                }else{
+                    BlockManager.shared.activateBlockFilters { _ in }
                 }
             }
         })

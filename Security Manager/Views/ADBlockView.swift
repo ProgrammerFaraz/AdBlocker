@@ -68,7 +68,7 @@ struct ADBlockView: View {
                                             view.resetState()
                                         } else {
                                             view.isLoading = true
-                                            BlockManager.shared.activateFilters { error in
+                                            BlockManager.shared.activateBlockFilters { error in
                                                 view.isLoading = false
                                                 if error != nil {
                                                     Drops.show(Drop(title: error!.localizedDescription))

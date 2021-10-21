@@ -10,7 +10,10 @@ import SwiftUI
 struct NewPurchaseView: View {
     var body: some View {
         ZStack {
-            
+            Image("purchaseViewBG")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+
         }
     }
 }
