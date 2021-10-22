@@ -13,6 +13,7 @@ struct StatusView: View {
     @Binding var isActivated: Bool
     @State var showingDownloadFiltersView = false
     @State var showingHintView = false
+    @State var showingPurchaseView = true
     @State var filter = Constants.filtersSources[0]
     @State var isActive = false
     var body: some View {
@@ -72,6 +73,9 @@ struct StatusView: View {
         }
         .sheet(isPresented: $showingHintView) {
             HintView()
+        }
+        .sheet(isPresented: $showingPurchaseView) {
+            NewPurchaseView()
         }
     }
 }

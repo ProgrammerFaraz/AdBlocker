@@ -23,13 +23,13 @@ class ContentBlockerRequestHandler: NSObject, NSExtensionRequestHandling {
         
         let attachment = NSItemProvider(contentsOf: jsonURL)
         let attachment2 = NSItemProvider(contentsOf: jsonURL2)
-        guard let attachment2 = attachment2 else {
+        guard let attachment3 = attachment2 else {
             print("🔥🔥 atachment2 guard let failed!! 🔥🔥")
             return
         }
         let item = NSExtensionItem()
         item.attachments = [attachment] as? [NSItemProvider]
-        item.attachments?.append(attachment2)
+        item.attachments?.append(attachment3)
         context.completeRequest(returningItems: [item], completionHandler: nil)
     }
     
