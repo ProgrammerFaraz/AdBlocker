@@ -11,6 +11,7 @@ import Introspect
 struct SelectionButton: View {
 //    @Binding var isClicked: Bool
     let priceText: String
+    let planDescText: String
     let selectedPrice: String
     let callback: (String)->()
     var body: some View {
@@ -18,9 +19,31 @@ struct SelectionButton: View {
 //            self.isClicked.toggle()
             self.callback(self.priceText)
         }) {
-            Image(self.imageName(isClicked: (self.priceText == self.selectedPrice)))
-                .resizable()
-                .frame(CGSize(width: 20, height: 20))
+            HStack {
+//                Spacer()
+//                    .frame(height: 25)
+                Image(self.imageName(isClicked: (self.priceText == self.selectedPrice)))
+                    .resizable()
+                    .frame(CGSize(width: 20, height: 20))
+                Spacer()
+                    .frame(width: 20)
+                VStack{
+                    Text(self.priceText)
+                        .font(.system(size: 20, weight: .semibold, design: .default))
+                        .foregroundColor(Color.white)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.05)
+                    Text(planDescText)
+                        .font(.system(size: 10, weight: .medium, design: .default))
+                        .foregroundColor(Color.gray)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.05)
+                }
+                Spacer()
+            }
+            Spacer()
+                .frame(height: 15)
+
         }
     }
     
@@ -126,26 +149,10 @@ struct NewPurchaseView: View {
                     .frame(height: 40)
                 VStack{
                     ForEach(0..<planItems.count){ index in
-                        HStack{
-                            Spacer()
-                                .frame(width: 25)
-                            SelectionButton(priceText: planItems[index], selectedPrice: self.selectedPlan) { (str) in
-                                print("🔥🔥 \(str)")
-                                self.selectedPlan = str
-                            }
-                            Spacer()
-                                .frame(width: 20)
-                            VStack{
-                                Text(planItems[index])
-                                    .font(.system(size: 20, weight: .semibold, design: .default))
-                                Text(planDescription[index])
-                                    .font(.system(size: 10, weight: .medium, design: .default))
-                                    .foregroundColor(Color.gray)
-                            }
-                            Spacer()
+                        SelectionButton(priceText: planItems[index], planDescText: planDescription[index], selectedPrice: self.selectedPlan) { (str) in
+                            print("🔥🔥 \(str)")
+                            self.selectedPlan = str
                         }
-                        Spacer()
-                            .frame(height: 15)
                     }
                 }
                 VStack(spacing: 20){
