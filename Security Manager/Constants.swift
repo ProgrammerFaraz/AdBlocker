@@ -63,4 +63,9 @@ struct Constants {
         static let termsOfUse = "https://www.superagentdefense.com/?page_id=13"
     }
     static let supportEmail = "support@superagentdefense.com"
+    
+    static let monthlyPrice = "29.99 / Month"
+    static let yearlyPrice = "59.99 / Year"
+    static let monthlyPriceDescription = "Per Month, auto renewal"
+    static let yearlyPriceDescription = "Per Year, auto renewal"
 }

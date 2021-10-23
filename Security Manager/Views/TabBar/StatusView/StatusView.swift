@@ -75,13 +75,13 @@ struct StatusView: View {
             HintView()
         }
         .sheet(isPresented: $showingPurchaseView) {
-            NewPurchaseView()
+            NewPurchaseView(selectedPlan: Constants.monthlyPrice, planItems: [Constants.monthlyPrice, Constants.yearlyPrice])
         }
     }
 }
 
 //struct StatusView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        StatusView(isActivated: <#Binding<Bool>#>)
+//        StatusView(isActivated: )
 //    }
 //}

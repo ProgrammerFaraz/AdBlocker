@@ -6,17 +6,37 @@
 //
 
 import SwiftUI
+import Introspect
 
-enum PaymentPlan {
-    case Monthly
-    case Yearly
+struct SelectionButton: View {
+//    @Binding var isClicked: Bool
+    let priceText: String
+    let selectedPrice: String
+    let callback: (String)->()
+    var body: some View {
+        Button(action: {
+//            self.isClicked.toggle()
+            self.callback(self.priceText)
+        }) {
+            Image(self.imageName(isClicked: (self.priceText == self.selectedPrice)))
+                .resizable()
+                .frame(CGSize(width: 20, height: 20))
+        }
+    }
+    
+    private func imageName(isClicked: Bool) -> String {
+        return isClicked ? "white_circle_filled" : "white_circle_unfilled"
+    }
 }
 
 struct NewPurchaseView: View {
     
-    @State var selectedPlan: PaymentPlan = .Monthly
-//    @Binding var isSelected: Bool = false
+//    @State var selectedPlan: PaymentPlan = .Monthly
+    @State var selectedPlan: String = ""
+    let planItems : [String]
+    let planDescription : [String] = [Constants.monthlyPriceDescription, Constants.yearlyPriceDescription]
     @Environment(\.presentationMode) var presentationMode
+//    @State private var isSelected: Bool = false
     @ViewBuilder var selectedPlanButton: some View {
         Image("")
     }
@@ -30,15 +50,20 @@ struct NewPurchaseView: View {
             .foregroundColor(Color.white)
             .padding([.leading, .trailing], 50)
     }
+    let dg = DragGesture()
+
+//    @State private var viewModel = NewPurchaseViewModel()
+
     private func dismiss() {
         self.presentationMode.wrappedValue.dismiss()
     }
     
     var body: some View {
+//        let paymentPlans = viewModel.setupData()
         ZStack {
             Image("purchaseViewBG")
                 .resizable()
-                .aspectRatio(contentMode: .fit)
+                .aspectRatio(contentMode: .fill)
             VStack(){
                 Spacer()
                     .frame(height: 50)
@@ -100,45 +125,27 @@ struct NewPurchaseView: View {
                 Spacer()
                     .frame(height: 40)
                 VStack{
-                    HStack{
-                        Spacer()
-                            .frame(width: 25)
-                        Button(action: { dismiss() }) {
-                            Image("white_circle_filled")
-                                .resizable()
-                                .frame(CGSize(width: 20, height: 20))
+                    ForEach(0..<planItems.count){ index in
+                        HStack{
+                            Spacer()
+                                .frame(width: 25)
+                            SelectionButton(priceText: planItems[index], selectedPrice: self.selectedPlan) { (str) in
+                                print("🔥🔥 \(str)")
+                                self.selectedPlan = str
+                            }
+                            Spacer()
+                                .frame(width: 20)
+                            VStack{
+                                Text(planItems[index])
+                                    .font(.system(size: 20, weight: .semibold, design: .default))
+                                Text(planDescription[index])
+                                    .font(.system(size: 10, weight: .medium, design: .default))
+                                    .foregroundColor(Color.gray)
+                            }
+                            Spacer()
                         }
                         Spacer()
-                            .frame(width: 20)
-                        VStack{
-                            Text("29.99 / Month")
-                                .font(.system(size: 20, weight: .semibold, design: .default))
-                            Text("Per Month, auto renewal")
-                                .font(.system(size: 10, weight: .medium, design: .default))
-                                .foregroundColor(Color.gray)
-                        }
-                        Spacer()
-                    }
-                    Spacer()
-                        .frame(height: 15)
-                    HStack{
-                        Spacer()
-                            .frame(width: 25)
-                        Button(action: { dismiss() }) {
-                            Image("white_circle_unfilled")
-                                .resizable()
-                                .frame(CGSize(width: 20, height: 20))
-                        }
-                        Spacer()
-                            .frame(width: 20)
-                        VStack{
-                            Text("59.99 / Year")
-                                .font(.system(size: 20, weight: .semibold, design: .default))
-                            Text("Per Year, auto renewal")
-                                .font(.system(size: 10, weight: .medium, design: .default))
-                                .foregroundColor(Color.gray)
-                        }
-                        Spacer()
+                            .frame(height: 15)
                     }
                 }
                 VStack(spacing: 20){
@@ -146,11 +153,12 @@ struct NewPurchaseView: View {
                     Text("Do you want to activate?")
                         .font(.system(size: 18, weight: .regular, design: .default))
                     Button(action: {
-//                        nextTapped()
+                        self.dismiss()
                     }) {
                         buttonText
                     }
                     Text("By continuing you accept our Terms of Use and Privacy Policy")
+                        .minimumScaleFactor(0.05)
                         .multilineTextAlignment(.center)
                         .font(.system(size: 16, weight: .regular, design: .default))
                         .padding([.leading, .trailing], 50)
@@ -160,12 +168,15 @@ struct NewPurchaseView: View {
                     .frame(height: 25)
             }
             .padding([.leading, .trailing], 25)
+            .introspectViewController {
+                $0.isModalInPresentation = true
+            }
         }
     }
 }
 
-struct NewPurchaseView_Previews: PreviewProvider {
-    static var previews: some View {
-        NewPurchaseView()
-    }
-}
+//struct NewPurchaseView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NewPurchaseView()
+//    }
+//}
