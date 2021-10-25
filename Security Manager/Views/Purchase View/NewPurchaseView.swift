@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Introspect
+import StoreKit
 
 struct SelectionButton: View {
 //    @Binding var isClicked: Bool
@@ -54,12 +55,10 @@ struct SelectionButton: View {
 
 struct NewPurchaseView: View {
     
-//    @State var selectedPlan: PaymentPlan = .Monthly
-    @State var selectedPlan: String = ""
-    let planItems : [String]
-    let planDescription : [String] = [Constants.monthlyPriceDescription, Constants.yearlyPriceDescription]
+    @State private var isDisabled : Bool = false
+    @State var products: [SKProduct] = []
+
     @Environment(\.presentationMode) var presentationMode
-//    @State private var isSelected: Bool = false
     @ViewBuilder var selectedPlanButton: some View {
         Image("")
     }
@@ -75,14 +74,11 @@ struct NewPurchaseView: View {
     }
     let dg = DragGesture()
 
-//    @State private var viewModel = NewPurchaseViewModel()
-
     private func dismiss() {
         self.presentationMode.wrappedValue.dismiss()
     }
     
     var body: some View {
-//        let paymentPlans = viewModel.setupData()
         ZStack {
             Image("purchaseViewBG")
                 .resizable()
@@ -147,12 +143,11 @@ struct NewPurchaseView: View {
                 }
                 Spacer()
                     .frame(height: 40)
-                VStack{
-                    ForEach(0..<planItems.count){ index in
-                        SelectionButton(priceText: planItems[index], planDescText: planDescription[index], selectedPrice: self.selectedPlan) { (str) in
-                            print("🔥🔥 \(str)")
-                            self.selectedPlan = str
-                        }
+                HStack{
+                    ForEach(products, id: \.self) { prod in
+                        PurchaseButton(block: {
+                            self.purchaseProduct(skproduct: prod)
+                        }, product: prod).disabled(IAPManager.shared.isActive(product: prod))
                     }
                 }
                 VStack(spacing: 20){
@@ -177,6 +172,55 @@ struct NewPurchaseView: View {
             .padding([.leading, .trailing], 25)
             .introspectViewController {
                 $0.isModalInPresentation = true
+            }
+            .disabled(self.isDisabled)
+            .onAppear() {
+                ProductsStore.shared.initializeProducts({ products in
+                    self.products = products
+                    print(products)
+                })
+            }
+        }
+    }
+    
+    //MARK: - Actions
+    
+    func restorePurchases(){
+        
+        IAPManager.shared.restorePurchases(success: {
+            self.isDisabled = false
+            ProductsStore.shared.handleUpdateStore()
+            self.dismiss()
+            
+        }) { (error) in
+            self.isDisabled = false
+            ProductsStore.shared.handleUpdateStore()
+            
+        }
+    }
+    
+    func termsTapped(){
+        
+    }
+    
+    func privacyTapped(){
+        
+    }
+    
+    func purchaseProduct(skproduct : SKProduct){
+        print("did tap purchase product: \(skproduct.productIdentifier)")
+        isDisabled = true
+        IAPManager.shared.purchaseProduct(product: skproduct, success: {
+            self.isDisabled = false
+            ProductsStore.shared.handleUpdateStore()
+            UserDefaults.standard.set(true, forKey: "isBuyed")
+            self.dismiss()
+        }) { (error) in
+            self.isDisabled = false
+            ProductsStore.shared.handleUpdateStore()
+            if error?.localizedDescription == nil {
+                UserDefaults.standard.set(true, forKey: "isBuyed")
+                self.dismiss()
             }
         }
     }

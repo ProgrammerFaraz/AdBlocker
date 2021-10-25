@@ -23,7 +23,7 @@ class ProductsStore : ObservableObject {
     }
     
     func initializeProducts(_ completion: (([SKProduct]) -> ())?){
-        IAPManager.shared.startWith(arrayOfIds: [subscription_1, subscription_2], sharedSecret: shared_secret) { products in    
+        IAPManager.shared.startWith(arrayOfIds: [monthlySubscription, yearlySubscription], sharedSecret: shared_secret) { products in    
             self.products = products
             completion?(products)
         }

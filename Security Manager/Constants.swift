@@ -8,8 +8,8 @@
 
 import Foundation
 
-let subscription_1 = "week7"
-let subscription_2 = "month30"
+let monthlySubscription = "pro_2999_1m_3d0"
+let yearlySubscription = "pro_5999_1y_3days0"
 let shared_secret = "cf1337083b604bad94572d8bdc85a541"
 
 let terms_text = "Premium subscription is required to get access to all wallpapers. Regardless whether the subscription has free trial period or not it automatically renews with the price and duration given above unless it is canceled at least 24 hours before the end of the current period. Payment will be charged to your Apple ID account at the confirmation of purchase. Your account will be charged for renewal within 24 hours prior to the end of the current period. You can manage and cancel your subscriptions by going to your account settings on the App Store after purchase. Any unused portion of a free trial period, if offered, will be forfeited when the user purchases a subscription to that publication, where applicable."

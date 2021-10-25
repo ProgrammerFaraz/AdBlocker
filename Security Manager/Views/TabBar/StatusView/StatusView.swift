@@ -74,8 +74,11 @@ struct StatusView: View {
         .sheet(isPresented: $showingHintView) {
             HintView()
         }
+//        .sheet(isPresented: $showingPurchaseView) {
+//            PurchaseView()
+//        }
         .sheet(isPresented: $showingPurchaseView) {
-            NewPurchaseView(selectedPlan: Constants.monthlyPrice, planItems: [Constants.monthlyPrice, Constants.yearlyPrice])
+            NewPurchaseView()
         }
     }
 }
