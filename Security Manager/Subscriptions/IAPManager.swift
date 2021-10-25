@@ -32,7 +32,7 @@ class IAPManager : NSObject{
     private var refreshSubscriptionSuccessBlock : SuccessBlock?
     private var refreshSubscriptionFailureBlock : FailureBlock?
     
-    // MARK:- Main methods
+    // MARK: - Main methods
     
     @objc func startWith(arrayOfIds : Set<String>!, sharedSecret : String, callback : @escaping  ProductsBlock){
         SKPaymentQueue.default().add(self)
@@ -162,7 +162,7 @@ class IAPManager : NSObject{
     }
 }
 
-// MARK:- SKReceipt Refresh Request Delegate
+// MARK: - SKReceipt Refresh Request Delegate
 
 extension IAPManager : SKRequestDelegate {
     
@@ -181,7 +181,7 @@ extension IAPManager : SKRequestDelegate {
     }
 }
 
-// MARK:- SKProducts Request Delegate
+// MARK: - SKProducts Request Delegate
 
 extension IAPManager: SKProductsRequestDelegate {
     
@@ -198,7 +198,7 @@ extension IAPManager: SKProductsRequestDelegate {
     }
 }
 
-// MARK:- SKPayment Transaction Observer
+// MARK: - SKPayment Transaction Observer
 
 extension IAPManager: SKPaymentTransactionObserver {
     

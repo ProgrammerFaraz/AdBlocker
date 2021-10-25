@@ -59,7 +59,7 @@ struct PurchaseView : View {
         }
     }
     
-    // MARK:- View creations
+    // MARK: - View creations
     
     func purchaseButtons() -> some View {
         // remake to ScrollView if has more than 2 products because they won't fit on screen.
@@ -116,7 +116,7 @@ struct PurchaseView : View {
         .font(.custom(FontNames.exo, size: 14))
     }
     
-    //MARK:- Actions
+    //MARK: - Actions
     
     func restorePurchases(){
         
