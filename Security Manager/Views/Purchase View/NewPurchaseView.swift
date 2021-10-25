@@ -63,14 +63,14 @@ struct NewPurchaseView: View {
         Image("")
     }
     @ViewBuilder var buttonText: some View {
-        Text("Yes, Activate")
+        Text("Select Anyone from Above")
             .frame(minWidth: 0, maxWidth: .infinity)
             .frame(height: 65)
             .font(.system(size: 18, weight: .medium, design: .default))
             .background(Color("AppRed"))
-            .cornerRadius(35)
+            .cornerRadius(30)
             .foregroundColor(Color.white)
-            .padding([.leading, .trailing], 50)
+            .padding([.leading, .trailing], 35)
     }
     let dg = DragGesture()
 
