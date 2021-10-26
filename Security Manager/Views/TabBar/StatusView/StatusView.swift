@@ -16,6 +16,12 @@ struct StatusView: View {
     @State var showingPurchaseView = true
     @State var filter = Constants.filtersSources[0]
     @State var isActive = false
+    @State var isNotSubscribedUser: Bool = false
+    @State var isTrialExist: Bool = false
+    @State var trialOverAndNotSubscribed: Bool = false
+    
+    let firstOpenDate = UserDefaults.standard.object(forKey: "FirstOpen") as? Date
+    
     var body: some View {
         
         VStack {
@@ -39,7 +45,15 @@ struct StatusView: View {
             .labelsHidden()
         }
         .onAppear() {
-           
+            isNotSubscribedUser = !(UserDefaults.standard.bool(forKey: "isBuyed"))
+            if let firstOpenDate = firstOpenDate {
+                if isPassedMoreThan(days: 3, fromDate: firstOpenDate, toDate: Date()) {
+                    isTrialExist = false
+                }else {
+                    isTrialExist = true
+                }
+            }
+            
             if !BlockManager.shared.isFiltersDownloaded() {
                 showingDownloadFiltersView = true
             }
@@ -68,6 +82,13 @@ struct StatusView: View {
 //                //BlockManager.shared.deactivateFilters { _ in }
 //            }
 //        })
+        .onChange(of: isTrialExist, perform: { value in
+            print("isTrialExist = \(value)")
+            self.trialOverAndNotSubscribed = !(value) && self.isNotSubscribedUser
+        })
+        .onChange(of: trialOverAndNotSubscribed, perform: { (value) in
+            print("trialOverAndNotSubscribed = \(value)")
+        })
         .sheet(isPresented: $showingDownloadFiltersView) {
             WelcomeAndDownloadFiltersView()
         }
@@ -77,9 +98,15 @@ struct StatusView: View {
 //        .sheet(isPresented: $showingPurchaseView) {
 //            PurchaseView()
 //        }
-        .sheet(isPresented: $showingPurchaseView) {
+        .sheet(isPresented: $trialOverAndNotSubscribed) {
             NewPurchaseView()
         }
+    }
+    
+    private func isPassedMoreThan(days: Int, fromDate date : Date, toDate date2 : Date) -> Bool {
+        let unitFlags: Set<Calendar.Component> = [.day]
+        let deltaD = Calendar.current.dateComponents( unitFlags, from: date, to: date2).day
+        return (deltaD ?? 0 > days)
     }
 }
 

@@ -11,30 +11,32 @@ import StoreKit
 
 struct SelectionButton: View {
 //    @Binding var isClicked: Bool
-    let priceText: String
-    let planDescText: String
-    let selectedPrice: String
-    let callback: (String)->()
+//    let priceText: String
+    let planDescText: [String]
+    let selectedProduct: SKProduct
+    var product : SKProduct!
+    let callback: (SKProduct)->()
+
     var body: some View {
         Button(action: {
 //            self.isClicked.toggle()
-            self.callback(self.priceText)
+            self.callback(self.product)
         }) {
             HStack {
 //                Spacer()
 //                    .frame(height: 25)
-                Image(self.imageName(isClicked: (self.priceText == self.selectedPrice)))
+                Image(self.imageName(isClicked: (self.product == self.selectedProduct)))
                     .resizable()
                     .frame(CGSize(width: 20, height: 20))
                 Spacer()
                     .frame(width: 20)
                 VStack{
-                    Text(self.priceText)
+                    Text(product.localizedPrice())
                         .font(.system(size: 20, weight: .semibold, design: .default))
                         .foregroundColor(Color.white)
                         .lineLimit(1)
                         .minimumScaleFactor(0.05)
-                    Text(planDescText)
+                    Text(setDescription())
                         .font(.system(size: 10, weight: .medium, design: .default))
                         .foregroundColor(Color.gray)
                         .lineLimit(1)
@@ -42,9 +44,17 @@ struct SelectionButton: View {
                 }
                 Spacer()
             }
-            Spacer()
-                .frame(height: 15)
+//            Spacer()
+//                .frame(height: 15)
 
+        }
+    }
+
+    private func setDescription() -> String {
+        if product.localizedDescription.lowercased().contains("monthlysubscription"){
+            return planDescText[0]
+        }else{
+            return planDescText[1]
         }
     }
     
@@ -57,20 +67,24 @@ struct NewPurchaseView: View {
     
     @State private var isDisabled : Bool = false
     @State var products: [SKProduct] = []
+    //    @State var selectedPlan: PaymentPlan = .Monthly
+    @State var selectedProduct: SKProduct = SKProduct()
+//    let planItems : [String]
+    let planDescription : [String] = [Constants.monthlyPriceDescription, Constants.yearlyPriceDescription]
 
     @Environment(\.presentationMode) var presentationMode
     @ViewBuilder var selectedPlanButton: some View {
         Image("")
     }
     @ViewBuilder var buttonText: some View {
-        Text("Select Anyone from Above")
+        Text("Yes, Activate")
             .frame(minWidth: 0, maxWidth: .infinity)
             .frame(height: 65)
             .font(.system(size: 18, weight: .medium, design: .default))
             .background(Color("AppRed"))
-            .cornerRadius(30)
+            .cornerRadius(35)
             .foregroundColor(Color.white)
-            .padding([.leading, .trailing], 35)
+            .padding([.leading, .trailing], 50)
     }
     let dg = DragGesture()
 
@@ -88,7 +102,10 @@ struct NewPurchaseView: View {
                     .frame(height: 50)
                 HStack {
                     Spacer()
-                    Button(action: { dismiss() }) {
+                    Button(action: {
+                        restorePurchases()
+//                            dismiss()
+                    }) {
                         Image("white_cross")
                             .resizable()
                             .frame(CGSize(width: 20, height: 20))
@@ -143,19 +160,33 @@ struct NewPurchaseView: View {
                 }
                 Spacer()
                     .frame(height: 40)
-                HStack{
+                VStack{
                     ForEach(products, id: \.self) { prod in
-                        PurchaseButton(block: {
-                            self.purchaseProduct(skproduct: prod)
-                        }, product: prod).disabled(IAPManager.shared.isActive(product: prod))
+                        SelectionButton(planDescText: planDescription, selectedProduct: self.selectedProduct, product: prod) {
+                            selectedProd in
+                            self.selectedProduct = selectedProd
+                        }
                     }
+//                    ForEach(0..<planItems.count){ index in
+//                        SelectionButton(priceText: planItems[index], planDescText: planDescription[index], selectedPrice: self.selectedPlan) { (str) in
+//                            print("🔥🔥 \(str)")
+//                            self.selectedPlan = str
+//                        }
+//                    }
                 }
+//                HStack{
+//                    ForEach(products, id: \.self) { prod in
+//                        PurchaseButton(block: {
+//                            self.purchaseProduct(skproduct: prod)
+//                        }, product: prod).disabled(IAPManager.shared.isActive(product: prod))
+//                    }
+//                }
                 VStack(spacing: 20){
                     Spacer()
                     Text("Do you want to activate?")
                         .font(.system(size: 18, weight: .regular, design: .default))
                     Button(action: {
-                        self.dismiss()
+                        self.purchaseProduct(skproduct: self.selectedProduct)
                     }) {
                         buttonText
                     }
@@ -177,6 +208,7 @@ struct NewPurchaseView: View {
             .onAppear() {
                 ProductsStore.shared.initializeProducts({ products in
                     self.products = products
+                    self.selectedProduct = self.products[0]
                     print(products)
                 })
             }
@@ -190,6 +222,7 @@ struct NewPurchaseView: View {
         IAPManager.shared.restorePurchases(success: {
             self.isDisabled = false
             ProductsStore.shared.handleUpdateStore()
+            UserDefaults.standard.set(true, forKey: "isBuyed")
             self.dismiss()
             
         }) { (error) in

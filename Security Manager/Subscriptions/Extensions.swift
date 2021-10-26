@@ -40,19 +40,19 @@ extension SKProduct {
         var periodString = ""
         switch period {
         case .day:
-            periodString = "day"
+            periodString = "Day"
         case .month: 
-            periodString = "month"
+            periodString = "Month"
         case .week:
-            periodString = "week"
+            periodString = "Week"
         case .year:
-            periodString = "year"
+            periodString = "Year"
         default:
             break
         }
         let unitCount = subscriptionPeriod!.numberOfUnits
         let unitString = unitCount == 1 ? periodString : "\(unitCount) \(periodString)s"
-        return (text ?? "") + "\nper \(unitString)"
+        return (text ?? "") + " per \(unitString)"
     }
 }
 
