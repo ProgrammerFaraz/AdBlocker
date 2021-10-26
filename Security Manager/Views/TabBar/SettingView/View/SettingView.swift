@@ -43,7 +43,6 @@ struct SettingRowWithToggle: View {
                     )
                     .cornerRadius(6)
                     .opacity(0.5)
-//                    .shadow(color: filter.color.opacity(0.38), radius: 30, x: 5.0, y: 3.0)
                 Image(systemName: filter.imageName)
                     .font(.system(size: 26))
             }
@@ -78,10 +77,6 @@ struct SettingView: View {
         let setting = viewModel.setupData()
         NavigationView {
             List {
-//                ForEach(filters, id: \.url) { filter in
-//                    SettingRowWithToggle(isActivated: $isActivated, filter: filter)
-//                }
-                
                 ForEach(setting) { (setting) in
                     Section(header: Text(setting.header)) {
                         ForEach(setting.settingData) { item in
@@ -101,11 +96,7 @@ struct SettingView: View {
                             }
                             else {
                                 SettingRowWithToggle(isActivated: $isActivated, filter: item)
-//                                SettingRow(setting: item)
                             }
-                            //                            else {
-                            //                                SettingRow(setting: item)
-                            //                            }
                         }
                     }
                 }
