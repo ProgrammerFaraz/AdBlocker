@@ -17,7 +17,7 @@ struct StatusView: View {
     @State var filter = Constants.filtersSources[0]
     @State var isActive = false
     @State var isNotSubscribedUser: Bool = false
-    @State var isTrialExist: Bool = false
+    @State var isTrialExist: Bool? = nil
     @State var trialOverAndNotSubscribed: Bool = false
     
     let firstOpenDate = UserDefaults.standard.object(forKey: "FirstOpen") as? Date
@@ -47,7 +47,7 @@ struct StatusView: View {
         .onAppear() {
             isNotSubscribedUser = !(UserDefaults.standard.bool(forKey: "isBuyed"))
             if let firstOpenDate = firstOpenDate {
-                if isPassedMoreThan(days: 3, fromDate: firstOpenDate, toDate: Date()) {
+                if isPassedMoreThan(days: -1, fromDate: firstOpenDate, toDate: Date()) {
                     isTrialExist = false
                 }else {
                     isTrialExist = true
@@ -84,7 +84,7 @@ struct StatusView: View {
 //        })
         .onChange(of: isTrialExist, perform: { value in
             print("isTrialExist = \(value)")
-            self.trialOverAndNotSubscribed = !(value) && self.isNotSubscribedUser
+            self.trialOverAndNotSubscribed = !(value ?? false) && self.isNotSubscribedUser
         })
         .onChange(of: trialOverAndNotSubscribed, perform: { (value) in
             print("trialOverAndNotSubscribed = \(value)")
