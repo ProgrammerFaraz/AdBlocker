@@ -74,8 +74,9 @@ struct NewPurchaseView: View {
     @State var products: [Purchases.Package] = []
 //    @State var selectedProduct: SKProduct = SKProduct()
     @State var selectedProduct: Purchases.Package = Purchases.Package()
+    @State var showingAlert = false
     let planDescription : [String] = [Constants.monthlyPriceDescription, Constants.yearlyPriceDescription]
-
+    @State var alertMsg = "Something went wrong, try again later."
     @Environment(\.presentationMode) var presentationMode
     @ViewBuilder var selectedPlanButton: some View {
         Image("")
@@ -153,7 +154,7 @@ struct NewPurchaseView: View {
                         }
                     }
                     HStack{
-                        Text("Accelerate Your Device")
+                        Text("Save Battery & Mobile Data")
                         Spacer()
                         ZStack{
                             Image("white_circle_filled")
@@ -165,13 +166,13 @@ struct NewPurchaseView: View {
                 Spacer()
                     .frame(height: 40)
                 VStack{
-                    
-//                    ForEach(products, id: \.self) { prod in
-//                        SelectionButton(planDescText: planDescription, selectedProduct: self.selectedProduct, product: prod) {
-//                            selectedProd in
-//                            self.selectedProduct = selectedProd
-//                        }
-//                    }
+//                    updatePurchasesView()
+                    ForEach(products, id: \.self) { prod in
+                        SelectionButton(planDescText: planDescription, selectedProduct: self.selectedProduct, product: prod) {
+                            selectedProd in
+                            self.selectedProduct = selectedProd
+                        }
+                    }
 //                    ForEach(0..<planItems.count){ index in
 //                        SelectionButton(priceText: planItems[index], planDescText: planDescription[index], selectedPrice: self.selectedPlan) { (str) in
 //                            print("🔥🔥 \(str)")
@@ -191,7 +192,8 @@ struct NewPurchaseView: View {
                     Text("Do you want to activate?")
                         .font(.system(size: 18, weight: .regular, design: .default))
                     Button(action: {
-                        self.purchaseProduct(skproduct: self.selectedProduct)
+                        purchase(package: selectedProduct)
+//                        self.purchaseProduct(skproduct: self.selectedProduct)
                     }) {
                         buttonText
                     }
@@ -211,12 +213,25 @@ struct NewPurchaseView: View {
             }
             .disabled(self.isDisabled)
             .onAppear() {
-                ProductsStore.shared.initializeProducts({ products in
-                    self.products = products
+                fetchPackages() {
+                    packages in
+                    print(packages)
+                    self.products = packages
                     self.selectedProduct = self.products[0]
-                    print(products)
-                })
+                }
+                checkIfPurchased()
+//                ProductsStore.shared.initializeProducts({ products in
+//                    self.products = products
+//                    self.selectedProduct = self.products[0]
+//                    print(products)
+//                })
             }
+            .alert(isPresented: $showingAlert, content: {
+                Alert(title: Text(""), message: Text(alertMsg), dismissButton: .default(Text("Ok")) {
+                    print("Alert shown")
+                })
+            })
+            
         }
     }
     
@@ -245,6 +260,23 @@ struct NewPurchaseView: View {
         
     }
     
+    func purchase(package: Purchases.Package) {
+        Purchases.shared.purchasePackage(package) { (transaction, info, error, userCancelled) in
+            guard let transaction = transaction,
+                  let info = info,
+                  error == nil, !userCancelled
+            else {
+                self.showingAlert = true
+                self.alertMsg = error?.localizedDescription ?? ""
+                return
+            }
+            UserDefaults.standard.set(true, forKey: "isBuyed")
+            self.dismiss()
+            print(transaction.transactionState)
+            print(info.entitlements)
+        }
+    }
+    
     func purchaseProduct(skproduct : SKProduct){
         print("did tap purchase product: \(skproduct.productIdentifier)")
         isDisabled = true
@@ -265,21 +297,42 @@ struct NewPurchaseView: View {
     
     //MARK: - UI Setup
     
-    func updatePurchasesView() -> SelectionButton {
-        var purchaseView : SelectionButton
+    func fetchPackages(completion: @escaping ([Purchases.Package]) -> Void) {
         Purchases.shared.offerings { (offerings, error) in
-            if let packages = offerings?.current?.availablePackages {
-                // Display packages for sale
-                ForEach(packages, id: .\self) { package in
-                    purchaseView = SelectionButton(planDescText: planDescription, selectedProduct: self.selectedProduct, product: package) {
-                        selectedProd in
-                        self.selectedProduct = selectedProd
-                    }
-                }
+            guard let offerings = offerings, error == nil else {
+                return
             }
-            return purchaseView
+            guard let packages = offerings.all.first?.value.availablePackages else { return }
+                 completion(packages)
         }
     }
+    
+    func checkIfPurchased() {
+        Purchases.shared.purchaserInfo { (info, error) in
+            guard let info = info, error == nil else { return }
+            if info.entitlements["Premium"]?.isActive == true {
+                print("TRUE")
+                self.dismiss()
+            }else {
+                print("FALSE")
+            }
+        }
+    }
+//    func updatePurchasesView() -> SelectionButton {
+//        var purchaseView : SelectionButton
+//        Purchases.shared.offerings { (offerings, error) in
+//            if let packages = offerings?.current?.availablePackages {
+//                // Display packages for sale
+//                ForEach(0..<packages.count-1) { index in
+//                    purchaseView = SelectionButton(planDescText: planDescription, selectedProduct: self.selectedProduct, product: packages[index]) {
+//                        selectedProd in
+//                        self.selectedProduct = selectedProd
+//                    }
+//                }
+//            }
+//            return purchaseView
+//        }
+//    }
 }
 
 //struct NewPurchaseView_Previews: PreviewProvider {

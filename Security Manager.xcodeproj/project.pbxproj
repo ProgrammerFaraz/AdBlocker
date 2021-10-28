@@ -89,6 +89,7 @@
 		185E47912711AC9200AE3F66 /* BlackWhiteListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185E47902711AC9200AE3F66 /* BlackWhiteListViewModel.swift */; };
 		185E47962711D13000AE3F66 /* AddURLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185E47952711D13000AE3F66 /* AddURLView.swift */; };
 		18735DBA26F74B9700BDA7BB /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 18735DB926F74B9700BDA7BB /* SwiftUIX */; };
+		18828A75272B2BDE007CB796 /* StoreKitTestCertificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = 18828A74272B2BDE007CB796 /* StoreKitTestCertificate.cer */; };
 		18F2F7C727078824000D743B /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2F7C627078824000D743B /* TabBarView.swift */; };
 		18F2F7CE2707A00D000D743B /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2F7CD2707A00C000D743B /* StatusView.swift */; };
 		18F2F7D32707ABC1000D743B /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2F7D22707ABC1000D743B /* SettingView.swift */; };
@@ -205,6 +206,7 @@
 		185E478C2711AAC400AE3F66 /* BlackWhiteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackWhiteListView.swift; sourceTree = "<group>"; };
 		185E47902711AC9200AE3F66 /* BlackWhiteListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackWhiteListViewModel.swift; sourceTree = "<group>"; };
 		185E47952711D13000AE3F66 /* AddURLView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddURLView.swift; sourceTree = "<group>"; };
+		18828A74272B2BDE007CB796 /* StoreKitTestCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; name = StoreKitTestCertificate.cer; path = ../../../Desktop/StoreKitTestCertificate.cer; sourceTree = "<group>"; };
 		18F2F7C627078824000D743B /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		18F2F7CD2707A00C000D743B /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		18F2F7D22707ABC1000D743B /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
@@ -362,6 +364,7 @@
 				182EC6272714CBFB00191980 /* Helper */,
 				0D269B1126DF97E90099A3DB /* Security Manager.entitlements */,
 				0D8FE58F26E22C6E000EF3A4 /* Configuration.storekit */,
+				18828A74272B2BDE007CB796 /* StoreKitTestCertificate.cer */,
 				0DF3495126DE5AB500566AD7 /* Config.swift */,
 				0D8FE57626E22AE9000EF3A4 /* Constants.swift */,
 				0D481B8B26DE59D8007416BB /* BlockManager.swift */,
@@ -668,6 +671,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0DC789AF26CAE66E007310DE /* LaunchScreen.storyboard in Resources */,
+				18828A75272B2BDE007CB796 /* StoreKitTestCertificate.cer in Resources */,
 				0DC789AC26CAE66E007310DE /* Preview Assets.xcassets in Resources */,
 				D05FF4CC27217E0700CF0888 /* easylist_content_blocker.json in Resources */,
 				0D8FE56D26E22426000EF3A4 /* GoogleService-Info.plist in Resources */,
