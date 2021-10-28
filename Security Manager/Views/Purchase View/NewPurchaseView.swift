@@ -8,14 +8,14 @@
 import SwiftUI
 import Introspect
 import StoreKit
+import Purchases
 
 struct SelectionButton: View {
-//    @Binding var isClicked: Bool
-//    let priceText: String
     let planDescText: [String]
-    let selectedProduct: SKProduct
-    var product : SKProduct!
-    let callback: (SKProduct)->()
+    let selectedProduct: Purchases.Package
+//    var product : SKProduct!
+    var product : Purchases.Package
+    let callback: (Purchases.Package)->()
 
     var body: some View {
         Button(action: {
@@ -31,7 +31,7 @@ struct SelectionButton: View {
                 Spacer()
                     .frame(width: 20)
                 VStack{
-                    Text(product.localizedPrice())
+                    Text(product.localizedPriceString)
                         .font(.system(size: 20, weight: .semibold, design: .default))
                         .foregroundColor(Color.white)
                         .lineLimit(1)
@@ -51,11 +51,16 @@ struct SelectionButton: View {
     }
 
     private func setDescription() -> String {
-        if product.localizedDescription.lowercased().contains("monthlysubscription"){
+        if product.description.lowercased().contains("monthlysubscription") {
             return planDescText[0]
-        }else{
+        }else {
             return planDescText[1]
         }
+//        if product.localizedDescription.lowercased().contains("monthlysubscription"){
+//            return planDescText[0]
+//        }else{
+//            return planDescText[1]
+//        }
     }
     
     private func imageName(isClicked: Bool) -> String {
@@ -66,10 +71,9 @@ struct SelectionButton: View {
 struct NewPurchaseView: View {
     
     @State private var isDisabled : Bool = false
-    @State var products: [SKProduct] = []
-    //    @State var selectedPlan: PaymentPlan = .Monthly
-    @State var selectedProduct: SKProduct = SKProduct()
-//    let planItems : [String]
+    @State var products: [Purchases.Package] = []
+//    @State var selectedProduct: SKProduct = SKProduct()
+    @State var selectedProduct: Purchases.Package = Purchases.Package()
     let planDescription : [String] = [Constants.monthlyPriceDescription, Constants.yearlyPriceDescription]
 
     @Environment(\.presentationMode) var presentationMode
@@ -161,12 +165,13 @@ struct NewPurchaseView: View {
                 Spacer()
                     .frame(height: 40)
                 VStack{
-                    ForEach(products, id: \.self) { prod in
-                        SelectionButton(planDescText: planDescription, selectedProduct: self.selectedProduct, product: prod) {
-                            selectedProd in
-                            self.selectedProduct = selectedProd
-                        }
-                    }
+                    
+//                    ForEach(products, id: \.self) { prod in
+//                        SelectionButton(planDescText: planDescription, selectedProduct: self.selectedProduct, product: prod) {
+//                            selectedProd in
+//                            self.selectedProduct = selectedProd
+//                        }
+//                    }
 //                    ForEach(0..<planItems.count){ index in
 //                        SelectionButton(priceText: planItems[index], planDescText: planDescription[index], selectedPrice: self.selectedPlan) { (str) in
 //                            print("🔥🔥 \(str)")
@@ -255,6 +260,24 @@ struct NewPurchaseView: View {
                 UserDefaults.standard.set(true, forKey: "isBuyed")
                 self.dismiss()
             }
+        }
+    }
+    
+    //MARK: - UI Setup
+    
+    func updatePurchasesView() -> SelectionButton {
+        var purchaseView : SelectionButton
+        Purchases.shared.offerings { (offerings, error) in
+            if let packages = offerings?.current?.availablePackages {
+                // Display packages for sale
+                ForEach(packages, id: .\self) { package in
+                    purchaseView = SelectionButton(planDescText: planDescription, selectedProduct: self.selectedProduct, product: package) {
+                        selectedProd in
+                        self.selectedProduct = selectedProd
+                    }
+                }
+            }
+            return purchaseView
         }
     }
 }

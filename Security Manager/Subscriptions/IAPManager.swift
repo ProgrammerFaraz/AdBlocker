@@ -8,6 +8,7 @@
 
 import UIKit
 import StoreKit
+import Purchases
 
 public typealias SuccessBlock = () -> Void
 public typealias FailureBlock = (Error?) -> Void
