@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         Purchases.logLevel = .debug
-        Purchases.debugLogsEnabled = true
+//        Purchases.debugLogsEnabled = true
         Purchases.configure(withAPIKey: Constants.revenueAPIKey)
         if let firstOpen = UserDefaults.standard.object(forKey: "FirstOpen") as? Date {
             print("The app was first opened on \(firstOpen)")
