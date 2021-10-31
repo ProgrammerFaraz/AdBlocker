@@ -1,0 +1,71 @@
+{
+  "identifier" : "07F3E3B9",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+
+  ],
+  "settings" : {
+
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "B1065287",
+      "localizations" : [
+
+      ],
+      "name" : "sub_group",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "displayPrice" : "29.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "E07078A9",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "MonthlySubscription",
+              "displayName" : "monthlySubscription",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "pro_2999_1m_3d0",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Monthly Subscription",
+          "subscriptionGroupID" : "B1065287",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "displayPrice" : "59.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "95BAD7E0",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "YearlySubscription",
+              "displayName" : "yearlySubscription",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "pro_5999_1y_3days0",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Yearly Subscription",
+          "subscriptionGroupID" : "B1065287",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 1,
+    "minor" : 0
+  }
+}
