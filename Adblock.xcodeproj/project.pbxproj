@@ -851,7 +851,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Security Manager Blocker/Security Manager Blocker.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 3PX9M5243D;
 				INFOPLIST_FILE = "Security Manager Blocker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -878,7 +878,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Security Manager Blocker/Security Manager Blocker.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 3PX9M5243D;
 				INFOPLIST_FILE = "Security Manager Blocker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1025,7 +1025,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Adblock/Security Manager.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Adblock/Preview Content\"";
 				DEVELOPMENT_TEAM = 3PX9M5243D;
 				ENABLE_PREVIEWS = YES;
@@ -1054,7 +1054,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Adblock/Security Manager.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Adblock/Preview Content\"";
 				DEVELOPMENT_TEAM = 3PX9M5243D;
 				ENABLE_PREVIEWS = YES;

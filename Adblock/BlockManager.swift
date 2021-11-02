@@ -95,6 +95,57 @@ class BlockManager {
         }
     }
     
+//    func activateBlockFilters(completion: @escaping (Error?) -> ()) {
+//        DispatchQueue.global().async {
+//            var filtersContents = ""
+//            for filterSource in Constants.filtersSources {
+//                if filterSource.activate {
+//                    filtersContents += filterSource.listContent ?? "" + "\n"
+//                }
+//            }
+//
+//            var blockerEntries = ELListParser.parse(inputContent: filtersContents, maxEntries: 50000 - self.blockDomains.count, trustedDomains: self.trustDomains)
+////            var blockerEntries2 = ELListParser.parse(inputContent: filtersContents, maxEntries: 50000 - self.blockDomains.count, trustedDomains: self.trustDomains)
+//
+//            for blockDomain in self.blockDomains {
+//                let entry = ELBlockerEntry()
+//                entry.trigger.urlFilter = ELFilterParser.parse(filter: blockDomain)
+//                entry.action.type = ELBlockerEntry.Action.Typee.Block.rawValue
+//                blockerEntries.append(entry)
+//            }
+//
+//            if blockerEntries.count == 0 {
+//                self.deactivateFilters(completion: completion)
+//                return
+//            }
+//
+//            guard let blockerJson = try? blockerEntries.serialize() else { return }
+//
+//            print("my print")
+//            print(self.blockDomains)
+//            print("blockerEntries: ", blockerEntries)
+//            print("blockerJson:", blockerJson)
+//
+//            let documentFolder = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: Config.App.appGroupId)
+//            guard let jsonURL = documentFolder?.appendingPathComponent("blockerList.json") else { return }
+////            guard let jsonURL2 = documentFolder?.appendingPathComponent("easylist_content_blocker.json") else { return }
+//            do {
+//                try blockerJson.data(using: .utf8)?.write(to: jsonURL)
+////                try blockerJson.data(using: .utf8)?.write(to: jsonURL2)
+//            } catch {
+//                print(error.localizedDescription)
+//            }
+//
+//            SFContentBlockerManager.reloadContentBlocker(withIdentifier: Config.App.extensionBundleId) { error in
+//                print(error?.localizedDescription)
+//                print("activated")
+//                DispatchQueue.main.async {
+//                    completion(error)
+//                }
+//            }
+//        }
+//    }
+    
     func activateBlockFilters(completion: @escaping (Error?) -> ()) {
         DispatchQueue.global().async {
             var filtersContents = ""
@@ -105,8 +156,7 @@ class BlockManager {
             }
             
             var blockerEntries = ELListParser.parse(inputContent: filtersContents, maxEntries: 50000 - self.blockDomains.count, trustedDomains: self.trustDomains)
-//            var blockerEntries2 = ELListParser.parse(inputContent: filtersContents, maxEntries: 50000 - self.blockDomains.count, trustedDomains: self.trustDomains)
-
+            
             for blockDomain in self.blockDomains {
                 let entry = ELBlockerEntry()
                 entry.trigger.urlFilter = ELFilterParser.parse(filter: blockDomain)
@@ -123,15 +173,14 @@ class BlockManager {
             
             print("my print")
             print(self.blockDomains)
-            print("blockerEntries: ", blockerEntries)
-            print("blockerJson:", blockerJson)
+            print(blockerEntries)
+            print(blockerJson)
             
             let documentFolder = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: Config.App.appGroupId)
             guard let jsonURL = documentFolder?.appendingPathComponent("blockerList.json") else { return }
-//            guard let jsonURL2 = documentFolder?.appendingPathComponent("easylist_content_blocker.json") else { return }
+            
             do {
                 try blockerJson.data(using: .utf8)?.write(to: jsonURL)
-//                try blockerJson.data(using: .utf8)?.write(to: jsonURL2)
             } catch {
                 print(error.localizedDescription)
             }
@@ -145,7 +194,6 @@ class BlockManager {
             }
         }
     }
-    
     func deactivateFilters(completion: @escaping (Error?) -> ()) {
         let filtersContents = ""
         var blockerEntries = ELListParser.parse(inputContent: filtersContents, maxEntries: 50000 - self.blockDomains.count, trustedDomains: [])

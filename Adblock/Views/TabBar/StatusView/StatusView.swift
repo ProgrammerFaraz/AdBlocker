@@ -117,6 +117,16 @@ struct StatusView: View {
                         }
                     }
                 }
+            } else {
+                BlockManager.shared.activateBlockFilters { error in
+                    if error != nil {
+                        Drops.show(Drop(title: error!.localizedDescription))
+                    } else {
+                        withAnimation() {
+                            isActivated = true
+                        }
+                    }
+                }
             }
             if isActivated {
                 isActive = filter.activate
