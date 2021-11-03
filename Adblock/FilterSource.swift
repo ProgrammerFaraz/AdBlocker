@@ -35,18 +35,18 @@ class FilterSource: Identifiable {
     let whiteBlackList: Bool
     var version: String {
         get {
-            return UserDefaults.standard.string(forKey: "\(self.name)-version") ?? ""
+            return UserDefaults.standard.string(forKey: "\(self.name.trimmingCharacters(in: .whitespacesAndNewlines))-version") ?? ""
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: "\(self.name)-version")
+            UserDefaults.standard.set(newValue, forKey: "\(self.name.trimmingCharacters(in: .whitespacesAndNewlines))-version")
         }
     }
     var activate: Bool {
         get {
-            return UserDefaults.standard.bool(forKey: "\(self.name)-activate")
+            return UserDefaults.standard.bool(forKey: "\(self.name.trimmingCharacters(in: .whitespacesAndNewlines))-activate")
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: "\(self.name)-activate")
+            UserDefaults.standard.set(newValue, forKey: "\(self.name.trimmingCharacters(in: .whitespacesAndNewlines))-activate")
         }
     }
     var dateFormatter: DateFormatter {
@@ -56,7 +56,7 @@ class FilterSource: Identifiable {
     }
     var updateDate: Date? {
         get {
-            guard let dateString = UserDefaults.standard.string(forKey: "\(self.name)-updateDate") else {
+            guard let dateString = UserDefaults.standard.string(forKey: "\(self.name.trimmingCharacters(in: .whitespacesAndNewlines))-updateDate") else {
                 return nil
             }
             return self.dateFormatter.date(from: dateString)
@@ -64,7 +64,7 @@ class FilterSource: Identifiable {
         set {
             if newValue != nil {
                 let dateString = dateFormatter.string(from: newValue!)
-                UserDefaults.standard.set(dateString, forKey: "\(self.name)-updateDate")
+                UserDefaults.standard.set(dateString, forKey: "\(self.name.trimmingCharacters(in: .whitespacesAndNewlines))-updateDate")
             }
         }
     }
@@ -73,7 +73,7 @@ class FilterSource: Identifiable {
         get {
             let fileManager = FileManager.default
             var documentDirectory = try! fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
-            documentDirectory.appendPathComponent("\(self.name).txt")
+            documentDirectory.appendPathComponent("\(self.name.trimmingCharacters(in: .whitespacesAndNewlines)).txt")
             return documentDirectory
         }
     }
