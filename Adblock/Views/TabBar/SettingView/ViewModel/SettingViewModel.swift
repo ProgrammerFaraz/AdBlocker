@@ -5,11 +5,11 @@ class SettingViewModel {
     
     func setupData() -> [SettingListData] {
         let settings = [
-            FilterSource(name: Constants.filtersSources[0].name, url: Constants.filtersSources[0].url, description: Constants.filtersSources[0].description, free: Constants.filtersSources[0].free, imageName: Constants.filtersSources[0].imageName, color: Constants.filtersSources[0].color, whiteBlackList: false)
+            FilterSource(name: Constants.filtersSources[0].name, url: Constants.filtersSources[0].url, description: Constants.filtersSources[0].description, free: Constants.filtersSources[0].free, imageName: Constants.filtersSources[0].imageName, color: Constants.filtersSources[0].color, whiteBlackList: false, fileName: Constants.filtersSources[0].fileName)
         ]
         var settingsAdvanced = [FilterSource]()
         for i in 1..<(Constants.filtersSources.count) {
-            settingsAdvanced.append(FilterSource(name: Constants.filtersSources[i].name, url: Constants.filtersSources[i].url, description: Constants.filtersSources[i].description, free: Constants.filtersSources[i].free, imageName: Constants.filtersSources[i].imageName, color: Constants.filtersSources[i].color, whiteBlackList: false))
+            settingsAdvanced.append(FilterSource(name: Constants.filtersSources[i].name, url: Constants.filtersSources[i].url, description: Constants.filtersSources[i].description, free: Constants.filtersSources[i].free, imageName: Constants.filtersSources[i].imageName, color: Constants.filtersSources[i].color, whiteBlackList: false, fileName: Constants.filtersSources[i].fileName))
         }
 //            SettingData(title: "Block Adult Sites", isOn: false, image: ("18+"), whiteBlackList: false),
 //            SettingData(title: "Block Social Buttons", isOn: false, image: ("block_social"), whiteBlackList: false),
@@ -23,13 +23,13 @@ class SettingViewModel {
 //            SettingData(title: "Block Style Sheets", isOn: false, image: ("block_stylesheets"), whiteBlackList: false)
 //        ]
         let settingsFilters = [
-            FilterSource(name: "White List", url: "", description: "", free: true, imageName: "whitelist", color: Colors.bgColor!, whiteBlackList: true),
-            FilterSource(name: "Black List", url: "", description: "", free: true, imageName: "blacklist", color: Colors.bgColor!, whiteBlackList: true)
+            FilterSource(name: "White List", url: "", description: "", free: true, imageName: "whitelist", color: Colors.bgColor!, whiteBlackList: true, fileName: ""),
+            FilterSource(name: "Black List", url: "", description: "", free: true, imageName: "blacklist", color: Colors.bgColor!, whiteBlackList: true, fileName: "")
         ]
         let settingsAccount = [
-            FilterSource(name: "Privacy Policy", url: "", description: "", free: true, imageName: "", color: Colors.bgColor!, whiteBlackList: true),
-            FilterSource(name: "Terms of Use", url: "", description: "", free: true, imageName: "", color: Colors.bgColor!, whiteBlackList: true),
-            FilterSource(name: "Rate Us", url: "", description: "", free: true, imageName: "", color: Colors.bgColor!, whiteBlackList: true)
+            FilterSource(name: "Privacy Policy", url: "", description: "", free: true, imageName: "", color: Colors.bgColor!, whiteBlackList: true, fileName: ""),
+            FilterSource(name: "Terms of Use", url: "", description: "", free: true, imageName: "", color: Colors.bgColor!, whiteBlackList: true, fileName: ""),
+            FilterSource(name: "Rate Us", url: "", description: "", free: true, imageName: "", color: Colors.bgColor!, whiteBlackList: true, fileName: "")
         ]
         let settingList = [
             SettingListData(id: 1, header: "", settingData: settings),

@@ -138,11 +138,19 @@ struct StatusView: View {
             if value != filter.activate {
                 isActivated = false
                 filter.activate = value
-//                if !value {
-//                    BlockManager.shared.deactivateFilters { _ in }
-//                }else{
-//                    BlockManager.shared.activateBlockFilters { _ in }
-//                }
+                if !value {
+                    BlockManager.shared.deactivateFilters { _ in }
+                }else{
+                    BlockManager.shared.activateBlockFilters { error in
+                        if error != nil {
+                            Drops.show(Drop(title: error!.localizedDescription))
+                        } else {
+                            withAnimation() {
+                                isActivated = true
+                            }
+                        }
+                    }
+                }
             }
         })
 //        .onChange(of: isActivated, perform: { value in
@@ -160,11 +168,8 @@ struct StatusView: View {
         .sheet(isPresented: $showingDownloadFiltersView) {
             WelcomeAndDownloadFiltersView()
         }
-        .sheet(isPresented: $showingHintView) {
-            HintView()
-        }
-//        .sheet(isPresented: $showingPurchaseView) {
-//            PurchaseView()
+//        .sheet(isPresented: $showingHintView) {
+//            HintView()
 //        }
         .sheet(isPresented: $trialOverAndNotSubscribed) {
             NewPurchaseView()

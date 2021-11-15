@@ -169,12 +169,14 @@ class BlockManager {
                 return
             }
             
-            guard let blockerJson = try? blockerEntries.serialize() else { return }
+            guard let blockerJson = try? blockerEntries.serialize() else {
+                print("🔥🔥🔥 blocker entries serialize error")
+                return }
             
             print("my print")
             print(self.blockDomains)
-            print(blockerEntries)
-            print(blockerJson)
+//            print(blockerEntries)
+//            print(blockerJson)
             
             let documentFolder = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: Config.App.appGroupId)
             guard let jsonURL = documentFolder?.appendingPathComponent("blockerList.json") else { return }
@@ -241,6 +243,7 @@ class BlockManager {
         let id = Config.App.extensionBundleId
         SFContentBlockerManager.getStateOfContentBlocker(withIdentifier: id, completionHandler: { state, error in
             DispatchQueue.main.async {
+                print(error?.localizedDescription)
                 if state?.isEnabled ?? false {
                     completion(true)
                 } else {

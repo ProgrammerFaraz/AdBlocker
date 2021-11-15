@@ -60,6 +60,19 @@ struct SettingRowWithToggle: View {
             if value != filter.activate {
                 isActivated = false
                 filter.activate = value
+//                if !value {
+//                    BlockManager.shared.deactivateFilters { _ in }
+//                }else{
+//                    BlockManager.shared.activateBlockFilters { error in
+//                        if error != nil {
+//                            Drops.show(Drop(title: error!.localizedDescription))
+//                        } else {
+//                            withAnimation() {
+//                                isActivated = true
+//                            }
+//                        }
+//                    }
+//                }
             }
         })
     }
@@ -69,12 +82,12 @@ struct SettingView: View {
     
     @State var showingDownloadFiltersView = false
     @State var showingHintView = false
-    @State var filters = Constants.filtersSources
+    @State var setting = Constants.settingListData
     @State var isActivated = true
-
+//    var setting = SettingListData
     @State private var viewModel = SettingViewModel()
     var body: some View {
-        let setting = viewModel.setupData()
+//        let setting = viewModel.setupData()
         NavigationView {
             List {
                 ForEach(setting) { (setting) in
@@ -111,53 +124,53 @@ struct SettingView: View {
                 }
             }
             .listStyle(GroupedListStyle())
-//            if #available(iOS 14.0, *) {
-//                VStack {
-//                    Spacer()
-//                    if !isActivated {
-//                        
-//                        Spacer()
-//                        MTSlideToOpen(thumbnailTopBottomPadding: 4,
-//                                      thumbnailLeadingTrailingPadding: 4,
-//                                      text: "Slide to Save",
-//                                      textColor: .white,
-//                                      thumbnailColor: Color.white,
-//                                      sliderBackgroundColor: Colors.greenColor,
-//                                      didReachEndAction: { view in
-//                                        if !BlockManager.shared.isExtensionActive {
-//                                            showingHintView = true
-//                                            view.resetState()
-//                                        } else {
-//                                            view.isLoading = true
-//                                            BlockManager.shared.activateBlockFilters { error in
-//                                                view.isLoading = false
-//                                                if error != nil {
-//                                                    Drops.show(Drop(title: error!.localizedDescription))
-//                                                    view.resetState()
-//                                                } else {
-//                                                    withAnimation() {
-//                                                        isActivated = true
-//                                                    }
-//                                                }
-//                                            }
-//                                        }
-//                                      })
-//                            .transition(.opacity)
-//                            .animation(.default)
-//                            .frame(width: 320, height: 56)
-//                            .cornerRadius(28)
-//                            .padding()
-//                            .background(Color.white.opacity(0.06))
-//                            .background(Colors.bgColor)
-//                            .cornerRadius(42)
-//                            .shadow(radius: 30)
-//                        Spacer().frame(height: 40)
-//                    }
-//                }
-//                .ignoresSafeArea()
-//            } else {
-//                // Fallback on earlier versions
-//            }
+            if #available(iOS 14.0, *) {
+                VStack {
+                    Spacer()
+                    if !isActivated {
+                        
+                        Spacer()
+                        MTSlideToOpen(thumbnailTopBottomPadding: 4,
+                                      thumbnailLeadingTrailingPadding: 4,
+                                      text: "Slide to Save",
+                                      textColor: .white,
+                                      thumbnailColor: Color.white,
+                                      sliderBackgroundColor: Colors.greenColor,
+                                      didReachEndAction: { view in
+                                        if !BlockManager.shared.isExtensionActive {
+                                            showingHintView = true
+                                            view.resetState()
+                                        } else {
+                                            view.isLoading = true
+                                            BlockManager.shared.activateBlockFilters { error in
+                                                view.isLoading = false
+                                                if error != nil {
+                                                    Drops.show(Drop(title: error!.localizedDescription))
+                                                    view.resetState()
+                                                } else {
+                                                    withAnimation() {
+                                                        isActivated = true
+                                                    }
+                                                }
+                                            }
+                                        }
+                                      })
+                            .transition(.opacity)
+                            .animation(.default)
+                            .frame(width: 320, height: 56)
+                            .cornerRadius(28)
+                            .padding()
+                            .background(Color.white.opacity(0.06))
+                            .background(Colors.bgColor)
+                            .cornerRadius(42)
+                            .shadow(radius: 30)
+                        Spacer().frame(height: 40)
+                    }
+                }
+                .ignoresSafeArea()
+            } else {
+                // Fallback on earlier versions
+            }
         }
         .onAppear() {
             UITabBar.appearance().isHidden = false

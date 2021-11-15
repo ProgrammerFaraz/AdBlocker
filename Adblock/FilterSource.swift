@@ -16,7 +16,7 @@ struct SettingListData: Identifiable {
 }
 
 class FilterSource: Identifiable {
-    init(name: String, url: String, description: String, free: Bool, imageName: String, color: Color, whiteBlackList: Bool) {
+    init(name: String, url: String, description: String, free: Bool, imageName: String, color: Color, whiteBlackList: Bool, fileName: String) {
         self.color = color
         self.imageName = imageName
         self.name = name
@@ -24,29 +24,31 @@ class FilterSource: Identifiable {
         self.description = description
         self.free = free
         self.whiteBlackList = whiteBlackList
+        self.fileName = fileName
     }
     let id = UUID()
     let color: Color
     let imageName: String
     let name: String
+    let fileName: String
     let url: String
     let description: String
     let free: Bool
     let whiteBlackList: Bool
     var version: String {
         get {
-            return UserDefaults.standard.string(forKey: "\(self.name.trimmingCharacters(in: .whitespacesAndNewlines))-version") ?? ""
+            return UserDefaults.standard.string(forKey: "\(self.fileName)-version") ?? ""
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: "\(self.name.trimmingCharacters(in: .whitespacesAndNewlines))-version")
+            UserDefaults.standard.set(newValue, forKey: "\(self.fileName)-version")
         }
     }
     var activate: Bool {
         get {
-            return UserDefaults.standard.bool(forKey: "\(self.name.trimmingCharacters(in: .whitespacesAndNewlines))-activate")
+            return UserDefaults.standard.bool(forKey: "\(self.fileName)-activate")
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: "\(self.name.trimmingCharacters(in: .whitespacesAndNewlines))-activate")
+            UserDefaults.standard.set(newValue, forKey: "\(self.fileName)-activate")
         }
     }
     var dateFormatter: DateFormatter {
@@ -56,7 +58,7 @@ class FilterSource: Identifiable {
     }
     var updateDate: Date? {
         get {
-            guard let dateString = UserDefaults.standard.string(forKey: "\(self.name.trimmingCharacters(in: .whitespacesAndNewlines))-updateDate") else {
+            guard let dateString = UserDefaults.standard.string(forKey: "\(self.fileName)-updateDate") else {
                 return nil
             }
             return self.dateFormatter.date(from: dateString)
@@ -64,7 +66,7 @@ class FilterSource: Identifiable {
         set {
             if newValue != nil {
                 let dateString = dateFormatter.string(from: newValue!)
-                UserDefaults.standard.set(dateString, forKey: "\(self.name.trimmingCharacters(in: .whitespacesAndNewlines))-updateDate")
+                UserDefaults.standard.set(dateString, forKey: "\(self.fileName)-updateDate")
             }
         }
     }
@@ -73,15 +75,21 @@ class FilterSource: Identifiable {
         get {
             let fileManager = FileManager.default
             var documentDirectory = try! fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
-            documentDirectory.appendPathComponent("\(self.name.trimmingCharacters(in: .whitespacesAndNewlines)).txt")
+            documentDirectory.appendPathComponent("\(self.fileName).txt")
             return documentDirectory
         }
     }
     
     var listContent: String? {
         get {
-            let content = try? String(contentsOf: fileURL)
-            return content
+            do {
+                let content = try String(contentsOf: fileURL, encoding: .utf8)
+                return content
+            } catch let error{
+                print("🔥🔥🔥", error.localizedDescription)
+                return nil
+            }
+            return nil
         }
     }
     
