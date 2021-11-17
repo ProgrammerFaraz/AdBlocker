@@ -68,12 +68,13 @@ struct ADBlockView: View {
                                             view.resetState()
                                         } else {
                                             view.isLoading = true
-                                            BlockManager.shared.activateBlockFilters { error in
+                                            BlockManager.shared.activateFilters { error in
                                                 view.isLoading = false
                                                 if error != nil {
                                                     Drops.show(Drop(title: error!.localizedDescription))
                                                     view.resetState()
                                                 } else {
+                                                    Drops.show(Drop(title: Constants.activateSuccessMsg))
                                                     withAnimation() {
                                                         isActivated = true
                                                     }
@@ -102,10 +103,10 @@ struct ADBlockView: View {
             if !BlockManager.shared.isFiltersDownloaded() {
                 showingDownloadFiltersView = true
             }
-            
-            BlockManager.shared.getActivationState(completion: { result in
-                    isActivated = result
-            })
+            isActivated = BlockManager.shared.isExtensionActive
+//            BlockManager.shared.getActivationState(completion: { result in
+//                    isActivated = result
+//            })
         }
         .onChange(of: isActivated, perform: { value in
             if !value {

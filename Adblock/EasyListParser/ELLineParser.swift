@@ -33,10 +33,6 @@ class ELLineParser {
                     domainFilter = cssParts[0]
                     cssSelector = cssParts[1]
                 } else if line.contains("$") {
-                    
-                    let line = line
-                        .replacingOccurrences(of: "\\|~.*", with: "", options: .regularExpression)
-                    
                     var optionParts = line.components(separatedBy: "$")
                     
                     //this may be more than 2 parts, e.g. 3, and the first 2 are the domain, concat
@@ -57,26 +53,6 @@ class ELLineParser {
                 if domainFilter.contains("{") {
                     // limitation of RegEx in WebKit Content Blocker
                     error = "Filter contains {"
-                    break
-                }
-                
-                if domainFilter.contains("#@#") {
-                    error = "Filter contains #@#"
-                    break
-                }
-                
-                if domainFilter.contains("\\w") {
-                    error = "Filter contains \\w"
-                    break
-                }
-                
-                if domainFilter.contains("\\d") {
-                    error = "Filter contains \\d"
-                    break
-                }
-                
-                if domainFilter.contains("\\//") {
-                    error = "Filter contains \\//"
                     break
                 }
 

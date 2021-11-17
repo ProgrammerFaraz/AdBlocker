@@ -60,19 +60,29 @@ struct SettingRowWithToggle: View {
             if value != filter.activate {
                 isActivated = false
                 filter.activate = value
-//                if !value {
-//                    BlockManager.shared.deactivateFilters { _ in }
-//                }else{
-//                    BlockManager.shared.activateBlockFilters { error in
-//                        if error != nil {
-//                            Drops.show(Drop(title: error!.localizedDescription))
-//                        } else {
-//                            withAnimation() {
-//                                isActivated = true
-//                            }
-//                        }
-//                    }
-//                }
+                if !value {
+                    BlockManager.shared.deactivateFilters { error in
+                        if error != nil {
+                            Drops.show(Drop(title: error!.localizedDescription))
+                        } else {
+                            Drops.show(Drop(title: Constants.deactivateSuccessMsg))
+                            withAnimation() {
+                                isActivated = true
+                            }
+                        }
+                    }
+                }else{
+                    BlockManager.shared.activateFilters { error in
+                        if error != nil {
+                            Drops.show(Drop(title: error!.localizedDescription))
+                        } else {
+                            Drops.show(Drop(title: Constants.activateSuccessMsg))
+                            withAnimation() {
+                                isActivated = true
+                            }
+                        }
+                    }
+                }
             }
         })
     }
@@ -85,7 +95,7 @@ struct SettingView: View {
     @State var setting = Constants.settingListData
     @State var isActivated = true
 //    var setting = SettingListData
-    @State private var viewModel = SettingViewModel()
+//    @State private var viewModel = SettingViewModel()
     var body: some View {
 //        let setting = viewModel.setupData()
         NavigationView {
@@ -142,12 +152,13 @@ struct SettingView: View {
                                             view.resetState()
                                         } else {
                                             view.isLoading = true
-                                            BlockManager.shared.activateBlockFilters { error in
+                                            BlockManager.shared.activateFilters { error in
                                                 view.isLoading = false
                                                 if error != nil {
                                                     Drops.show(Drop(title: error!.localizedDescription))
                                                     view.resetState()
                                                 } else {
+                                                    Drops.show(Drop(title: Constants.activateSuccessMsg))
                                                     withAnimation() {
                                                         isActivated = true
                                                     }
@@ -177,35 +188,38 @@ struct SettingView: View {
             if !BlockManager.shared.isFiltersDownloaded() {
                 showingDownloadFiltersView = true
             }
-            
             BlockManager.shared.getActivationState(completion: { result in
-                    isActivated = result
+                isActivated = result
             })
             if !isActivated {
                 if !BlockManager.shared.isExtensionActive {
                     showingHintView = true
-                } else {
-                    BlockManager.shared.activateBlockFilters { error in
-                        if error != nil {
-                            Drops.show(Drop(title: error!.localizedDescription))
-                        } else {
-                            withAnimation() {
-                                isActivated = true
-                            }
-                        }
-                    }
                 }
-            } else {
-                BlockManager.shared.activateBlockFilters { error in
-                    if error != nil {
-                        Drops.show(Drop(title: error!.localizedDescription))
-                    } else {
-                        withAnimation() {
-                            isActivated = true
-                        }
-                    }
-                }
+//                else {
+//                    BlockManager.shared.activateFilters { error in
+//                        if error != nil {
+//                            Drops.show(Drop(title: error!.localizedDescription))
+//                        } else {
+//                            Drops.show(Drop(title: Constants.activateSuccessMsg))
+//                            withAnimation() {
+//                                isActivated = true
+//                            }
+//                        }
+//                    }
+//                }
             }
+//            else {
+//                BlockManager.shared.activateFilters { error in
+//                    if error != nil {
+//                        Drops.show(Drop(title: error!.localizedDescription))
+//                    } else {
+//                        Drops.show(Drop(title: Constants.activateSuccessMsg))
+//                        withAnimation() {
+//                            isActivated = true
+//                        }
+//                    }
+//                }
+//            }
         }
         .onChange(of: isActivated, perform: { value in
             if !value {

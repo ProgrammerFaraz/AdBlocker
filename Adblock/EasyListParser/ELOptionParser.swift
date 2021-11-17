@@ -37,16 +37,18 @@ class ELOptionParser {
                         domain.canBeConverted(to: String.Encoding.ascii) {
                             
                             if domain.hasPrefix("~") {
-                                if destination.trigger.unlessDomain == nil {
-                                    destination.trigger.unlessDomain = []
+                                if destination.trigger.unlessTopUrl == nil {
+                                    destination.trigger.unlessTopUrl = []
                                 }
                                 domain.remove(at: domain.startIndex)
-                                destination.trigger.unlessDomain!.append(domain)
+                                domain = ELFilterParser.parse(filter: domain)
+                                destination.trigger.unlessTopUrl!.append(domain)
                             } else {
-                                if destination.trigger.ifDomain == nil {
-                                    destination.trigger.ifDomain = []
+                                if destination.trigger.ifTopUrl == nil {
+                                    destination.trigger.ifTopUrl = []
                                 }
-                                destination.trigger.ifDomain!.append(domain)
+                                domain = ELFilterParser.parse(filter: domain)
+                                destination.trigger.ifTopUrl!.append(domain)
                             }
                     } else {
                         // limitation of RegEx in WebKit Content Blocker

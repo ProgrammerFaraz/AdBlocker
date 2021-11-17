@@ -107,12 +107,13 @@ struct BlackListDomainView: View {
                                                 view.resetState()
                                             } else {
                                                 view.isLoading = true
-                                                BlockManager.shared.activateBlockFilters { error in
+                                                BlockManager.shared.activateFilters { error in
                                                     view.isLoading = false
                                                     if error != nil {
                                                         Drops.show(Drop(title: error!.localizedDescription))
                                                         view.resetState()
                                                     } else {
+                                                        Drops.show(Drop(title: Constants.activateSuccessMsg))
                                                         withAnimation() {
                                                             isActivated = true
                                                         }

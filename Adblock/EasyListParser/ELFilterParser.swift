@@ -24,7 +24,6 @@ class ELFilterParser {
                 .replacingOccurrences(of: ".", with: "\\.")
                 .replacingOccurrences(of: "?", with: "\\?")
                 .replacingOccurrences(of: "+", with: "\\+")
-                .replacingOccurrences(of: "[\\s\\S]", with: "[a-b]")
             
             // * is to be assumed, but may already be present in the domain
             // or the domain may include pipes to override the liberal use of *

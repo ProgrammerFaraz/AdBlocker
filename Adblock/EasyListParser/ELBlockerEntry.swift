@@ -14,7 +14,6 @@ public class ELBlockerEntry {
             case Block
             case BlockCookies
             case CssDisplayNone
-            case Trust
         }
         
         var type: String?
@@ -27,7 +26,9 @@ public class ELBlockerEntry {
         var resourceType: [String]?
         var loadType: [String]?
         var ifDomain: [String]?
+        var ifTopUrl: [String]?
         var unlessDomain: [String]?
+        var unlessTopUrl: [String]?
     }
     
     var action: Action = Action()

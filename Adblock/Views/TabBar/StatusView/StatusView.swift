@@ -106,28 +106,32 @@ struct StatusView: View {
             if !isActivated {
                 if !BlockManager.shared.isExtensionActive {
                     showingHintView = true
-                } else {
-                    BlockManager.shared.activateBlockFilters { error in
-                        if error != nil {
-                            Drops.show(Drop(title: error!.localizedDescription))
-                        } else {
-                            withAnimation() {
-                                isActivated = true
-                            }
-                        }
-                    }
                 }
-            } else {
-                BlockManager.shared.activateBlockFilters { error in
-                    if error != nil {
-                        Drops.show(Drop(title: error!.localizedDescription))
-                    } else {
-                        withAnimation() {
-                            isActivated = true
-                        }
-                    }
-                }
+//                else {
+//                    BlockManager.shared.activateFilters { error in
+//                        if error != nil {
+//                            Drops.show(Drop(title: error!.localizedDescription))
+//                        } else {
+//                            Drops.show(Drop(title: Constants.activateSuccessMsg))
+//                            withAnimation() {
+//                                isActivated = true
+//                            }
+//                        }
+//                    }
+//                }
             }
+//            else {
+//                BlockManager.shared.activateFilters { error in
+//                    if error != nil {
+//                        Drops.show(Drop(title: error!.localizedDescription))
+//                    } else {
+//                        Drops.show(Drop(title: Constants.activateSuccessMsg))
+//                        withAnimation() {
+//                            isActivated = true
+//                        }
+//                    }
+//                }
+//            }
             if isActivated {
                 isActive = filter.activate
             } else {
@@ -139,12 +143,22 @@ struct StatusView: View {
                 isActivated = false
                 filter.activate = value
                 if !value {
-                    BlockManager.shared.deactivateFilters { _ in }
-                }else{
-                    BlockManager.shared.activateBlockFilters { error in
+                    BlockManager.shared.deactivateFilters { error in
                         if error != nil {
                             Drops.show(Drop(title: error!.localizedDescription))
                         } else {
+                            Drops.show(Drop(title: Constants.deactivateSuccessMsg))
+                            withAnimation() {
+                                isActivated = true
+                            }
+                        }
+                    }
+                }else{
+                    BlockManager.shared.activateFilters { error in
+                        if error != nil {
+                            Drops.show(Drop(title: error!.localizedDescription))
+                        } else {
+                            Drops.show(Drop(title: Constants.activateSuccessMsg))
                             withAnimation() {
                                 isActivated = true
                             }

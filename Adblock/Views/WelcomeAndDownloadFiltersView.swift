@@ -12,7 +12,9 @@ struct WelcomeAndDownloadFiltersView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    let filters = Constants.filtersSources
+    let filters = Constants.filtersSources.filter { (filter) -> Bool in
+        filter.url != ""
+    }
     @State var downloaded = false
     @State var downloading = false
     @State var filter: FilterSource?

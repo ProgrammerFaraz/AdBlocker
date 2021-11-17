@@ -44,27 +44,35 @@ extension ELBlockerEntry.Trigger {
         let result = NSMutableDictionary()
         
         if let triggerUrlFilter = self.urlFilter {
-            result.setValue(triggerUrlFilter, forKey: "url-filter")
+            result.setValue(triggerUrlFilter, forKey: JsonExtractor.triggerUrlFilter)
         }
         
         if let triggerUrlFilterIsCaseSensitive = self.urlFilterIsCaseSensitive {
-            result.setValue(triggerUrlFilterIsCaseSensitive, forKey: "url-filter-is-case-sensitive")
+            result.setValue(triggerUrlFilterIsCaseSensitive, forKey: JsonExtractor.triggerUrlFilterIsCaseSensitive)
         }
         
         if let triggerResourceType = self.resourceType {
-            result.setValue(triggerResourceType, forKey: "resource-type")
+            result.setValue(triggerResourceType, forKey: JsonExtractor.triggerResourceType)
         }
         
         if let triggerLoadType = self.loadType {
-            result.setValue(triggerLoadType, forKey: "load-type")
+            result.setValue(triggerLoadType, forKey: JsonExtractor.triggerLoadType)
         }
         
         if let triggerIfDomain = self.ifDomain {
-            result.setValue(triggerIfDomain, forKey: "if-domain")
+            result.setValue(triggerIfDomain, forKey: JsonExtractor.triggerIfDomain)
         }
         
         if let triggerUnlessDomain = self.unlessDomain {
-            result.setValue(triggerUnlessDomain, forKey: "unless-domain")
+            result.setValue(triggerUnlessDomain, forKey: JsonExtractor.triggerUnlessDomain)
+        }
+        
+        if let triggerUnlessTopUrl = self.unlessTopUrl {
+            result.setValue(triggerUnlessTopUrl, forKey: JsonExtractor.triggerUnlessTopUrl)
+        }
+        
+        if let triggerIfTopUrl = self.ifTopUrl {
+            result.setValue(triggerIfTopUrl, forKey: JsonExtractor.triggerIfTopUrl)
         }
         
         return result
