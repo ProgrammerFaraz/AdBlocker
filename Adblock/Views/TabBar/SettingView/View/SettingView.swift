@@ -84,6 +84,7 @@ struct SettingRowWithToggle: View {
                             BlockManager.shared.activateFilters { error in
                                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
                                 if error != nil {
+                                    self.isActive = false
                                     Drops.hideCurrent()
                                     Drops.show(Drop(title: error!.localizedDescription, duration: 2.0))
                                 } else {

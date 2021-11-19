@@ -75,10 +75,10 @@
 		182EC61E2714C12B00191980 /* SettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182EC61D2714C12B00191980 /* SettingModel.swift */; };
 		182EC6242714C14E00191980 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182EC6232714C14E00191980 /* SettingViewModel.swift */; };
 		182EC6292714CC0E00191980 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182EC6282714CC0E00191980 /* UserDefaultsManager.swift */; };
+		1849C1E92748191700A1A09F /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 1849C1E82748191700A1A09F /* SwiftUIX */; };
 		185E478D2711AAC400AE3F66 /* BlackWhiteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185E478C2711AAC400AE3F66 /* BlackWhiteListView.swift */; };
 		185E47912711AC9200AE3F66 /* BlackWhiteListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185E47902711AC9200AE3F66 /* BlackWhiteListViewModel.swift */; };
 		185E47962711D13000AE3F66 /* AddURLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185E47952711D13000AE3F66 /* AddURLView.swift */; };
-		18735DBA26F74B9700BDA7BB /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 18735DB926F74B9700BDA7BB /* SwiftUIX */; };
 		18908B97272DA955005545AB /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D024EDBD272002E7009107E6 /* StoreKit.framework */; };
 		18DA842027457DBB009D8ACA /* JsonExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DA841F27457DBB009D8ACA /* JsonExtractor.swift */; };
 		18DA8433274583EF009D8ACA /* ELBlockerEntry+Serialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DA842A274583EF009D8ACA /* ELBlockerEntry+Serialize.swift */; };
@@ -93,8 +93,8 @@
 		18F2F7C727078824000D743B /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2F7C627078824000D743B /* TabBarView.swift */; };
 		18F2F7CE2707A00D000D743B /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2F7CD2707A00C000D743B /* StatusView.swift */; };
 		18F2F7D32707ABC1000D743B /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2F7D22707ABC1000D743B /* SettingView.swift */; };
-		1A16B2B732FC76017489AB95 /* Pods_Adblock_Blocker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4901336165F77AB8CF3CDD4C /* Pods_Adblock_Blocker.framework */; };
-		BB98189C830AEC7409997513 /* Pods_Adblock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AECD341E7EBAEDDECE14A31A /* Pods_Adblock.framework */; };
+		89F3C2A31070C33858A25867 /* Pods_Adblock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DBB07007A2A7950551380D2 /* Pods_Adblock.framework */; };
+		901378AFFDE02C97F33FA010 /* Pods_Adblock_Blocker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6009A127C236F39E419EBF4 /* Pods_Adblock_Blocker.framework */; };
 		D05FF4CC27217E0700CF0888 /* easylist_content_blocker.json in Resources */ = {isa = PBXBuildFile; fileRef = D05FF4CB27217E0700CF0888 /* easylist_content_blocker.json */; };
 /* End PBXBuildFile section */
 
@@ -164,6 +164,7 @@
 		0D8FE57E26E22AE9000EF3A4 /* ProductsStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsStore.swift; sourceTree = "<group>"; };
 		0D8FE58F26E22C6E000EF3A4 /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
 		0D9B29DC26D5569C00E1651A /* EditCreditCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCreditCardView.swift; sourceTree = "<group>"; };
+		0DBB07007A2A7950551380D2 /* Pods_Adblock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Adblock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DC7899F26CAE66D007310DE /* Adblock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Adblock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DC789A226CAE66D007310DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0DC789A426CAE66D007310DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -185,6 +186,7 @@
 		0DF3495526DE5C8800566AD7 /* WelcomeAndDownloadFiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeAndDownloadFiltersView.swift; sourceTree = "<group>"; };
 		0DF3495726DE67EE00566AD7 /* HintView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HintView.swift; sourceTree = "<group>"; };
 		0DF3495926DE7C3D00566AD7 /* SlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideView.swift; sourceTree = "<group>"; };
+		117C04F17EBF2D480364E274 /* Pods-Adblock.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Adblock.debug.xcconfig"; path = "Target Support Files/Pods-Adblock/Pods-Adblock.debug.xcconfig"; sourceTree = "<group>"; };
 		1810D5C3270B895B009759E8 /* PagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerView.swift; sourceTree = "<group>"; };
 		1810D5C8270B8A80009759E8 /* HowToUseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToUseView.swift; sourceTree = "<group>"; };
 		181634012720AF310075B698 /* NewPurchaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPurchaseView.swift; sourceTree = "<group>"; };
@@ -208,18 +210,12 @@
 		18F2F7C627078824000D743B /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		18F2F7CD2707A00C000D743B /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		18F2F7D22707ABC1000D743B /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
-		34FE7539D48F73F27EF2FAE9 /* Pods-Adblock.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Adblock.release.xcconfig"; path = "Target Support Files/Pods-Adblock/Pods-Adblock.release.xcconfig"; sourceTree = "<group>"; };
-		4901336165F77AB8CF3CDD4C /* Pods_Adblock_Blocker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Adblock_Blocker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		70A8E11EA28F66801EC11F70 /* Pods-Security Manager Blocker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Security Manager Blocker.release.xcconfig"; path = "Target Support Files/Pods-Security Manager Blocker/Pods-Security Manager Blocker.release.xcconfig"; sourceTree = "<group>"; };
-		AECD341E7EBAEDDECE14A31A /* Pods_Adblock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Adblock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CA41440C88963613513FFB20 /* Pods-Security Manager Blocker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Security Manager Blocker.debug.xcconfig"; path = "Target Support Files/Pods-Security Manager Blocker/Pods-Security Manager Blocker.debug.xcconfig"; sourceTree = "<group>"; };
-		CE822B78224351801CA928A0 /* Pods-Adblock Blocker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Adblock Blocker.debug.xcconfig"; path = "Target Support Files/Pods-Adblock Blocker/Pods-Adblock Blocker.debug.xcconfig"; sourceTree = "<group>"; };
+		35006D4AB0108612D118F79D /* Pods-Adblock.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Adblock.release.xcconfig"; path = "Target Support Files/Pods-Adblock/Pods-Adblock.release.xcconfig"; sourceTree = "<group>"; };
+		37DE122509410AC3A81673D9 /* Pods-Adblock Blocker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Adblock Blocker.release.xcconfig"; path = "Target Support Files/Pods-Adblock Blocker/Pods-Adblock Blocker.release.xcconfig"; sourceTree = "<group>"; };
+		8A09827566CBC9918DDCFE0B /* Pods-Adblock Blocker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Adblock Blocker.debug.xcconfig"; path = "Target Support Files/Pods-Adblock Blocker/Pods-Adblock Blocker.debug.xcconfig"; sourceTree = "<group>"; };
 		D024EDBD272002E7009107E6 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		D05FF4CB27217E0700CF0888 /* easylist_content_blocker.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = easylist_content_blocker.json; sourceTree = "<group>"; };
-		DE04A0C6901AA4C931AA8AE3 /* Pods-Security Manager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Security Manager.release.xcconfig"; path = "Target Support Files/Pods-Security Manager/Pods-Security Manager.release.xcconfig"; sourceTree = "<group>"; };
-		EC0EDEABC87B7338318E3532 /* Pods-Security Manager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Security Manager.debug.xcconfig"; path = "Target Support Files/Pods-Security Manager/Pods-Security Manager.debug.xcconfig"; sourceTree = "<group>"; };
-		EFC962F7F133A6CD39433474 /* Pods-Adblock Blocker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Adblock Blocker.release.xcconfig"; path = "Target Support Files/Pods-Adblock Blocker/Pods-Adblock Blocker.release.xcconfig"; sourceTree = "<group>"; };
-		F3F48E039B46FA18C2210EA5 /* Pods-Adblock.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Adblock.debug.xcconfig"; path = "Target Support Files/Pods-Adblock/Pods-Adblock.debug.xcconfig"; sourceTree = "<group>"; };
+		D6009A127C236F39E419EBF4 /* Pods_Adblock_Blocker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Adblock_Blocker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,7 +223,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A16B2B732FC76017489AB95 /* Pods_Adblock_Blocker.framework in Frameworks */,
+				901378AFFDE02C97F33FA010 /* Pods_Adblock_Blocker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,14 +231,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18735DBA26F74B9700BDA7BB /* SwiftUIX in Frameworks */,
 				0D9B29DB26D51E0800E1651A /* Drops in Frameworks */,
 				0D13BE6C26D81E630081D593 /* AnyFormatKitSwiftUI in Frameworks */,
 				0DC789C026CAEE96007310DE /* KeychainSwift in Frameworks */,
+				1849C1E92748191700A1A09F /* SwiftUIX in Frameworks */,
 				0D9B29E026D5684C00E1651A /* PartialSheet in Frameworks */,
 				18908B97272DA955005545AB /* StoreKit.framework in Frameworks */,
 				0D1B2EC526DD44EE00CE45DA /* OmenTextField in Frameworks */,
-				BB98189C830AEC7409997513 /* Pods_Adblock.framework in Frameworks */,
+				89F3C2A31070C33858A25867 /* Pods_Adblock.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -544,8 +540,8 @@
 			isa = PBXGroup;
 			children = (
 				D024EDBD272002E7009107E6 /* StoreKit.framework */,
-				AECD341E7EBAEDDECE14A31A /* Pods_Adblock.framework */,
-				4901336165F77AB8CF3CDD4C /* Pods_Adblock_Blocker.framework */,
+				0DBB07007A2A7950551380D2 /* Pods_Adblock.framework */,
+				D6009A127C236F39E419EBF4 /* Pods_Adblock_Blocker.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -553,14 +549,10 @@
 		79EC2E5464261745ADBC147A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				EC0EDEABC87B7338318E3532 /* Pods-Security Manager.debug.xcconfig */,
-				DE04A0C6901AA4C931AA8AE3 /* Pods-Security Manager.release.xcconfig */,
-				CA41440C88963613513FFB20 /* Pods-Security Manager Blocker.debug.xcconfig */,
-				70A8E11EA28F66801EC11F70 /* Pods-Security Manager Blocker.release.xcconfig */,
-				F3F48E039B46FA18C2210EA5 /* Pods-Adblock.debug.xcconfig */,
-				34FE7539D48F73F27EF2FAE9 /* Pods-Adblock.release.xcconfig */,
-				CE822B78224351801CA928A0 /* Pods-Adblock Blocker.debug.xcconfig */,
-				EFC962F7F133A6CD39433474 /* Pods-Adblock Blocker.release.xcconfig */,
+				117C04F17EBF2D480364E274 /* Pods-Adblock.debug.xcconfig */,
+				35006D4AB0108612D118F79D /* Pods-Adblock.release.xcconfig */,
+				8A09827566CBC9918DDCFE0B /* Pods-Adblock Blocker.debug.xcconfig */,
+				37DE122509410AC3A81673D9 /* Pods-Adblock Blocker.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -583,7 +575,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0D269B1026DF976C0099A3DB /* Build configuration list for PBXNativeTarget "Adblock Blocker" */;
 			buildPhases = (
-				A4C1E2AF132BAAB5CF46B20C /* [CP] Check Pods Manifest.lock */,
+				C9900E87707BAAEC3250B2A9 /* [CP] Check Pods Manifest.lock */,
 				0D269AFF26DF976C0099A3DB /* Sources */,
 				0D269B0026DF976C0099A3DB /* Frameworks */,
 				0D269B0126DF976C0099A3DB /* Resources */,
@@ -601,12 +593,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0DC789B326CAE66E007310DE /* Build configuration list for PBXNativeTarget "Adblock" */;
 			buildPhases = (
-				F9F1C6317D79D2915555F725 /* [CP] Check Pods Manifest.lock */,
+				31409D030BC67A69E7A684EA /* [CP] Check Pods Manifest.lock */,
 				0DC7899B26CAE66D007310DE /* Sources */,
 				0DC7899C26CAE66D007310DE /* Frameworks */,
 				0DC7899D26CAE66D007310DE /* Resources */,
 				0D269B0D26DF976C0099A3DB /* Embed App Extensions */,
-				15E2C7EA1113E19D9805FDFB /* [CP] Embed Pods Frameworks */,
+				77C4F121DEB7B6374FB98363 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -620,7 +612,7 @@
 				0D9B29DF26D5684C00E1651A /* PartialSheet */,
 				0D13BE6B26D81E630081D593 /* AnyFormatKitSwiftUI */,
 				0D1B2EC426DD44EE00CE45DA /* OmenTextField */,
-				18735DB926F74B9700BDA7BB /* SwiftUIX */,
+				1849C1E82748191700A1A09F /* SwiftUIX */,
 			);
 			productName = "Security Manager";
 			productReference = 0DC7899F26CAE66D007310DE /* Adblock.app */;
@@ -658,7 +650,7 @@
 				0D9B29DE26D5684C00E1651A /* XCRemoteSwiftPackageReference "PartialSheet" */,
 				0D13BE6A26D81E630081D593 /* XCRemoteSwiftPackageReference "AnyFormatKitSwiftUI" */,
 				0D1B2EC326DD44EE00CE45DA /* XCRemoteSwiftPackageReference "OmenTextField" */,
-				18735DB826F74B9700BDA7BB /* XCRemoteSwiftPackageReference "SwiftUIX" */,
+				1849C1E72748191700A1A09F /* XCRemoteSwiftPackageReference "SwiftUIX" */,
 			);
 			productRefGroup = 0DC789A026CAE66D007310DE /* Products */;
 			projectDirPath = "";
@@ -694,7 +686,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		15E2C7EA1113E19D9805FDFB /* [CP] Embed Pods Frameworks */ = {
+		31409D030BC67A69E7A684EA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Adblock-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		77C4F121DEB7B6374FB98363 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -711,7 +725,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Adblock/Pods-Adblock-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A4C1E2AF132BAAB5CF46B20C /* [CP] Check Pods Manifest.lock */ = {
+		C9900E87707BAAEC3250B2A9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -727,28 +741,6 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Adblock Blocker-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F9F1C6317D79D2915555F725 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Adblock-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -869,13 +861,13 @@
 /* Begin XCBuildConfiguration section */
 		0D269B0E26DF976C0099A3DB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CE822B78224351801CA928A0 /* Pods-Adblock Blocker.debug.xcconfig */;
+			baseConfigurationReference = 8A09827566CBC9918DDCFE0B /* Pods-Adblock Blocker.debug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "Security Manager Blocker/Security Manager Blocker.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 3PX9M5243D;
 				INFOPLIST_FILE = "Security Manager Blocker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -896,13 +888,13 @@
 		};
 		0D269B0F26DF976C0099A3DB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EFC962F7F133A6CD39433474 /* Pods-Adblock Blocker.release.xcconfig */;
+			baseConfigurationReference = 37DE122509410AC3A81673D9 /* Pods-Adblock Blocker.release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "Security Manager Blocker/Security Manager Blocker.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 3PX9M5243D;
 				INFOPLIST_FILE = "Security Manager Blocker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1041,7 +1033,7 @@
 		};
 		0DC789B426CAE66E007310DE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F3F48E039B46FA18C2210EA5 /* Pods-Adblock.debug.xcconfig */;
+			baseConfigurationReference = 117C04F17EBF2D480364E274 /* Pods-Adblock.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1049,7 +1041,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Adblock/Security Manager.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"Adblock/Preview Content\"";
 				DEVELOPMENT_TEAM = 3PX9M5243D;
 				ENABLE_PREVIEWS = YES;
@@ -1070,7 +1062,7 @@
 		};
 		0DC789B526CAE66E007310DE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 34FE7539D48F73F27EF2FAE9 /* Pods-Adblock.release.xcconfig */;
+			baseConfigurationReference = 35006D4AB0108612D118F79D /* Pods-Adblock.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1078,7 +1070,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Adblock/Security Manager.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"Adblock/Preview Content\"";
 				DEVELOPMENT_TEAM = 3PX9M5243D;
 				ENABLE_PREVIEWS = YES;
@@ -1170,12 +1162,12 @@
 				minimumVersion = 19.0.0;
 			};
 		};
-		18735DB826F74B9700BDA7BB /* XCRemoteSwiftPackageReference "SwiftUIX" */ = {
+		1849C1E72748191700A1A09F /* XCRemoteSwiftPackageReference "SwiftUIX" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftUIX/SwiftUIX";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = exactVersion;
+				version = 0.0.8;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1206,9 +1198,9 @@
 			package = 0DC789BE26CAEE96007310DE /* XCRemoteSwiftPackageReference "keychain-swift" */;
 			productName = KeychainSwift;
 		};
-		18735DB926F74B9700BDA7BB /* SwiftUIX */ = {
+		1849C1E82748191700A1A09F /* SwiftUIX */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 18735DB826F74B9700BDA7BB /* XCRemoteSwiftPackageReference "SwiftUIX" */;
+			package = 1849C1E72748191700A1A09F /* XCRemoteSwiftPackageReference "SwiftUIX" */;
 			productName = SwiftUIX;
 		};
 /* End XCSwiftPackageProductDependency section */

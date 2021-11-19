@@ -76,7 +76,7 @@ struct StatusView: View {
                         print(packages)
                         self.products = packages
                         //                self.selectedProduct = self.products[0]
-                        if isPassedMoreThan(days: -1, fromDate: firstOpenDate, toDate: Date()) {
+                        if isPassedMoreThan(days: 3, fromDate: firstOpenDate, toDate: Date()) {
                             isTrialExist = false
                         }else {
                             isTrialExist = true
@@ -138,6 +138,7 @@ struct StatusView: View {
                                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
         //                        showLoadingIndicator = false
                                 if error != nil {
+                                    self.isActive = false
                                     Drops.hideCurrent()
                                     Drops.show(Drop(title: error!.localizedDescription, duration: 2.0))
                                 } else {
