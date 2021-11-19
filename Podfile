@@ -1,22 +1,23 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
-target 'Security Manager' do
+target 'Adblock' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for Security Manager
+  # Pods for Adblock
   pod 'Google-Mobile-Ads-SDK'
   pod 'abseil'
   pod 'Purchases', '~> 3.12.3'
   pod 'Introspect'
+#  pod 'ActivityIndicatorView'
 
 end
 
-target 'Security Manager Blocker' do
+target 'Adblock Blocker' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for Security Manager Blocker
+  # Pods for Adblock Blocker
 
 end
