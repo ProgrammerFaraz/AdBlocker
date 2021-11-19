@@ -60,6 +60,20 @@ struct SettingRowWithToggle: View {
             if value != filter.activate {
                 isActivated = false
                 filter.activate = value
+                if value {
+                    BlockManager.shared.activateBlockFilters { error in
+//                        view.isLoading = false
+                        if error != nil {
+                            Drops.show(Drop(title: error!.localizedDescription))
+//                            view.resetState()
+                        } else {
+                            withAnimation() {
+                                isActivated = true
+                            }
+                        }
+                    }
+                }
+                
             }
         })
     }

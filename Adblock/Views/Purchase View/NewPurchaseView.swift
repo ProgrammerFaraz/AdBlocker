@@ -207,12 +207,11 @@ struct NewPurchaseView: View {
             }
             .disabled(self.isDisabled)
             .onAppear() {
-                fetchPackages() {
-                    packages in
-                    print(packages)
-                    self.products = packages
-                    self.selectedProduct = self.products[0]
-                }
+//                fetchPackages() {
+//                    packages in
+//                    print(packages)
+                self.selectedProduct = self.products[0]
+//                }
                 checkIfPurchased()
 //                ProductsStore.shared.initializeProducts({ products in
 //                    self.products = products

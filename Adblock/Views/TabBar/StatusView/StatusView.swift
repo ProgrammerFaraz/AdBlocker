@@ -2,6 +2,7 @@
 import SwiftUI
 import Drops
 import ActivityIndicatorView
+import Purchases
 
 class ActiveSheet {
     static var shared = ActiveSheet()
@@ -24,6 +25,7 @@ struct StatusView: View {
     @State var isNotSubscribedUser: Bool = false
     @State var isTrialExist: Bool? = nil
     @State var trialOverAndNotSubscribed: Bool = false
+    @State var products: [Purchases.Package] = []
 
     @State var showLoadingIndicator = false
     
@@ -60,6 +62,7 @@ struct StatusView: View {
             
 //        }
         .onAppear() {
+            
             if !BlockManager.shared.isFiltersDownloaded() {
 //                self.activeSheet = .downloadFilter
                 ActiveSheet.shared.type = "download"
@@ -68,10 +71,16 @@ struct StatusView: View {
             else {
                 isNotSubscribedUser = !(UserDefaults.standard.bool(forKey: "isBuyed"))
                 if let firstOpenDate = firstOpenDate {
-                    if isPassedMoreThan(days: 3, fromDate: firstOpenDate, toDate: Date()) {
-                        isTrialExist = false
-                    }else {
-                        isTrialExist = true
+                    fetchPackages() {
+                        packages in
+                        print(packages)
+                        self.products = packages
+                        //                self.selectedProduct = self.products[0]
+                        if isPassedMoreThan(days: -1, fromDate: firstOpenDate, toDate: Date()) {
+                            isTrialExist = false
+                        }else {
+                            isTrialExist = true
+                        }
                     }
                 }
                 BlockManager.shared.getActivationState(completion: { result in
@@ -79,9 +88,11 @@ struct StatusView: View {
                     if !result {
                         BlockManager.shared.deactivateFilters { error in
                             if error != nil {
-                                Drops.show(Drop(title: error!.localizedDescription))
+                                Drops.hideCurrent()
+                                Drops.show(Drop(title: error!.localizedDescription, duration: 2.0))
                             } else {
-                                Drops.show(Drop(title: Constants.deactivateSuccessMsg))
+                                Drops.hideCurrent()
+                                Drops.show(Drop(title: Constants.deactivateSuccessMsg, duration: 2.0))
                                 withAnimation() {
                                     isActivated = true
                                 }
@@ -107,9 +118,11 @@ struct StatusView: View {
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
 //                        showLoadingIndicator = false
                         if error != nil {
-                            Drops.show(Drop(title: error!.localizedDescription))
+                            Drops.hideCurrent()
+                            Drops.show(Drop(title: error!.localizedDescription, duration: 2.0))
                         } else {
-                            Drops.show(Drop(title: Constants.deactivateSuccessMsg))
+                            Drops.hideCurrent()
+                            Drops.show(Drop(title: Constants.deactivateSuccessMsg, duration: 2.0))
                             withAnimation() {
                                 isActivated = true
                             }
@@ -125,9 +138,11 @@ struct StatusView: View {
                                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
         //                        showLoadingIndicator = false
                                 if error != nil {
-                                    Drops.show(Drop(title: error!.localizedDescription))
+                                    Drops.hideCurrent()
+                                    Drops.show(Drop(title: error!.localizedDescription, duration: 2.0))
                                 } else {
-                                    Drops.show(Drop(title: Constants.activateSuccessMsg))
+                                    Drops.hideCurrent()
+                                    Drops.show(Drop(title: Constants.activateSuccessMsg, duration: 2.0))
                                     withAnimation() {
                                         isActivated = true
                                     }
@@ -179,7 +194,7 @@ struct StatusView: View {
             if ActiveSheet.shared.type == "download" {
                 WelcomeAndDownloadFiltersView()
             } else if ActiveSheet.shared.type == "purchase" {
-                NewPurchaseView()
+                NewPurchaseView(products: self.products)
             } else if ActiveSheet.shared.type == "hint" {
                 HintView()
             }
@@ -190,6 +205,16 @@ struct StatusView: View {
 //        .sheet(isPresented: $trialOverAndNotSubscribed) {
 //            NewPurchaseView()
 //        }
+    }
+    
+    func fetchPackages(completion: @escaping ([Purchases.Package]) -> Void) {
+        Purchases.shared.offerings { (offerings, error) in
+            guard let offerings = offerings, error == nil else {
+                return
+            }
+            guard let packages = offerings.all.first?.value.availablePackages else { return }
+                 completion(packages)
+        }
     }
     
     private func isPassedMoreThan(days: Int, fromDate date : Date, toDate date2 : Date) -> Bool {

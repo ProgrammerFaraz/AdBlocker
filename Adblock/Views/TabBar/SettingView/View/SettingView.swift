@@ -67,9 +67,11 @@ struct SettingRowWithToggle: View {
                     BlockManager.shared.deactivateFilters { error in
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
                         if error != nil {
-                            Drops.show(Drop(title: error!.localizedDescription))
+                            Drops.hideCurrent()
+                            Drops.show(Drop(title: error!.localizedDescription, duration: 2.0))
                         } else {
-                            Drops.show(Drop(title: Constants.deactivateSuccessMsg))
+                            Drops.hideCurrent()
+                            Drops.show(Drop(title: Constants.deactivateSuccessMsg, duration: 2.0))
                             withAnimation() {
                                 isActivated = true
                             }
@@ -82,9 +84,11 @@ struct SettingRowWithToggle: View {
                             BlockManager.shared.activateFilters { error in
                                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
                                 if error != nil {
-                                    Drops.show(Drop(title: error!.localizedDescription))
+                                    Drops.hideCurrent()
+                                    Drops.show(Drop(title: error!.localizedDescription, duration: 2.0))
                                 } else {
-                                    Drops.show(Drop(title: Constants.activateSuccessMsg))
+                                    Drops.hideCurrent()
+                                    Drops.show(Drop(title: Constants.activateSuccessMsg, duration: 2.0))
                                     withAnimation() {
                                         isActivated = true
                                     }
@@ -173,10 +177,12 @@ struct SettingView: View {
                                             BlockManager.shared.activateFilters { error in
                                                 view.isLoading = false
                                                 if error != nil {
-                                                    Drops.show(Drop(title: error!.localizedDescription))
+                                                    Drops.hideCurrent()
+                                                    Drops.show(Drop(title: error!.localizedDescription, duration: 2.0))
                                                     view.resetState()
                                                 } else {
-                                                    Drops.show(Drop(title: Constants.activateSuccessMsg))
+                                                    Drops.hideCurrent()
+                                                    Drops.show(Drop(title: Constants.activateSuccessMsg, duration: 2.0))
                                                     withAnimation() {
                                                         isActivated = true
                                                     }

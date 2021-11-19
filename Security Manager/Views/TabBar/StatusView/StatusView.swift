@@ -20,29 +20,35 @@ struct StatusView: View {
     @State var isTrialExist: Bool? = nil
     @State var trialOverAndNotSubscribed: Bool = false
     
+    @State var isLoading = false
+    
     let firstOpenDate = UserDefaults.standard.object(forKey: "FirstOpen") as? Date
     
     var body: some View {
-        
-        VStack {
-            if isActive {
-                Image(uiImage: UIImage(named: "logo_gray")!)
-                    .resizable()
-                    .frame(width: 150, height: 180)
-                Text("YOU ARE PROTECTED")
-                    .font(.system(size: 25, weight: .bold, design: .default))
-            }else {
-                Image(uiImage: UIImage(named: "logo")!)
-                    .resizable()
-                    .frame(width: 150, height: 180)
-                Text("YOU ARE NOT PROTECTED")
-                    .font(.system(size: 25, weight: .bold, design: .default))
+        ZStack {
+            if isLoading {
+                
             }
-            Spacer()
-                .frame(height: 50)
-            Toggle("", isOn: $isActive)
-            .toggleStyle(SwitchToggleStyle(tint: .red))
-            .labelsHidden()
+            VStack {
+                if isActive {
+                    Image(uiImage: UIImage(named: "logo_gray")!)
+                        .resizable()
+                        .frame(width: 150, height: 180)
+                    Text("YOU ARE PROTECTED")
+                        .font(.system(size: 25, weight: .bold, design: .default))
+                }else {
+                    Image(uiImage: UIImage(named: "logo")!)
+                        .resizable()
+                        .frame(width: 150, height: 180)
+                    Text("YOU ARE NOT PROTECTED")
+                        .font(.system(size: 25, weight: .bold, design: .default))
+                }
+                Spacer()
+                    .frame(height: 50)
+                Toggle("", isOn: $isActive)
+                .toggleStyle(SwitchToggleStyle(tint: .red))
+                .labelsHidden()
+            }
         }
         .onAppear() {
             isNotSubscribedUser = !(UserDefaults.standard.bool(forKey: "isBuyed"))
