@@ -10,7 +10,7 @@ target 'Adblock' do
   pod 'abseil'
   pod 'Purchases', '~> 3.12.3'
   pod 'Introspect'
-#  pod 'ActivityIndicatorView'
+  pod 'ActivityIndicatorView'
 
 end
 

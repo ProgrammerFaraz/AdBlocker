@@ -30,6 +30,8 @@ struct SettingRowWithToggle: View {
     @State var isActive = false
     let filter: FilterSource
     
+    @Binding var showSheet: Bool
+    
     var body: some View {
         HStack {
             Spacer()
@@ -61,7 +63,9 @@ struct SettingRowWithToggle: View {
                 isActivated = false
                 filter.activate = value
                 if !value {
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": true])
                     BlockManager.shared.deactivateFilters { error in
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
                         if error != nil {
                             Drops.show(Drop(title: error!.localizedDescription))
                         } else {
@@ -72,14 +76,25 @@ struct SettingRowWithToggle: View {
                         }
                     }
                 }else{
-                    BlockManager.shared.activateFilters { error in
-                        if error != nil {
-                            Drops.show(Drop(title: error!.localizedDescription))
-                        } else {
-                            Drops.show(Drop(title: Constants.activateSuccessMsg))
-                            withAnimation() {
-                                isActivated = true
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": true])
+                    BlockManager.shared.getActivationState { value in
+                        if value {
+                            BlockManager.shared.activateFilters { error in
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
+                                if error != nil {
+                                    Drops.show(Drop(title: error!.localizedDescription))
+                                } else {
+                                    Drops.show(Drop(title: Constants.activateSuccessMsg))
+                                    withAnimation() {
+                                        isActivated = true
+                                    }
+                                }
                             }
+                        } else {
+                            self.isActive = false
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
+                            self.showSheet = true
+                            ActiveSheet.shared.type = "hint"
                         }
                     }
                 }
@@ -94,6 +109,9 @@ struct SettingView: View {
     @State var showingHintView = false
     @State var setting = Constants.settingListData
     @State var isActivated = true
+    @State var showSheet = false
+    
+
 //    var setting = SettingListData
 //    @State private var viewModel = SettingViewModel()
     var body: some View {
@@ -118,7 +136,7 @@ struct SettingView: View {
                                 
                             }
                             else {
-                                SettingRowWithToggle(isActivated: $isActivated, filter: item)
+                                SettingRowWithToggle(isActivated: $isActivated, filter: item, showSheet: $showSheet)
                             }
                         }
                     }
@@ -226,11 +244,14 @@ struct SettingView: View {
                 //BlockManager.shared.deactivateFilters { _ in }
             }
         })
-        .sheet(isPresented: $showingDownloadFiltersView) {
-            WelcomeAndDownloadFiltersView()
-        }
-        .sheet(isPresented: $showingHintView) {
-            HintView()
+        .sheet(isPresented: $showSheet) {
+            if ActiveSheet.shared.type == "download" {
+                WelcomeAndDownloadFiltersView()
+            } else if ActiveSheet.shared.type == "purchase" {
+                NewPurchaseView()
+            } else if ActiveSheet.shared.type == "hint" {
+                HintView()
+            }
         }
     }
     

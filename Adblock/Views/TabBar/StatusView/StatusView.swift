@@ -1,7 +1,7 @@
 
 import SwiftUI
 import Drops
-//import ActivityIndicatorView
+import ActivityIndicatorView
 
 class ActiveSheet {
     static var shared = ActiveSheet()
@@ -30,29 +30,34 @@ struct StatusView: View {
     let firstOpenDate = UserDefaults.standard.object(forKey: "FirstOpen") as? Date
     
     var body: some View {
-//        LoadingView(isShowing: .constant(showLoadingIndicator)) {
-            VStack {
-                if isActive {
-                    Image(uiImage: UIImage(named: "logo_gray")!)
-                        .resizable()
-                        .frame(width: 150, height: 180)
-                    Text("YOU ARE PROTECTED")
-                        .font(.system(size: 25, weight: .bold, design: .default))
-                }else {
-                    Image(uiImage: UIImage(named: "logo")!)
-                        .resizable()
-                        .frame(width: 150, height: 180)
-                    Text("YOU ARE NOT PROTECTED")
-                        .font(.system(size: 25, weight: .bold, design: .default))
+//        ZStack {
+//            LoadingView(isShowing: $showLoadingIndicator) {
+                VStack {
+                    if isActive {
+                        Image(uiImage: UIImage(named: "logo")!)
+                            .resizable()
+                            .frame(width: 150, height: 180)
+                        Text("YOU ARE PROTECTED")
+                            .font(.system(size: 25, weight: .bold, design: .default))
+                    }else {
+                        Image(uiImage: UIImage(named: "logo_gray")!)
+                            .resizable()
+                            .frame(width: 150, height: 180)
+                        Text("YOU ARE NOT PROTECTED")
+                            .font(.system(size: 25, weight: .bold, design: .default))
+                    }
+        //            ActivityIndicatorView(isVisible: $showLoadingIndicator, type: .rotatingDots)
+                    Spacer()
+                        .frame(height: 50)
+                    Toggle("", isOn: $isActive)
+                    .toggleStyle(SwitchToggleStyle(tint: .red))
+                    .labelsHidden()
+                    Spacer().frame(height: 110)
                 }
-    //            ActivityIndicatorView(isVisible: $showLoadingIndicator, type: .rotatingDots)
-                Spacer()
-                    .frame(height: 50)
-                Toggle("", isOn: $isActive)
-                .toggleStyle(SwitchToggleStyle(tint: .red))
-                .labelsHidden()
-                Spacer().frame(height: 110)
-            }
+//            }
+//            ActivityIndicatorView(isVisible: $showLoadingIndicator, type: .flickeringDots)
+//                .frame(width: 150, height: 180)
+            
 //        }
         .onAppear() {
             if !BlockManager.shared.isFiltersDownloaded() {
@@ -96,9 +101,11 @@ struct StatusView: View {
                 isActivated = false
                 filter.activate = value
                 if !value {
-                    showLoadingIndicator = true
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": true])
+//                    showLoadingIndicator = true
                     BlockManager.shared.deactivateFilters { error in
-                        showLoadingIndicator = false
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
+//                        showLoadingIndicator = false
                         if error != nil {
                             Drops.show(Drop(title: error!.localizedDescription))
                         } else {
@@ -109,18 +116,31 @@ struct StatusView: View {
                         }
                     }
                 }else{
-                    showLoadingIndicator = true
-                    BlockManager.shared.activateFilters { error in
-                        showLoadingIndicator = false
-                        if error != nil {
-                            Drops.show(Drop(title: error!.localizedDescription))
-                        } else {
-                            Drops.show(Drop(title: Constants.activateSuccessMsg))
-                            withAnimation() {
-                                isActivated = true
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": true])
+//                    showLoadingIndicator = true
+                    BlockManager.shared.getActivationState { value in
+                        print("🔥 \(value)")
+                        if value {
+                            BlockManager.shared.activateFilters { error in
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
+        //                        showLoadingIndicator = false
+                                if error != nil {
+                                    Drops.show(Drop(title: error!.localizedDescription))
+                                } else {
+                                    Drops.show(Drop(title: Constants.activateSuccessMsg))
+                                    withAnimation() {
+                                        isActivated = true
+                                    }
+                                }
                             }
+                        } else {
+                            self.isActive = false
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
+                            self.showSheet = true
+                            ActiveSheet.shared.type = "hint"
                         }
                     }
+                    
                 }
             }
         })
@@ -158,9 +178,10 @@ struct StatusView: View {
         .sheet(isPresented: $showSheet) {
             if ActiveSheet.shared.type == "download" {
                 WelcomeAndDownloadFiltersView()
-            }
-            else if ActiveSheet.shared.type == "purchase" {
+            } else if ActiveSheet.shared.type == "purchase" {
                 NewPurchaseView()
+            } else if ActiveSheet.shared.type == "hint" {
+                HintView()
             }
         }
 //        .sheet(isPresented: $showingHintView) {

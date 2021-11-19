@@ -40,8 +40,8 @@ struct HintView: View {
             Colors.bgColor.ignoresSafeArea()
             VStack {
                 HStack {
-                    Text("Activate Sfari AD Block")
-                        .font(.custom(FontNames.exoSemiBold, size: 22))
+                    Text("Activate Safari Adblock")
+                        .font(.system(size: 25, weight: .bold, design: .default))
                     Spacer()
                 }.padding([.top, .leading, .trailing])
                 Spacer().frame(height: 18)
@@ -50,8 +50,9 @@ struct HintView: View {
                 
                 VStack(alignment: .center) {
                     Spacer()
-                    Text("1 - Open settings\n2 - Open «Safari» settings\n3 - Select content blockers\n4 - Activate «Super Agent»")
+                    Text("1 - Open settings\n2 - Go To Safari Settings\n3 - Select Content Blockers/Extensions\n4 - Activate Adblock")
                         .multilineTextAlignment(.center)
+                        .font(.system(size: 20, weight: .bold, design: .default))
                     Spacer().frame(height: 30)
                     Image("hint")
                         .resizable()

@@ -128,11 +128,11 @@ class BlockManager {
             
             let documentFolder = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: Config.App.appGroupId)
             guard let jsonURL = documentFolder?.appendingPathComponent("blockerList.json") else { return }
-            guard let jsonURL2 = documentFolder?.appendingPathComponent("easylist_content_blocker.json") else {
-                return }
+//            guard let jsonURL2 = documentFolder?.appendingPathComponent("easylist_content_blocker.json") else {
+//                return }
             do {
                 try blockerJson.data(using: .utf8)?.write(to: jsonURL)
-                try blockerJson.data(using: .utf8)?.write(to: jsonURL2)
+//                try blockerJson.data(using: .utf8)?.write(to: jsonURL2)
             } catch {
                 print(error.localizedDescription)
             }

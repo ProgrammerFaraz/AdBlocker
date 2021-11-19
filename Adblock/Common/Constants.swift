@@ -16,6 +16,7 @@ let terms_text = "Premium subscription is required to get access to all wallpape
 
 struct Constants {
     
+    static let showLoaderNotification = "showLoader"
     static let activateSuccessMsg = "Filter activated Successfully"
     static let deactivateSuccessMsg = "Filter deactivated Successfully"
 
