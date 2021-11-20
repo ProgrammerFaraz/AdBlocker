@@ -131,7 +131,7 @@ struct HowToUseView: View {
             if isSubscribedUser {
                 currentPage = 0
             }else {
-                
+                self.showSheet = true
             }
 //            currentPage = 0
         }else {

@@ -65,7 +65,7 @@ struct SelectionButton: View {
 struct NewPurchaseView: View {
     
     @State private var isDisabled : Bool = false
-    @State var products: [Purchases.Package] = []
+    @State var products: [Purchases.Package]?
 //    @State var selectedProduct: SKProduct = SKProduct()
     @State var selectedProduct: Purchases.Package = Purchases.Package()
     @State var showingAlert = false
@@ -161,10 +161,12 @@ struct NewPurchaseView: View {
                     .frame(height: 40)
                 VStack{
 //                    updatePurchasesView()
-                    ForEach(products, id: \.self) { prod in
-                        SelectionButton(planDescText: planDescription, selectedProduct: self.selectedProduct, product: prod) {
-                            selectedProd in
-                            self.selectedProduct = selectedProd
+                    if let products = products {
+                        ForEach(products, id: \.self) { prod in
+                            SelectionButton(planDescText: planDescription, selectedProduct: self.selectedProduct, product: prod) {
+                                selectedProd in
+                                self.selectedProduct = selectedProd
+                            }
                         }
                     }
 //                    ForEach(0..<planItems.count){ index in
@@ -210,7 +212,11 @@ struct NewPurchaseView: View {
 //                fetchPackages() {
 //                    packages in
 //                    print(packages)
-                self.selectedProduct = self.products[0]
+                if let products = self.products {
+                    if let product = products.first {
+                        self.selectedProduct = product
+                    }
+                }
 //                }
                 checkIfPurchased()
 //                ProductsStore.shared.initializeProducts({ products in
