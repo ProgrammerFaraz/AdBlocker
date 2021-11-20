@@ -1,9 +1,14 @@
 
 import SwiftUI
+import Purchases
 
 struct HowToUseView: View {
     
     @State private var currentPage = 0
+    @State var showSheet = false
+    
+    @State var products: [Purchases.Package] = []
+
     @ViewBuilder var buttonText: some View {
         if currentPage == 3 {
             Text("Done")
@@ -77,6 +82,28 @@ struct HowToUseView: View {
             Spacer()
                 .frame(height: 50)
         }
+        .onAppear() {
+            fetchPackages() {
+                packages in
+                print(packages)
+                self.products = packages
+                //                self.selectedProduct = self.products[0]
+                
+            }
+        }
+        .sheet(isPresented: $showSheet) {
+            NewPurchaseView(products: self.products)
+        }
+    }
+    
+    func fetchPackages(completion: @escaping ([Purchases.Package]) -> Void) {
+        Purchases.shared.offerings { (offerings, error) in
+            guard let offerings = offerings, error == nil else {
+                return
+            }
+            guard let packages = offerings.all.first?.value.availablePackages else { return }
+                 completion(packages)
+        }
     }
     
     func containedIndex() -> Text {
@@ -100,7 +127,13 @@ struct HowToUseView: View {
     
     func nextTapped() {
         if currentPage == 3 {
-            currentPage = 0
+            let isSubscribedUser = UserDefaults.standard.bool(forKey: "isBuyed")
+            if isSubscribedUser {
+                currentPage = 0
+            }else {
+                
+            }
+//            currentPage = 0
         }else {
             currentPage += 1
         }

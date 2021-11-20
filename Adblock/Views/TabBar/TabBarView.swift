@@ -10,6 +10,10 @@ struct TabBarView: View {
     @State var isActivated = false
     
     @State var showLoadingIndicator = false
+    
+    @EnvironmentObject private var appData: AppData
+
+    let isSubscribedUser = UserDefaults.standard.bool(forKey: "isBuyed")
     let pub = NotificationCenter.default
         .publisher(for: NSNotification.Name(Constants.showLoaderNotification))
 
@@ -49,6 +53,9 @@ struct TabBarView: View {
                     }.tag(2)
             }
         }
+        .onAppear(perform: {
+            self.selection = isSubscribedUser ? 0 : 1
+        })
         .accentColor(.white)
         .onReceive(pub) { output in
             print("🔥 show loader: \(output.userInfo?["value"] as! Bool)🔥")

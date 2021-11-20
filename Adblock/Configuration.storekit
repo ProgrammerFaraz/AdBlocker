@@ -15,7 +15,7 @@
       "localizations" : [
 
       ],
-      "name" : "sub_group",
+      "name" : "AdBlocker",
       "subscriptions" : [
         {
           "adHocOffers" : [
@@ -25,7 +25,11 @@
           "familyShareable" : false,
           "groupNumber" : 1,
           "internalID" : "E07078A9",
-          "introductoryOffer" : null,
+          "introductoryOffer" : {
+            "internalID" : "98C105F6",
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P3D"
+          },
           "localizations" : [
             {
               "description" : "MonthlySubscription",
@@ -47,7 +51,11 @@
           "familyShareable" : false,
           "groupNumber" : 1,
           "internalID" : "95BAD7E0",
-          "introductoryOffer" : null,
+          "introductoryOffer" : {
+            "internalID" : "1DA67B45",
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P3D"
+          },
           "localizations" : [
             {
               "description" : "YearlySubscription",

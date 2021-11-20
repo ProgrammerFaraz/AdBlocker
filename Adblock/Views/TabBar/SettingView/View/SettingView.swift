@@ -1,5 +1,6 @@
 import SwiftUI
 import Drops
+import StoreKit
 
 struct SettingRow: View {
     var setting: FilterSource
@@ -115,7 +116,8 @@ struct SettingView: View {
     @State var setting = Constants.settingListData
     @State var isActivated = true
     @State var showSheet = false
-    
+    @State var showRateUs = false
+//    @EnvironmentObject private var appData: AppData
 
 //    var setting = SettingListData
 //    @State private var viewModel = SettingViewModel()
@@ -127,18 +129,60 @@ struct SettingView: View {
                     Section(header: Text(setting.header)) {
                         ForEach(setting.settingData) { item in
                             if item.whiteBlackList{
-                                if item.name.contains("White List"){
+                                switch item.name {
+                                case "White List":
                                     NavigationLink(destination: BlackWhiteListView(type: .whiteList)) {
                                         SettingRow(setting: item)
                                     }
                                     .buttonStyle(PlainButtonStyle())
-                                }else {
+                                case "Black List":
                                     NavigationLink(destination: BlackWhiteListView(type: .blackList)) {
                                         SettingRow(setting: item)
                                     }
                                     .buttonStyle(PlainButtonStyle())
+                                case "Rate Us":
+                                    NavigationLink(destination: WebViewPage(request: nil)) {
+                                        SettingRow(setting: item)
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                case "Privacy Policy":
+                                    NavigationLink(destination: WebViewPage(request: URLRequest(url: URL(string: "https://gsmith.app/privacy-policy")!))) {
+                                        SettingRow(setting: item)
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                default:
+                                    NavigationLink(destination: WebViewPage(request: URLRequest(url: URL(string: "https://gsmith.app/terms-of-use")!))) {
+                                        SettingRow(setting: item)
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
                                 }
-                                
+                                //                                if item.name.contains("White List"){
+                                //                                    NavigationLink(destination: BlackWhiteListView(type: .whiteList)) {
+                                //                                        SettingRow(setting: item)
+                                //                                    }
+                                //                                    .buttonStyle(PlainButtonStyle())
+                                //                                }else if item.name.contains("Black List"){
+                                //                                    NavigationLink(destination: BlackWhiteListView(type: .blackList)) {
+                                //                                        SettingRow(setting: item)
+                                //                                    }
+                                //                                    .buttonStyle(PlainButtonStyle())
+                                //                                }
+                                //                                 if item.name.contains("Rate Us") {
+                                //                                    NavigationLink(destination: WebViewPage(request: nil)) {
+                                //                                        SettingRow(setting: item)
+                                //                                    }
+                                //                                    .buttonStyle(PlainButtonStyle())
+                                //                                } else if item.name.contain("Privacy Policy") {
+                                //                                    NavigationLink(destination: WebViewPage(request: URLRequest(url: URL(string: "https://gsmith.app/privacy-policy")!))) {
+                                //                                        SettingRow(setting: item)
+                                //                                    }
+                                //                                    .buttonStyle(PlainButtonStyle())
+                                //                                } else{
+                                //                                    NavigationLink(destination: WebViewPage(request: URLRequest(url: URL(string: "https://gsmith.app/terms-of-use")!))) {
+                                //                                        SettingRow(setting: item)
+                                //                                    }
+                                //                                    .buttonStyle(PlainButtonStyle())
+                                //                                }
                             }
                             else {
                                 SettingRowWithToggle(isActivated: $isActivated, filter: item, showSheet: $showSheet)
@@ -261,6 +305,21 @@ struct SettingView: View {
             }
         }
     }
+    
+//    func rateApp() {
+//
+//        if let windowScene = appData.window?.windowScene {
+//            SKStoreReviewController.requestReview(in: windowScene)
+//        }
+////        if let url = URL(string: "itms-apps://itunes.apple.com/app/" + "1586653169") {
+////            if #available(iOS 10, *) {
+////                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+////
+////            } else {
+////                UIApplication.shared.openURL(url)
+////            }
+////        }
+//    }
     
 }
 

@@ -37,9 +37,16 @@ struct BlackWhiteListView: View {
         NavigationView {
             ZStack {
                 List{
-                    Section(header: Text(setupSectionHeaderTitle(type: self.type)).foregroundColor(.gray).font(.system(size: 17, weight: .semibold, design: .rounded))) {
-                        Text("example.com")
+                    Section(header: Text("add domain").foregroundColor(.gray).font(.system(size: 17, weight: .semibold, design: .rounded))) {
+                        TextField("domain.com", text: $domainText)
                             .listRowBackground(Color.white.opacity(0.02))
+                            .disableAutocorrection(true)
+                            .autocapitalization(.none)
+                    }
+                    if !(domains.isEmpty) {
+                    Section(header: Text(setupSectionHeaderTitle(type: self.type)).foregroundColor(.gray).font(.system(size: 17, weight: .semibold, design: .rounded))) {
+//                        Text("example.com")
+//                            .listRowBackground(Color.white.opacity(0.02))
                         ForEach(domains, id: \.self) { domain in
                             Text(domain)
                                 .listRowBackground(Color.white.opacity(0.02))
@@ -48,12 +55,7 @@ struct BlackWhiteListView: View {
                             domains.remove(atOffsets: index)
                         })
                     }
-                    Section(header: Text("add domain").foregroundColor(.gray).font(.system(size: 17, weight: .semibold, design: .rounded))) {
-                        TextField("domain.com", text: $domainText)
-                            .listRowBackground(Color.white.opacity(0.02))
-                            .disableAutocorrection(true)
-                            .autocapitalization(.none)
-                    }
+                }
                     Button(action: {
                         if domainText == "" { return }
                         if !domainText.contains(".") {

@@ -69,6 +69,8 @@
 		0DF3495626DE5C8800566AD7 /* WelcomeAndDownloadFiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF3495526DE5C8800566AD7 /* WelcomeAndDownloadFiltersView.swift */; };
 		0DF3495826DE67EE00566AD7 /* HintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF3495726DE67EE00566AD7 /* HintView.swift */; };
 		0DF3495A26DE7C3D00566AD7 /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF3495926DE7C3D00566AD7 /* SlideView.swift */; };
+		1800EB5B274901EC006009C2 /* HostingWindowKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800EB5A274901EC006009C2 /* HostingWindowKey.swift */; };
+		1800EB64274908AC006009C2 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800EB63274908AC006009C2 /* WebView.swift */; };
 		1810D5C4270B895B009759E8 /* PagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810D5C3270B895B009759E8 /* PagerView.swift */; };
 		1810D5C9270B8A80009759E8 /* HowToUseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810D5C8270B8A80009759E8 /* HowToUseView.swift */; };
 		181634022720AF310075B698 /* NewPurchaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181634012720AF310075B698 /* NewPurchaseView.swift */; };
@@ -162,7 +164,6 @@
 		0D8FE57A26E22AE9000EF3A4 /* PurchaseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseButton.swift; sourceTree = "<group>"; };
 		0D8FE57D26E22AE9000EF3A4 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		0D8FE57E26E22AE9000EF3A4 /* ProductsStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsStore.swift; sourceTree = "<group>"; };
-		0D8FE58F26E22C6E000EF3A4 /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
 		0D9B29DC26D5569C00E1651A /* EditCreditCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCreditCardView.swift; sourceTree = "<group>"; };
 		0DBB07007A2A7950551380D2 /* Pods_Adblock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Adblock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DC7899F26CAE66D007310DE /* Adblock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Adblock.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -187,6 +188,8 @@
 		0DF3495726DE67EE00566AD7 /* HintView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HintView.swift; sourceTree = "<group>"; };
 		0DF3495926DE7C3D00566AD7 /* SlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideView.swift; sourceTree = "<group>"; };
 		117C04F17EBF2D480364E274 /* Pods-Adblock.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Adblock.debug.xcconfig"; path = "Target Support Files/Pods-Adblock/Pods-Adblock.debug.xcconfig"; sourceTree = "<group>"; };
+		1800EB5A274901EC006009C2 /* HostingWindowKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingWindowKey.swift; sourceTree = "<group>"; };
+		1800EB63274908AC006009C2 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		1810D5C3270B895B009759E8 /* PagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerView.swift; sourceTree = "<group>"; };
 		1810D5C8270B8A80009759E8 /* HowToUseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToUseView.swift; sourceTree = "<group>"; };
 		181634012720AF310075B698 /* NewPurchaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPurchaseView.swift; sourceTree = "<group>"; };
@@ -196,6 +199,7 @@
 		185E478C2711AAC400AE3F66 /* BlackWhiteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackWhiteListView.swift; sourceTree = "<group>"; };
 		185E47902711AC9200AE3F66 /* BlackWhiteListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackWhiteListViewModel.swift; sourceTree = "<group>"; };
 		185E47952711D13000AE3F66 /* AddURLView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddURLView.swift; sourceTree = "<group>"; };
+		18A5C91D274939380011D17C /* Configuration.storekit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
 		18DA841F27457DBB009D8ACA /* JsonExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonExtractor.swift; sourceTree = "<group>"; };
 		18DA842A274583EF009D8ACA /* ELBlockerEntry+Serialize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ELBlockerEntry+Serialize.swift"; sourceTree = "<group>"; };
 		18DA842B274583EF009D8ACA /* ELOptionParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ELOptionParser.swift; sourceTree = "<group>"; };
@@ -281,6 +285,7 @@
 		0D808BF526D40D08001FBEEC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1800EB602749083D006009C2 /* PrivacyPolicy */,
 				181633F92720AEA20075B698 /* Purchase View */,
 				18F2F7C52707880D000D743B /* TabBar */,
 				0D269B3526E0C74C0099A3DB /* LockView */,
@@ -343,12 +348,11 @@
 		0DC789A126CAE66D007310DE /* Adblock */ = {
 			isa = PBXGroup;
 			children = (
+				1800EB59274901CD006009C2 /* App Life Cycle */,
 				188953682744300100981A8B /* Common */,
 				182EC6272714CBFB00191980 /* Helper */,
 				0D269B1126DF97E90099A3DB /* Security Manager.entitlements */,
-				0D8FE58F26E22C6E000EF3A4 /* Configuration.storekit */,
-				0DC789A226CAE66D007310DE /* AppDelegate.swift */,
-				0DC789A426CAE66D007310DE /* SceneDelegate.swift */,
+				18A5C91D274939380011D17C /* Configuration.storekit */,
 				18DA8429274583EF009D8ACA /* EasyListParser */,
 				0D269B2826E0333C0099A3DB /* Model */,
 				0DC789CA26CAF677007310DE /* PasswordManager.swift */,
@@ -377,6 +381,24 @@
 				0DC789AB26CAE66E007310DE /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		1800EB59274901CD006009C2 /* App Life Cycle */ = {
+			isa = PBXGroup;
+			children = (
+				0DC789A226CAE66D007310DE /* AppDelegate.swift */,
+				0DC789A426CAE66D007310DE /* SceneDelegate.swift */,
+				1800EB5A274901EC006009C2 /* HostingWindowKey.swift */,
+			);
+			path = "App Life Cycle";
+			sourceTree = "<group>";
+		};
+		1800EB602749083D006009C2 /* PrivacyPolicy */ = {
+			isa = PBXGroup;
+			children = (
+				1800EB63274908AC006009C2 /* WebView.swift */,
+			);
+			path = PrivacyPolicy;
 			sourceTree = "<group>";
 		};
 		1810D5C2270B893D009759E8 /* PagerView */ = {
@@ -763,6 +785,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1800EB64274908AC006009C2 /* WebView.swift in Sources */,
 				182EC6242714C14E00191980 /* SettingViewModel.swift in Sources */,
 				182EC6292714CC0E00191980 /* UserDefaultsManager.swift in Sources */,
 				0D269B3226E0333C0099A3DB /* PersistenceController.swift in Sources */,
@@ -785,6 +808,7 @@
 				0D19020126DD87A900C911AA /* Note.swift in Sources */,
 				0D8FE58726E22AE9000EF3A4 /* PurchaseButton.swift in Sources */,
 				0D19020026DD87A900C911AA /* EditNoteView.swift in Sources */,
+				1800EB5B274901EC006009C2 /* HostingWindowKey.swift in Sources */,
 				0D269B4126E0C74C0099A3DB /* SetPasscodeView.swift in Sources */,
 				0D269B2626E032E50099A3DB /* BookmarksViewRow.swift in Sources */,
 				0DC789DB26CB107B007310DE /* PasswordStrenghtView.swift in Sources */,
@@ -867,7 +891,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Security Manager Blocker/Security Manager Blocker.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = 3PX9M5243D;
 				INFOPLIST_FILE = "Security Manager Blocker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -894,7 +918,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Security Manager Blocker/Security Manager Blocker.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = 3PX9M5243D;
 				INFOPLIST_FILE = "Security Manager Blocker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1041,7 +1065,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Adblock/Security Manager.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"Adblock/Preview Content\"";
 				DEVELOPMENT_TEAM = 3PX9M5243D;
 				ENABLE_PREVIEWS = YES;
@@ -1070,7 +1094,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Adblock/Security Manager.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"Adblock/Preview Content\"";
 				DEVELOPMENT_TEAM = 3PX9M5243D;
 				ENABLE_PREVIEWS = YES;

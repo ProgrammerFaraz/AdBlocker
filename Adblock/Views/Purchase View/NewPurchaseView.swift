@@ -264,6 +264,7 @@ struct NewPurchaseView: View {
                 return
             }
             UserDefaults.standard.set(true, forKey: "isBuyed")
+            UserDefaults.standard.set(Date(), forKey: "TrialStarted")
             self.dismiss()
             print(transaction.transactionState)
             print(info.entitlements)

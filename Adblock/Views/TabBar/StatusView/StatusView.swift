@@ -29,7 +29,7 @@ struct StatusView: View {
 
     @State var showLoadingIndicator = false
     
-    let firstOpenDate = UserDefaults.standard.object(forKey: "FirstOpen") as? Date
+    let trialStartedDate = UserDefaults.standard.object(forKey: "TrialStarted") as? Date
     
     var body: some View {
 //        ZStack {
@@ -39,13 +39,13 @@ struct StatusView: View {
                         Image(uiImage: UIImage(named: "logo")!)
                             .resizable()
                             .frame(width: 150, height: 180)
-                        Text("YOU ARE PROTECTED")
+                        Text("You are protected")
                             .font(.system(size: 25, weight: .bold, design: .default))
                     }else {
                         Image(uiImage: UIImage(named: "logo_gray")!)
                             .resizable()
                             .frame(width: 150, height: 180)
-                        Text("YOU ARE NOT PROTECTED")
+                        Text("You are not protected")
                             .font(.system(size: 25, weight: .bold, design: .default))
                     }
         //            ActivityIndicatorView(isVisible: $showLoadingIndicator, type: .rotatingDots)
@@ -61,52 +61,75 @@ struct StatusView: View {
 //                .frame(width: 150, height: 180)
             
 //        }
-        .onAppear() {
-            
-            if !BlockManager.shared.isFiltersDownloaded() {
-//                self.activeSheet = .downloadFilter
-                ActiveSheet.shared.type = "download"
-                self.showSheet = true
-            }
-            else {
-                isNotSubscribedUser = !(UserDefaults.standard.bool(forKey: "isBuyed"))
-                if let firstOpenDate = firstOpenDate {
+                .onAppear() {
+                    
+                    
+                    //            else {
+                    isNotSubscribedUser = !(UserDefaults.standard.bool(forKey: "isBuyed"))
+                    getPurchaseInfo() { purchaserInfo in
+                        //                print(purchaserInfo?.activeSubscriptions)
+                        if let subscribedUser = purchaserInfo?.entitlements.active["Premium"]?.isActive {
+                            
+                            isNotSubscribedUser = !(subscribedUser)
+                            if let trialStartedDate = trialStartedDate {
+                                //                                if purchaserInfo?.entitlements.active["Premium"]?.periodType == .trial {
+                                if isPassedMoreThan(days: 3, fromDate: trialStartedDate, toDate: Date()) {
+                                    isTrialExist = false
+                                }else {
+                                    isTrialExist = true
+                                }
+                                //                                }else {
+                                //                                    isTrialExist = true
+                                //                                }
+                            }else {
+                                isTrialExist = false
+                            }
+                            //
+                        }
+                    }
+                    //                if let trialStartedDate = trialStartedDate {
                     fetchPackages() {
                         packages in
                         print(packages)
                         self.products = packages
                         //                self.selectedProduct = self.products[0]
-                        if isPassedMoreThan(days: 3, fromDate: firstOpenDate, toDate: Date()) {
-                            isTrialExist = false
-                        }else {
-                            isTrialExist = true
-                        }
+                        
                     }
-                }
-                BlockManager.shared.getActivationState(completion: { result in
-                    isActivated = result
-                    if !result {
-                        BlockManager.shared.deactivateFilters { error in
-                            if error != nil {
-                                Drops.hideCurrent()
-                                Drops.show(Drop(title: error!.localizedDescription, duration: 2.0))
-                            } else {
-                                Drops.hideCurrent()
-                                Drops.show(Drop(title: Constants.deactivateSuccessMsg, duration: 2.0))
-                                withAnimation() {
-                                    isActivated = true
+                    //                }
+                    BlockManager.shared.getActivationState(completion: { result in
+                        isActivated = result
+                        if !result {
+                            BlockManager.shared.deactivateFilters { error in
+                                if error != nil {
+                                    Drops.hideCurrent()
+                                    Drops.show(Drop(title: error!.localizedDescription, duration: 2.0))
+                                } else {
+                                    Drops.hideCurrent()
+                                    Drops.show(Drop(title: Constants.deactivateSuccessMsg, duration: 2.0))
+                                    withAnimation() {
+                                        isActivated = true
+                                    }
                                 }
                             }
                         }
-                    }
-                    if !result {
-                        if !BlockManager.shared.isExtensionActive {
-                            showingHintView = true
+                        if !result {
+                            if !BlockManager.shared.isExtensionActive {
+                                showingHintView = true
+                            }
                         }
+                    })
+                    //            }
+                    if !BlockManager.shared.isFiltersDownloaded() {
+                        //                self.activeSheet = .downloadFilter
+                        ActiveSheet.shared.type = "download"
+                        self.showSheet = true
                     }
-                })
-            }
-        }
+                    if isActivated {
+                        isActive = filter.activate
+                    } else {
+                        isActive = false
+                    }
+                }
         .onChange(of: isActive, perform: { value in
             if value != filter.activate {
                 isActivated = false
@@ -215,6 +238,17 @@ struct StatusView: View {
             }
             guard let packages = offerings.all.first?.value.availablePackages else { return }
                  completion(packages)
+        }
+    }
+    
+    func getPurchaseInfo(completion: @escaping (Purchases.PurchaserInfo?)->()) {
+        Purchases.shared.purchaserInfo { (purchaserInfo, error) in
+            // access latest purchaserInfo
+            if let purchaserInfo = purchaserInfo {
+                completion(purchaserInfo)
+            }else {
+                completion(nil)
+            }
         }
     }
     
