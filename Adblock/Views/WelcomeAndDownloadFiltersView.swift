@@ -7,11 +7,13 @@
 
 import SwiftUI
 import Drops
+import Purchases
+import StoreKit
 
 struct WelcomeAndDownloadFiltersView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
+
     let filters = Constants.filtersSources.filter { (filter) -> Bool in
         filter.url != ""
     }
@@ -19,38 +21,53 @@ struct WelcomeAndDownloadFiltersView: View {
     @State var downloading = false
     @State var filter: FilterSource?
     @State var step = 0
-    
+    @State var showSheet = false
+    @State var products: [Purchases.Package]?
+
     func mainAction() {
-        print(BlockManager.shared.isFiltersDownloaded())
-        if !downloaded {
-            downloading = true
-            DispatchQueue.global().async {
-                for filter in self.filters {
-                    DispatchQueue.main.async {
-                        withAnimation() {
-                            self.step += 1
-                            self.filter = filter
+        let isSubscribedUser = UserDefaults.standard.bool(forKey: "isBuyed")
+        if isSubscribedUser {
+            BlockManager.shared.getActivationState { (value) in
+                if !(value) {
+                    ActiveSheet.shared.type = "hint"
+                    self.showSheet = true
+                } else {
+                    print(BlockManager.shared.isFiltersDownloaded())
+                    if !downloaded {
+                        downloading = true
+                        DispatchQueue.global().async {
+                            for filter in self.filters {
+                                DispatchQueue.main.async {
+                                    withAnimation() {
+                                        self.step += 1
+                                        self.filter = filter
+                                    }
+                                }
+                                let semaphore = DispatchSemaphore(value: 0)
+                                filter.updateList() { error in
+                                    if error == nil { semaphore.signal() } else {
+                                        Drops().show(Drop(title: error?.localizedDescription ?? ""))
+                                        semaphore.signal()
+                                    }
+                                }
+                                semaphore.wait()
+                                sleep(1)
+                            }
+                            DispatchQueue.main.async {
+                                self.finishDownload()
+                            }
                         }
+                    } else {
+                        presentationMode.dismiss()
                     }
-                    let semaphore = DispatchSemaphore(value: 0)
-                    filter.updateList() { error in
-                        if error == nil { semaphore.signal() } else {
-                            Drops().show(Drop(title: error?.localizedDescription ?? ""))
-                            semaphore.signal()
-                        }
-                    }
-                    semaphore.wait()
-                    sleep(1)
-                }
-                DispatchQueue.main.async {
-                    self.finishDownload()
                 }
             }
         } else {
-            presentationMode.dismiss()
+            ActiveSheet.shared.type = "purchase"
+            self.showSheet = true
         }
+        
     }
-    
     
     func finishDownload() {
         downloaded = true
@@ -125,17 +142,27 @@ struct WelcomeAndDownloadFiltersView: View {
                 }.padding()
                 
             }
+            .sheet(isPresented: $showSheet) {
+                if ActiveSheet.shared.type == "download" {
+                    WelcomeAndDownloadFiltersView(products: self.products)
+                } else if ActiveSheet.shared.type == "purchase" {
+                    NewPurchaseView(products: self.products)
+                } else if ActiveSheet.shared.type == "hint" {
+                    HintView()
+                }
+            }
             .foregroundColor(.white)
         }
         .font(.system(size: 18, weight: .regular, design: .rounded))
+        
     }
 }
 
-struct WelcomeAndDownloadFiltersView_Previews: PreviewProvider {
-    static var previews: some View {
-        WelcomeAndDownloadFiltersView()
-    }
-}
+//struct WelcomeAndDownloadFiltersView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        WelcomeAndDownloadFiltersView()
+//    }
+//}
 
 
 struct SegmentedProgressView: View {

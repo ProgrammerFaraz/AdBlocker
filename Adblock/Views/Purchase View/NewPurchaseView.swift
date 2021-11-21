@@ -85,170 +85,227 @@ struct NewPurchaseView: View {
             .foregroundColor(Color.white)
             .padding([.leading, .trailing], 50)
     }
+    @ViewBuilder var restoreText: some View {
+        Text("Restore Purchase")
+            .underline()
+            .frame(minWidth: 0, maxWidth: .infinity)
+            .frame(height: 30)
+            .font(.system(size: 14, weight: .medium, design: .default))
+            .foregroundColor(Color.gray)
+    }
+    @State var presentingModal = false
+    @State var showLoadingIndicator = false
     let dg = DragGesture()
+    let pub = NotificationCenter.default
+        .publisher(for: NSNotification.Name(Constants.showLoaderInPurchaseNotification))
 
     private func dismiss() {
         self.presentationMode.wrappedValue.dismiss()
     }
     
     var body: some View {
-        ZStack {
-            Image("purchaseViewBG")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-            VStack(){
-                Spacer()
-                    .frame(height: 50)
-                HStack {
+        LoadingView(isShowing: $showLoadingIndicator) {
+            ZStack {
+                Image("purchaseViewBG")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                VStack(){
                     Spacer()
-                    Button(action: {
-                        restorePurchases()
-//                            dismiss()
-                    }) {
-                        Image("white_cross")
-                            .resizable()
-                            .frame(CGSize(width: 20, height: 20))
-                    }
-                }
-                Text("Protect your Device")
-                    .font(.system(size: 25, weight: .bold, design: .default))
-                Spacer()
-                    .frame(height: 25)
-                VStack {
-                    HStack{
-                        Text("You will get")
-                            .font(.system(size: 18, weight: .bold, design: .default))
+                        .frame(height: 50)
+                    HStack {
                         Spacer()
-                    }
-                    HStack{
-                        Text("Advanced Adblocker")
-                        Spacer()
-                        ZStack{
-                            Image("white_circle_filled")
+                        Button(action: {
+//                            restorePurchases()
+                            dismiss()
+                            //                            dismiss()
+                        }) {
+                            Image("white_cross")
                                 .resizable()
                                 .frame(CGSize(width: 20, height: 20))
                         }
                     }
-                    HStack{
-                        Text("Control Privacy & Stop Pops")
-                        Spacer()
-                        ZStack{
-                            Image("white_circle_filled")
-                                .resizable()
-                                .frame(CGSize(width: 20, height: 20))
+                    Text("Protect your Device")
+                        .font(.system(size: 25, weight: .bold, design: .default))
+                    Spacer()
+                        .frame(height: 25)
+                    VStack {
+                        HStack{
+                            Text("You will get")
+                                .font(.system(size: 18, weight: .bold, design: .default))
+                            Spacer()
                         }
-                    }
-                    HStack{
-                        Text("Accelerate Your Device")
-                        Spacer()
-                        ZStack{
-                            Image("white_circle_filled")
-                                .resizable()
-                                .frame(CGSize(width: 20, height: 20))
+                        HStack{
+                            Text("Advanced Adblocker")
+                            Spacer()
+                            ZStack{
+                                Image("white_circle_filled")
+                                    .resizable()
+                                    .frame(CGSize(width: 20, height: 20))
+                            }
                         }
-                    }
-                    HStack{
-                        Text("Save Battery & Mobile Data")
-                        Spacer()
-                        ZStack{
-                            Image("white_circle_filled")
-                                .resizable()
-                                .frame(CGSize(width: 20, height: 20))
+                        HStack{
+                            Text("Control Privacy & Stop Pops")
+                            Spacer()
+                            ZStack{
+                                Image("white_circle_filled")
+                                    .resizable()
+                                    .frame(CGSize(width: 20, height: 20))
+                            }
                         }
-                    }
-                }
-                Spacer()
-                    .frame(height: 40)
-                VStack{
-//                    updatePurchasesView()
-                    if let products = products {
-                        ForEach(products, id: \.self) { prod in
-                            SelectionButton(planDescText: planDescription, selectedProduct: self.selectedProduct, product: prod) {
-                                selectedProd in
-                                self.selectedProduct = selectedProd
+                        HStack{
+                            Text("Accelerate Your Device")
+                            Spacer()
+                            ZStack{
+                                Image("white_circle_filled")
+                                    .resizable()
+                                    .frame(CGSize(width: 20, height: 20))
+                            }
+                        }
+                        HStack{
+                            Text("Save Battery & Mobile Data")
+                            Spacer()
+                            ZStack{
+                                Image("white_circle_filled")
+                                    .resizable()
+                                    .frame(CGSize(width: 20, height: 20))
                             }
                         }
                     }
-//                    ForEach(0..<planItems.count){ index in
-//                        SelectionButton(priceText: planItems[index], planDescText: planDescription[index], selectedPrice: self.selectedPlan) { (str) in
-//                            print("🔥🔥 \(str)")
-//                            self.selectedPlan = str
-//                        }
-//                    }
-                }
-//                HStack{
-//                    ForEach(products, id: \.self) { prod in
-//                        PurchaseButton(block: {
-//                            self.purchaseProduct(skproduct: prod)
-//                        }, product: prod).disabled(IAPManager.shared.isActive(product: prod))
-//                    }
-//                }
-                VStack(spacing: 20){
                     Spacer()
-                    Text("Do you want to activate?")
-                        .font(.system(size: 18, weight: .regular, design: .default))
-                    Button(action: {
-                        purchase(package: selectedProduct)
-//                        self.purchaseProduct(skproduct: self.selectedProduct)
-                    }) {
-                        buttonText
+                        .frame(height: 40)
+                    VStack{
+                        //                    updatePurchasesView()
+                        if let products = products {
+                            ForEach(products, id: \.self) { prod in
+                                SelectionButton(planDescText: planDescription, selectedProduct: self.selectedProduct, product: prod) {
+                                    selectedProd in
+                                    self.selectedProduct = selectedProd
+                                }
+                            }
+                        }
+                        //                    ForEach(0..<planItems.count){ index in
+                        //                        SelectionButton(priceText: planItems[index], planDescText: planDescription[index], selectedPrice: self.selectedPlan) { (str) in
+                        //                            print("🔥🔥 \(str)")
+                        //                            self.selectedPlan = str
+                        //                        }
+                        //                    }
                     }
-                    Text("By continuing you accept our Terms of Use and Privacy Policy")
-                        .minimumScaleFactor(0.05)
-                        .multilineTextAlignment(.center)
-                        .font(.system(size: 16, weight: .regular, design: .default))
+                    //                HStack{
+                    //                    ForEach(products, id: \.self) { prod in
+                    //                        PurchaseButton(block: {
+                    //                            self.purchaseProduct(skproduct: prod)
+                    //                        }, product: prod).disabled(IAPManager.shared.isActive(product: prod))
+                    //                    }
+                    //                }
+                    VStack(spacing: 20){
+                        Spacer()
+                        Text("Do you want to activate?")
+                            .font(.system(size: 18, weight: .regular, design: .default))
+                        Button(action: {
+                            purchase(package: selectedProduct)
+                            //                        self.purchaseProduct(skproduct: self.selectedProduct)
+                        }) {
+                            buttonText
+                        }
+                        VStack{
+                            Text("By continuing you accept our:")
+                                .font(.system(size: 16, weight: .regular, design: .default))
+                                .foregroundColor(.gray)
+                            HStack{
+                                Button(action: {
+                                    self.presentingModal = true
+                                }) {
+                                    Text("Terms of Use")
+                                        .font(.system(size: 16, weight: .regular, design: .default))
+                                        .foregroundColor(.blue)
+                                        .underline()
+                                }
+                                .sheet(isPresented: $presentingModal) { WebViewPage(request: URLRequest(url: URL(string: "https://gsmith.app/terms-of-use")!)) }
+                                Text(" and ")
+                                    .font(.system(size: 16, weight: .regular, design: .default))
+                                    .foregroundColor(.gray)
+                                Button(action: {
+                                    self.presentingModal = true
+                                }) {
+                                    Text("Privacy Policy")
+                                        .font(.system(size: 16, weight: .regular, design: .default))
+                                        .foregroundColor(.blue)
+                                        .underline()
+                                }
+                                .sheet(isPresented: $presentingModal) { WebViewPage(request: URLRequest(url: URL(string: "https://gsmith.app/privacy-policy")!)) }
+                            }
+                        }
+//                        .minimumScaleFactor(0.05)
+//                        .font(.system(size: 16, weight: .regular, design: .default))
                         .padding([.leading, .trailing], 50)
-                }
-                
-                Spacer()
-                    .frame(height: 25)
-            }
-            .padding([.leading, .trailing], 25)
-            .introspectViewController {
-                $0.isModalInPresentation = true
-            }
-            .disabled(self.isDisabled)
-            .onAppear() {
-//                fetchPackages() {
-//                    packages in
-//                    print(packages)
-                if let products = self.products {
-                    if let product = products.first {
-                        self.selectedProduct = product
+//                        WebViewPage(request: URLRequest(url: URL(string: "https://gsmith.app/privacy-policy")!))
+//                        Text("By continuing you accept our Terms of Use and Privacy Policy")
+//                            .minimumScaleFactor(0.05)
+//                            .multilineTextAlignment(.center)
+//                            .font(.system(size: 16, weight: .regular, design: .default))
+//                            .padding([.leading, .trailing], 50)
+                        Button(action: {
+                            restorePurchases()
+                        }) {
+                            restoreText
+                        }
                     }
+                    
+                    Spacer()
+                        .frame(height: 25)
                 }
-//                }
-                checkIfPurchased()
-//                ProductsStore.shared.initializeProducts({ products in
-//                    self.products = products
-//                    self.selectedProduct = self.products[0]
-//                    print(products)
-//                })
-            }
-            .alert(isPresented: $showingAlert, content: {
-                Alert(title: Text(""), message: Text(alertMsg), dismissButton: .default(Text("Ok")) {
-                    print("Alert shown")
+                .onReceive(pub) { output in
+                    print("🔥 show loader: \(output.userInfo?["value"] as! Bool)🔥")
+                    self.showLoadingIndicator = output.userInfo?["value"] as! Bool
+                }
+                .padding([.leading, .trailing], 25)
+                .introspectViewController {
+                    $0.isModalInPresentation = true
+                }
+                .onAppear() {
+                    if let products = self.products {
+                        if let product = products.first {
+                            self.selectedProduct = product
+                        }
+                    }
+//                    checkIfPurchased() // Was causing purchase view to open and close in 1-2 seconds automatically
+                }
+                .alert(isPresented: $showingAlert, content: {
+                    Alert(title: Text(""), message: Text(alertMsg), dismissButton: .default(Text("Ok")) {
+                        print("Alert shown")
+                    })
                 })
-            })
-            
+                
+            }
         }
     }
     
     //MARK: - Actions
     
-    func restorePurchases(){
-        
-        IAPManager.shared.restorePurchases(success: {
-            self.isDisabled = false
-            ProductsStore.shared.handleUpdateStore()
+    func restorePurchases() {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderInPurchaseNotification), object: nil, userInfo: ["value": true])
+        Purchases.shared.restoreTransactions { (purchaserInfo, error) in
+            guard let purchaserInfo = purchaserInfo, error == nil else {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderInPurchaseNotification), object: nil, userInfo: ["value": false])
+                self.showingAlert = true
+                self.alertMsg = error?.localizedDescription ?? ""
+                return
+            }
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderInPurchaseNotification), object: nil, userInfo: ["value": false])
             UserDefaults.standard.set(true, forKey: "isBuyed")
             self.dismiss()
-            
-        }) { (error) in
-            self.isDisabled = false
-            ProductsStore.shared.handleUpdateStore()
-            
         }
+//        IAPManager.shared.restorePurchases(success: {
+//            self.isDisabled = false
+//            ProductsStore.shared.handleUpdateStore()
+//            UserDefaults.standard.set(true, forKey: "isBuyed")
+//            self.dismiss()
+//
+//        }) { (error) in
+//            self.isDisabled = false
+//            ProductsStore.shared.handleUpdateStore()
+//
+//        }
     }
     
     func termsTapped(){
@@ -260,40 +317,45 @@ struct NewPurchaseView: View {
     }
     
     func purchase(package: Purchases.Package) {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderInPurchaseNotification), object: nil, userInfo: ["value": true])
         Purchases.shared.purchasePackage(package) { (transaction, info, error, userCancelled) in
             guard let transaction = transaction,
                   let info = info,
                   error == nil, !userCancelled
             else {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderInPurchaseNotification), object: nil, userInfo: ["value": false])
                 self.showingAlert = true
                 self.alertMsg = error?.localizedDescription ?? ""
                 return
             }
-            UserDefaults.standard.set(true, forKey: "isBuyed")
-            UserDefaults.standard.set(Date(), forKey: "TrialStarted")
-            self.dismiss()
+            if transaction.transactionState == .purchased || transaction.transactionState == .restored {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderInPurchaseNotification), object: nil, userInfo: ["value": false])
+                UserDefaults.standard.set(true, forKey: "isBuyed")
+                UserDefaults.standard.set(Date(), forKey: "TrialStarted")
+                self.dismiss()
+            }
             print(transaction.transactionState)
             print(info.entitlements)
         }
     }
     
-    func purchaseProduct(skproduct : SKProduct){
-        print("did tap purchase product: \(skproduct.productIdentifier)")
-        isDisabled = true
-        IAPManager.shared.purchaseProduct(product: skproduct, success: {
-            self.isDisabled = false
-            ProductsStore.shared.handleUpdateStore()
-            UserDefaults.standard.set(true, forKey: "isBuyed")
-            self.dismiss()
-        }) { (error) in
-            self.isDisabled = false
-            ProductsStore.shared.handleUpdateStore()
-            if error?.localizedDescription == nil {
-                UserDefaults.standard.set(true, forKey: "isBuyed")
-                self.dismiss()
-            }
-        }
-    }
+//    func purchaseProduct(skproduct : SKProduct){
+//        print("did tap purchase product: \(skproduct.productIdentifier)")
+//        isDisabled = true
+//        IAPManager.shared.purchaseProduct(product: skproduct, success: {
+//            self.isDisabled = false
+//            ProductsStore.shared.handleUpdateStore()
+//            UserDefaults.standard.set(true, forKey: "isBuyed")
+//            self.dismiss()
+//        }) { (error) in
+//            self.isDisabled = false
+//            ProductsStore.shared.handleUpdateStore()
+//            if error?.localizedDescription == nil {
+//                UserDefaults.standard.set(true, forKey: "isBuyed")
+//                self.dismiss()
+//            }
+//        }
+//    }
     
     //MARK: - UI Setup
     

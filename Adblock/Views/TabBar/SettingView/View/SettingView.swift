@@ -1,6 +1,7 @@
 import SwiftUI
 import Drops
 import StoreKit
+import Purchases
 
 struct SettingRow: View {
     var setting: FilterSource
@@ -80,6 +81,8 @@ struct SettingRowWithToggle: View {
                     }
                 }else{
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": true])
+                    let isSubscribedUser = UserDefaults.standard.bool(forKey: "isBuyed")
+                    if isSubscribedUser {
                     BlockManager.shared.getActivationState { value in
                         if value {
                             BlockManager.shared.activateFilters { error in
@@ -99,9 +102,15 @@ struct SettingRowWithToggle: View {
                         } else {
                             self.isActive = false
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
-                            self.showSheet = true
                             ActiveSheet.shared.type = "hint"
+                            self.showSheet = true
                         }
+                    }
+                    } else {
+                        self.isActive = false
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
+                        ActiveSheet.shared.type = "download"
+                        self.showSheet = true
                     }
                 }
             }
@@ -117,12 +126,10 @@ struct SettingView: View {
     @State var isActivated = true
     @State var showSheet = false
     @State var showRateUs = false
-//    @EnvironmentObject private var appData: AppData
+    @State var products: [Purchases.Package] = []
 
-//    var setting = SettingListData
-//    @State private var viewModel = SettingViewModel()
     var body: some View {
-//        let setting = viewModel.setupData()
+
         NavigationView {
             List {
                 ForEach(setting) { (setting) in
@@ -156,33 +163,6 @@ struct SettingView: View {
                                     }
                                     .buttonStyle(PlainButtonStyle())
                                 }
-                                //                                if item.name.contains("White List"){
-                                //                                    NavigationLink(destination: BlackWhiteListView(type: .whiteList)) {
-                                //                                        SettingRow(setting: item)
-                                //                                    }
-                                //                                    .buttonStyle(PlainButtonStyle())
-                                //                                }else if item.name.contains("Black List"){
-                                //                                    NavigationLink(destination: BlackWhiteListView(type: .blackList)) {
-                                //                                        SettingRow(setting: item)
-                                //                                    }
-                                //                                    .buttonStyle(PlainButtonStyle())
-                                //                                }
-                                //                                 if item.name.contains("Rate Us") {
-                                //                                    NavigationLink(destination: WebViewPage(request: nil)) {
-                                //                                        SettingRow(setting: item)
-                                //                                    }
-                                //                                    .buttonStyle(PlainButtonStyle())
-                                //                                } else if item.name.contain("Privacy Policy") {
-                                //                                    NavigationLink(destination: WebViewPage(request: URLRequest(url: URL(string: "https://gsmith.app/privacy-policy")!))) {
-                                //                                        SettingRow(setting: item)
-                                //                                    }
-                                //                                    .buttonStyle(PlainButtonStyle())
-                                //                                } else{
-                                //                                    NavigationLink(destination: WebViewPage(request: URLRequest(url: URL(string: "https://gsmith.app/terms-of-use")!))) {
-                                //                                        SettingRow(setting: item)
-                                //                                    }
-                                //                                    .buttonStyle(PlainButtonStyle())
-                                //                                }
                             }
                             else {
                                 SettingRowWithToggle(isActivated: $isActivated, filter: item, showSheet: $showSheet)
@@ -201,58 +181,15 @@ struct SettingView: View {
                 }
             }
             .listStyle(GroupedListStyle())
-            if #available(iOS 14.0, *) {
-                VStack {
-                    Spacer()
-                    if !isActivated {
-                        
-                        Spacer()
-                        MTSlideToOpen(thumbnailTopBottomPadding: 4,
-                                      thumbnailLeadingTrailingPadding: 4,
-                                      text: "Slide to Save",
-                                      textColor: .white,
-                                      thumbnailColor: Color.white,
-                                      sliderBackgroundColor: Colors.greenColor,
-                                      didReachEndAction: { view in
-                                        if !BlockManager.shared.isExtensionActive {
-                                            showingHintView = true
-                                            view.resetState()
-                                        } else {
-                                            view.isLoading = true
-                                            BlockManager.shared.activateFilters { error in
-                                                view.isLoading = false
-                                                if error != nil {
-                                                    Drops.hideCurrent()
-                                                    Drops.show(Drop(title: error!.localizedDescription, duration: 2.0))
-                                                    view.resetState()
-                                                } else {
-                                                    Drops.hideCurrent()
-                                                    Drops.show(Drop(title: Constants.activateSuccessMsg, duration: 2.0))
-                                                    withAnimation() {
-                                                        isActivated = true
-                                                    }
-                                                }
-                                            }
-                                        }
-                                      })
-                            .transition(.opacity)
-                            .animation(.default)
-                            .frame(width: 320, height: 56)
-                            .cornerRadius(28)
-                            .padding()
-                            .background(Color.white.opacity(0.06))
-                            .background(Colors.bgColor)
-                            .cornerRadius(42)
-                            .shadow(radius: 30)
-                        Spacer().frame(height: 40)
-                    }
-                }
-                .ignoresSafeArea()
-            } else {
-                // Fallback on earlier versions
-            }
         }
         .onAppear() {
+            fetchPackages() {
+                packages in
+                print(packages)
+                self.products = packages
+                //                self.selectedProduct = self.products[0]
+                
+            }
             UITabBar.appearance().isHidden = false
             if !BlockManager.shared.isFiltersDownloaded() {
                 showingDownloadFiltersView = true
@@ -264,31 +201,7 @@ struct SettingView: View {
                 if !BlockManager.shared.isExtensionActive {
                     showingHintView = true
                 }
-//                else {
-//                    BlockManager.shared.activateFilters { error in
-//                        if error != nil {
-//                            Drops.show(Drop(title: error!.localizedDescription))
-//                        } else {
-//                            Drops.show(Drop(title: Constants.activateSuccessMsg))
-//                            withAnimation() {
-//                                isActivated = true
-//                            }
-//                        }
-//                    }
-//                }
             }
-//            else {
-//                BlockManager.shared.activateFilters { error in
-//                    if error != nil {
-//                        Drops.show(Drop(title: error!.localizedDescription))
-//                    } else {
-//                        Drops.show(Drop(title: Constants.activateSuccessMsg))
-//                        withAnimation() {
-//                            isActivated = true
-//                        }
-//                    }
-//                }
-//            }
         }
         .onChange(of: isActivated, perform: { value in
             if !value {
@@ -297,15 +210,24 @@ struct SettingView: View {
         })
         .sheet(isPresented: $showSheet) {
             if ActiveSheet.shared.type == "download" {
-                WelcomeAndDownloadFiltersView()
+                WelcomeAndDownloadFiltersView(products: self.products)
             } else if ActiveSheet.shared.type == "purchase" {
-                NewPurchaseView()
+                NewPurchaseView(products: self.products)
             } else if ActiveSheet.shared.type == "hint" {
                 HintView()
             }
         }
     }
     
+    func fetchPackages(completion: @escaping ([Purchases.Package]) -> Void) {
+        Purchases.shared.offerings { (offerings, error) in
+            guard let offerings = offerings, error == nil else {
+                return
+            }
+            guard let packages = offerings.all.first?.value.availablePackages else { return }
+                 completion(packages)
+        }
+    }
 //    func rateApp() {
 //
 //        if let windowScene = appData.window?.windowScene {
@@ -323,8 +245,8 @@ struct SettingView: View {
     
 }
 
-struct SettingView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingView()
-    }
-}
+//struct SettingView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SettingView()
+//    }
+//}

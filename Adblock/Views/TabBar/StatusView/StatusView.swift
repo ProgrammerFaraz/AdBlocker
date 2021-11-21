@@ -101,11 +101,11 @@ struct StatusView: View {
                         if !result {
                             BlockManager.shared.deactivateFilters { error in
                                 if error != nil {
-                                    Drops.hideCurrent()
-                                    Drops.show(Drop(title: error!.localizedDescription, duration: 2.0))
+//                                    Drops.hideCurrent()
+//                                    Drops.show(Drop(title: error!.localizedDescription, duration: 2.0))
                                 } else {
-                                    Drops.hideCurrent()
-                                    Drops.show(Drop(title: Constants.deactivateSuccessMsg, duration: 2.0))
+//                                    Drops.hideCurrent()
+//                                    Drops.show(Drop(title: Constants.deactivateSuccessMsg, duration: 2.0))
                                     withAnimation() {
                                         isActivated = true
                                     }
@@ -154,30 +154,38 @@ struct StatusView: View {
                 }else{
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": true])
 //                    showLoadingIndicator = true
-                    BlockManager.shared.getActivationState { value in
-                        print("🔥 \(value)")
-                        if value {
-                            BlockManager.shared.activateFilters { error in
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
-        //                        showLoadingIndicator = false
-                                if error != nil {
-                                    self.isActive = false
-                                    Drops.hideCurrent()
-                                    Drops.show(Drop(title: error!.localizedDescription, duration: 2.0))
-                                } else {
-                                    Drops.hideCurrent()
-                                    Drops.show(Drop(title: Constants.activateSuccessMsg, duration: 2.0))
-                                    withAnimation() {
-                                        isActivated = true
+                    let isSubscribedUser = UserDefaults.standard.bool(forKey: "isBuyed")
+                    if isSubscribedUser {
+                        BlockManager.shared.getActivationState { value in
+                            print("🔥 \(value)")
+                            if value {
+                                BlockManager.shared.activateFilters { error in
+                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
+                                    //                        showLoadingIndicator = false
+                                    if error != nil {
+                                        self.isActive = false
+                                        Drops.hideCurrent()
+                                        Drops.show(Drop(title: error!.localizedDescription, duration: 2.0))
+                                    } else {
+                                        Drops.hideCurrent()
+                                        Drops.show(Drop(title: Constants.activateSuccessMsg, duration: 2.0))
+                                        withAnimation() {
+                                            isActivated = true
+                                        }
                                     }
                                 }
+                            } else {
+                                self.isActive = false
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
+                                ActiveSheet.shared.type = "hint"
+                                self.showSheet = true
                             }
-                        } else {
-                            self.isActive = false
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
-                            self.showSheet = true
-                            ActiveSheet.shared.type = "hint"
                         }
+                    } else {
+                        self.isActive = false
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
+                        ActiveSheet.shared.type = "download"
+                        self.showSheet = true
                     }
                     
                 }
@@ -216,7 +224,7 @@ struct StatusView: View {
         })
         .sheet(isPresented: $showSheet) {
             if ActiveSheet.shared.type == "download" {
-                WelcomeAndDownloadFiltersView()
+                WelcomeAndDownloadFiltersView(products: self.products)
             } else if ActiveSheet.shared.type == "purchase" {
                 NewPurchaseView(products: self.products)
             } else if ActiveSheet.shared.type == "hint" {

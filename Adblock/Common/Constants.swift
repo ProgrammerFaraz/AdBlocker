@@ -17,6 +17,8 @@ let terms_text = "Premium subscription is required to get access to all wallpape
 struct Constants {
     
     static let showLoaderNotification = "showLoader"
+    static let showLoaderInPurchaseNotification = "showLoaderInPurchase"
+    static let showLoaderInWebViewNotification = "showLoaderWebView"
     static let activateSuccessMsg = "Filter activated Successfully"
     static let deactivateSuccessMsg = "Filter deactivated Successfully"
 
@@ -302,6 +304,6 @@ struct Constants {
     
     static let monthlyPrice = "29.99 / Month"
     static let yearlyPrice = "59.99 / Year"
-    static let monthlyPriceDescription = "Per Month, auto renewal"
-    static let yearlyPriceDescription = "Per Year, auto renewal"
+    static let monthlyPriceDescription = "Per Month, auto renewal, 3 days free trial, then"
+    static let yearlyPriceDescription = "Per Year, auto renewal, 3 days free trial, then"
 }
