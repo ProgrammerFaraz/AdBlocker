@@ -97,6 +97,7 @@
 		18F2F7D32707ABC1000D743B /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2F7D22707ABC1000D743B /* SettingView.swift */; };
 		89F3C2A31070C33858A25867 /* Pods_Adblock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DBB07007A2A7950551380D2 /* Pods_Adblock.framework */; };
 		901378AFFDE02C97F33FA010 /* Pods_Adblock_Blocker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6009A127C236F39E419EBF4 /* Pods_Adblock_Blocker.framework */; };
+		D0333DBC274BD86D00C88B1A /* LoadingButton in Frameworks */ = {isa = PBXBuildFile; productRef = D0333DBB274BD86D00C88B1A /* LoadingButton */; };
 		D05FF4CC27217E0700CF0888 /* easylist_content_blocker.json in Resources */ = {isa = PBXBuildFile; fileRef = D05FF4CB27217E0700CF0888 /* easylist_content_blocker.json */; };
 /* End PBXBuildFile section */
 
@@ -239,6 +240,7 @@
 				0D13BE6C26D81E630081D593 /* AnyFormatKitSwiftUI in Frameworks */,
 				0DC789C026CAEE96007310DE /* KeychainSwift in Frameworks */,
 				1849C1E92748191700A1A09F /* SwiftUIX in Frameworks */,
+				D0333DBC274BD86D00C88B1A /* LoadingButton in Frameworks */,
 				0D9B29E026D5684C00E1651A /* PartialSheet in Frameworks */,
 				18908B97272DA955005545AB /* StoreKit.framework in Frameworks */,
 				0D1B2EC526DD44EE00CE45DA /* OmenTextField in Frameworks */,
@@ -635,6 +637,7 @@
 				0D13BE6B26D81E630081D593 /* AnyFormatKitSwiftUI */,
 				0D1B2EC426DD44EE00CE45DA /* OmenTextField */,
 				1849C1E82748191700A1A09F /* SwiftUIX */,
+				D0333DBB274BD86D00C88B1A /* LoadingButton */,
 			);
 			productName = "Security Manager";
 			productReference = 0DC7899F26CAE66D007310DE /* Adblock.app */;
@@ -673,6 +676,7 @@
 				0D13BE6A26D81E630081D593 /* XCRemoteSwiftPackageReference "AnyFormatKitSwiftUI" */,
 				0D1B2EC326DD44EE00CE45DA /* XCRemoteSwiftPackageReference "OmenTextField" */,
 				1849C1E72748191700A1A09F /* XCRemoteSwiftPackageReference "SwiftUIX" */,
+				D0333DBA274BD86C00C88B1A /* XCRemoteSwiftPackageReference "LoadingButton" */,
 			);
 			productRefGroup = 0DC789A026CAE66D007310DE /* Products */;
 			projectDirPath = "";
@@ -1194,6 +1198,14 @@
 				version = 0.0.8;
 			};
 		};
+		D0333DBA274BD86C00C88B1A /* XCRemoteSwiftPackageReference "LoadingButton" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Changemin/LoadingButton";
+			requirement = {
+				kind = exactVersion;
+				version = 1.1.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1226,6 +1238,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1849C1E72748191700A1A09F /* XCRemoteSwiftPackageReference "SwiftUIX" */;
 			productName = SwiftUIX;
+		};
+		D0333DBB274BD86D00C88B1A /* LoadingButton */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0333DBA274BD86C00C88B1A /* XCRemoteSwiftPackageReference "LoadingButton" */;
+			productName = LoadingButton;
 		};
 /* End XCSwiftPackageProductDependency section */
 

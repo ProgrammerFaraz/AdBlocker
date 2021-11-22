@@ -3,9 +3,11 @@ import SwiftUI
 import Introspect
 import StoreKit
 import Purchases
+import AnyFormatKit
+import LoadingButton
 
 struct SelectionButton: View {
-    let planDescText: [String]
+    let planDescText: String
     let selectedProduct: Purchases.Package
 //    var product : SKProduct!
     var product : Purchases.Package
@@ -30,7 +32,7 @@ struct SelectionButton: View {
                         .foregroundColor(Color.white)
                         .lineLimit(1)
                         .minimumScaleFactor(0.05)
-                    Text(setDescription())
+                    Text(planDescText)
                         .font(.system(size: 10, weight: .medium, design: .default))
                         .foregroundColor(Color.gray)
                         .lineLimit(1)
@@ -44,18 +46,19 @@ struct SelectionButton: View {
         }
     }
 
-    private func setDescription() -> String {
-        if product.description.lowercased().contains("monthlysubscription") {
-            return planDescText[0]
-        }else {
-            return planDescText[1]
-        }
-//        if product.localizedDescription.lowercased().contains("monthlysubscription"){
+//    private func setDescription() -> String {
+//        if product.description.lowercased().contains("monthlysubscription") {
 //            return planDescText[0]
-//        }else{
+//        }else if product.description.lowercased().contains("yearlysubscription"){
 //            return planDescText[1]
 //        }
-    }
+//        return ""
+////        if product.localizedDescription.lowercased().contains("monthlysubscription"){
+////            return planDescText[0]
+////        }else{
+////            return planDescText[1]
+////        }
+//    }
     
     private func imageName(isClicked: Bool) -> String {
         return isClicked ? "white_circle_filled" : "white_circle_unfilled"
@@ -69,7 +72,7 @@ struct NewPurchaseView: View {
 //    @State var selectedProduct: SKProduct = SKProduct()
     @State var selectedProduct: Purchases.Package = Purchases.Package()
     @State var showingAlert = false
-    let planDescription : [String] = [Constants.monthlyPriceDescription, Constants.yearlyPriceDescription]
+    @State var planDescription : String = ""
     @State var alertMsg = "Something went wrong, try again later."
     @Environment(\.presentationMode) var presentationMode
     @ViewBuilder var selectedPlanButton: some View {
@@ -77,24 +80,41 @@ struct NewPurchaseView: View {
     }
     @ViewBuilder var buttonText: some View {
         Text("Yes, Activate")
-            .frame(minWidth: 0, maxWidth: .infinity)
-            .frame(height: 65)
+            .lineLimit(1)
+//            .frame(minWidth: 0, maxWidth: .infinity)
+//            .frame(height: 65)
             .font(.system(size: 18, weight: .medium, design: .default))
-            .background(Color("AppRed"))
-            .cornerRadius(35)
+//            .background(Color("AppRed"))
+//            .cornerRadius(35)
+            .minimumScaleFactor(0.05)
             .foregroundColor(Color.white)
             .padding([.leading, .trailing], 50)
     }
     @ViewBuilder var restoreText: some View {
         Text("Restore Purchase")
             .underline()
-            .frame(minWidth: 0, maxWidth: .infinity)
-            .frame(height: 30)
             .font(.system(size: 14, weight: .medium, design: .default))
             .foregroundColor(Color.gray)
+            .minimumScaleFactor(0.05)
     }
     @State var presentingModal = false
     @State var showLoadingIndicator = false
+    
+    let style = LoadingButtonStyle(width: 220,
+                                   height: 65,
+                                   cornerRadius: 35,
+                                   backgroundColor: Color("AppRed"),
+                                   loadingColor: Color("AppRed").opacity(0.5),
+                                   strokeWidth: 5,
+                                   strokeColor: .gray)
+//        .frame(minWidth: 0, maxWidth: .infinity)
+        //            .frame(height: 65)
+        //            .font(.system(size: 18, weight: .medium, design: .default))
+        //            .background(Color("AppRed"))
+        //            .cornerRadius(35)
+        //            .foregroundColor(Color.white)
+        //            .padding([.leading, .trailing], 50)
+    @State var isLoading = false
     let dg = DragGesture()
     let pub = NotificationCenter.default
         .publisher(for: NSNotification.Name(Constants.showLoaderInPurchaseNotification))
@@ -115,9 +135,7 @@ struct NewPurchaseView: View {
                     HStack {
                         Spacer()
                         Button(action: {
-//                            restorePurchases()
                             dismiss()
-                            //                            dismiss()
                         }) {
                             Image("white_cross")
                                 .resizable()
@@ -128,131 +146,117 @@ struct NewPurchaseView: View {
                         .font(.system(size: 25, weight: .bold, design: .default))
                     Spacer()
                         .frame(height: 25)
-                    VStack {
+                    VStack(spacing: 10) {
+//                        Spacer()
                         HStack{
                             Text("You will get")
                                 .font(.system(size: 18, weight: .bold, design: .default))
-                            Spacer()
+//                            Spacer()
                         }
                         HStack{
                             Text("Advanced Adblocker")
-                            Spacer()
-                            ZStack{
-                                Image("white_circle_filled")
-                                    .resizable()
-                                    .frame(CGSize(width: 20, height: 20))
-                            }
+//                            Spacer()
+//                            ZStack{
+//                                Image("white_circle_filled")
+//                                    .resizable()
+//                                    .frame(CGSize(width: 20, height: 20))
+//                            }
                         }
                         HStack{
                             Text("Control Privacy & Stop Pops")
-                            Spacer()
-                            ZStack{
-                                Image("white_circle_filled")
-                                    .resizable()
-                                    .frame(CGSize(width: 20, height: 20))
-                            }
+//                            Spacer()
+//                            ZStack{
+//                                Image("white_circle_filled")
+//                                    .resizable()
+//                                    .frame(CGSize(width: 20, height: 20))
+//                            }
                         }
                         HStack{
                             Text("Accelerate Your Device")
-                            Spacer()
-                            ZStack{
-                                Image("white_circle_filled")
-                                    .resizable()
-                                    .frame(CGSize(width: 20, height: 20))
-                            }
+//                            Spacer()
+//                            ZStack{
+//                                Image("white_circle_filled")
+//                                    .resizable()
+//                                    .frame(CGSize(width: 20, height: 20))
+//                            }
                         }
                         HStack{
                             Text("Save Battery & Mobile Data")
-                            Spacer()
-                            ZStack{
-                                Image("white_circle_filled")
-                                    .resizable()
-                                    .frame(CGSize(width: 20, height: 20))
-                            }
+//                            Spacer()
+//                            ZStack{
+//                                Image("white_circle_filled")
+//                                    .resizable()
+//                                    .frame(CGSize(width: 20, height: 20))
+//                            }
                         }
+//                        Spacer()
                     }
                     Spacer()
-                        .frame(height: 40)
+                        .frame(height: 30)
                     VStack{
-                        //                    updatePurchasesView()
                         if let products = products {
                             ForEach(products, id: \.self) { prod in
-                                SelectionButton(planDescText: planDescription, selectedProduct: self.selectedProduct, product: prod) {
+                                SelectionButton(planDescText: setDescription(prod: prod), selectedProduct: self.selectedProduct, product: prod) {
                                     selectedProd in
                                     self.selectedProduct = selectedProd
                                 }
                             }
                         }
-                        //                    ForEach(0..<planItems.count){ index in
-                        //                        SelectionButton(priceText: planItems[index], planDescText: planDescription[index], selectedPrice: self.selectedPlan) { (str) in
-                        //                            print("🔥🔥 \(str)")
-                        //                            self.selectedPlan = str
-                        //                        }
-                        //                    }
                     }
-                    //                HStack{
-                    //                    ForEach(products, id: \.self) { prod in
-                    //                        PurchaseButton(block: {
-                    //                            self.purchaseProduct(skproduct: prod)
-                    //                        }, product: prod).disabled(IAPManager.shared.isActive(product: prod))
-                    //                    }
-                    //                }
                     VStack(spacing: 20){
                         Spacer()
                         Text("Do you want to activate?")
                             .font(.system(size: 18, weight: .regular, design: .default))
-                        Button(action: {
+                        LoadingButton(action: {
                             purchase(package: selectedProduct)
-                            //                        self.purchaseProduct(skproduct: self.selectedProduct)
-                        }) {
+                        }, isLoading: $isLoading, style: style) {
                             buttonText
                         }
                         VStack{
                             Text("By continuing you accept our:")
                                 .font(.system(size: 16, weight: .regular, design: .default))
                                 .foregroundColor(.gray)
+                                .minimumScaleFactor(0.05)
                             HStack{
                                 Button(action: {
                                     self.presentingModal = true
                                 }) {
                                     Text("Terms of Use")
+                                        .underline()
+                                        .lineLimit(1)
                                         .font(.system(size: 16, weight: .regular, design: .default))
                                         .foregroundColor(.blue)
-                                        .underline()
+                                        .minimumScaleFactor(0.05)
                                 }
                                 .sheet(isPresented: $presentingModal) { WebViewPage(request: URLRequest(url: URL(string: "https://gsmith.app/terms-of-use")!)) }
                                 Text(" and ")
+                                    .lineLimit(1)
                                     .font(.system(size: 16, weight: .regular, design: .default))
+                                    .minimumScaleFactor(0.05)
                                     .foregroundColor(.gray)
                                 Button(action: {
                                     self.presentingModal = true
                                 }) {
                                     Text("Privacy Policy")
+                                        .underline()
+                                        .lineLimit(1)
                                         .font(.system(size: 16, weight: .regular, design: .default))
                                         .foregroundColor(.blue)
-                                        .underline()
+                                        .minimumScaleFactor(0.05)
                                 }
                                 .sheet(isPresented: $presentingModal) { WebViewPage(request: URLRequest(url: URL(string: "https://gsmith.app/privacy-policy")!)) }
                             }
                         }
-//                        .minimumScaleFactor(0.05)
-//                        .font(.system(size: 16, weight: .regular, design: .default))
                         .padding([.leading, .trailing], 50)
-//                        WebViewPage(request: URLRequest(url: URL(string: "https://gsmith.app/privacy-policy")!))
-//                        Text("By continuing you accept our Terms of Use and Privacy Policy")
-//                            .minimumScaleFactor(0.05)
-//                            .multilineTextAlignment(.center)
-//                            .font(.system(size: 16, weight: .regular, design: .default))
-//                            .padding([.leading, .trailing], 50)
+                        
                         Button(action: {
                             restorePurchases()
                         }) {
                             restoreText
                         }
                     }
-                    
                     Spacer()
-                        .frame(height: 25)
+                        .frame(height: 55)
                 }
                 .onReceive(pub) { output in
                     print("🔥 show loader: \(output.userInfo?["value"] as! Bool)🔥")
@@ -278,6 +282,10 @@ struct NewPurchaseView: View {
                 
             }
         }
+    }
+    
+    func setDescription(prod: Purchases.Package) -> String {
+        return prod.identifier.contains("rc_monthly") ? Constants.monthlyPriceDescription : Constants.yearlyPriceDescription
     }
     
     //MARK: - Actions
@@ -317,19 +325,22 @@ struct NewPurchaseView: View {
     }
     
     func purchase(package: Purchases.Package) {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderInPurchaseNotification), object: nil, userInfo: ["value": true])
+//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderInPurchaseNotification), object: nil, userInfo: ["value": true])
+        self.isLoading = true
         Purchases.shared.purchasePackage(package) { (transaction, info, error, userCancelled) in
             guard let transaction = transaction,
                   let info = info,
                   error == nil, !userCancelled
             else {
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderInPurchaseNotification), object: nil, userInfo: ["value": false])
+//                NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderInPurchaseNotification), object: nil, userInfo: ["value": false])
+                self.isLoading = false
                 self.showingAlert = true
                 self.alertMsg = error?.localizedDescription ?? ""
                 return
             }
             if transaction.transactionState == .purchased || transaction.transactionState == .restored {
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderInPurchaseNotification), object: nil, userInfo: ["value": false])
+//                NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderInPurchaseNotification), object: nil, userInfo: ["value": false])
+                self.isLoading = false
                 UserDefaults.standard.set(true, forKey: "isBuyed")
                 UserDefaults.standard.set(Date(), forKey: "TrialStarted")
                 self.dismiss()
