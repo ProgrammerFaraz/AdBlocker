@@ -33,7 +33,8 @@ struct SettingRowWithToggle: View {
     let filter: FilterSource
     
     @Binding var showSheet: Bool
-    
+    @Binding var products: [Purchases.Package]
+
     var body: some View {
         HStack {
             Spacer()
@@ -72,48 +73,70 @@ struct SettingRowWithToggle: View {
                             Drops.hideCurrent()
                             Drops.show(Drop(title: error!.localizedDescription, duration: 2.0))
                         } else {
-                            Drops.hideCurrent()
-                            Drops.show(Drop(title: Constants.deactivateSuccessMsg, duration: 2.0))
+//                            Drops.hideCurrent()
+//                            Drops.show(Drop(title: Constants.deactivateSuccessMsg, duration: 2.0))
                             withAnimation() {
                                 isActivated = true
                             }
                         }
                     }
-                }else{
+                } else {
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": true])
                     let isSubscribedUser = UserDefaults.standard.bool(forKey: "isBuyed")
                     if isSubscribedUser {
-                    BlockManager.shared.getActivationState { value in
-                        if value {
-                            BlockManager.shared.activateFilters { error in
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
-                                if error != nil {
-                                    self.isActive = false
-                                    Drops.hideCurrent()
-                                    Drops.show(Drop(title: error!.localizedDescription, duration: 2.0))
-                                } else {
-                                    Drops.hideCurrent()
-                                    Drops.show(Drop(title: Constants.activateSuccessMsg, duration: 2.0))
-                                    withAnimation() {
-                                        isActivated = true
+                        if BlockManager.shared.isFiltersDownloaded() {
+                            BlockManager.shared.getActivationState { value in
+                                if value {
+                                    BlockManager.shared.activateFilters { error in
+                                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
+                                        if error != nil {
+                                            self.isActive = false
+                                            Drops.hideCurrent()
+                                            Drops.show(Drop(title: error!.localizedDescription, duration: 2.0))
+                                        } else {
+                                            Drops.hideCurrent()
+                                            Drops.show(Drop(title: Constants.activateSuccessMsg, duration: 2.0))
+                                            withAnimation() {
+                                                isActivated = true
+                                            }
+                                        }
                                     }
+                                } else {
+                                    self.isActive = false
+                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
+                                    ActiveSheet.shared.type = "hint"
+                                    self.showSheet = true
                                 }
                             }
                         } else {
-                            self.isActive = false
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
-                            ActiveSheet.shared.type = "hint"
+                            self.isActive = false
+                            ActiveSheet.shared.type = "download"
                             self.showSheet = true
                         }
-                    }
+                        
                     } else {
-                        self.isActive = false
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
-                        ActiveSheet.shared.type = "download"
-                        self.showSheet = true
+                        fetchPackages() {
+                            (packages, error) in
+                            if error != nil {
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
+                                Drops.hideCurrent()
+                                Drops.show(Drop(title: "Error Fetching Purchase", duration: 2.0))
+                                self.isActive = false
+                            } else {
+                                print(packages)
+                                guard let packages = packages else { return }
+                                self.products = packages
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
+                                ActiveSheet.shared.type = "purchase"
+                                self.showSheet = true
+                                self.isActive = false
+                            }
+                        }
                     }
                 }
             }
+            
         })
     }
 }
@@ -165,7 +188,7 @@ struct SettingView: View {
                                 }
                             }
                             else {
-                                SettingRowWithToggle(isActivated: $isActivated, filter: item, showSheet: $showSheet)
+                                SettingRowWithToggle(isActivated: $isActivated, filter: item, showSheet: $showSheet, products: $products)
                             }
                         }
                     }
@@ -183,13 +206,13 @@ struct SettingView: View {
             .listStyle(GroupedListStyle())
         }
         .onAppear() {
-            fetchPackages() {
-                packages in
-                print(packages)
-                self.products = packages
-                //                self.selectedProduct = self.products[0]
-                
-            }
+//            fetchPackages() {
+//                packages in
+//                print(packages)
+//                self.products = packages
+//                //                self.selectedProduct = self.products[0]
+//
+//            }
             UITabBar.appearance().isHidden = false
             if !BlockManager.shared.isFiltersDownloaded() {
                 showingDownloadFiltersView = true
@@ -219,15 +242,7 @@ struct SettingView: View {
         }
     }
     
-    func fetchPackages(completion: @escaping ([Purchases.Package]) -> Void) {
-        Purchases.shared.offerings { (offerings, error) in
-            guard let offerings = offerings, error == nil else {
-                return
-            }
-            guard let packages = offerings.all.first?.value.availablePackages else { return }
-                 completion(packages)
-        }
-    }
+    
 //    func rateApp() {
 //
 //        if let windowScene = appData.window?.windowScene {
@@ -250,3 +265,13 @@ struct SettingView: View {
 //        SettingView()
 //    }
 //}
+func fetchPackages(completion: @escaping ([Purchases.Package]?, String?) -> Void) {
+    Purchases.shared.offerings { (offerings, error) in
+        guard let offerings = offerings, error == nil else {
+            completion(nil, error?.localizedDescription)
+            return
+        }
+        guard let packages = offerings.all.first?.value.availablePackages else { return }
+             completion(packages, nil)
+    }
+}
