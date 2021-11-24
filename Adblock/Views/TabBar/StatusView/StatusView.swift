@@ -106,13 +106,13 @@ struct StatusView: View {
                     }
                 }
             })
-            if (isTrialExist ?? false) || (self.isNotSubscribedUser) {
+//            if (isTrialExist ?? false) || (self.isNotSubscribedUser) {
                 if isActivated {
                     isActive = filter.activate
                 } else {
                     isActive = false
                 }
-            }
+//            }
         }
         .onChange(of: isActive, perform: { value in
             if value != filter.activate {
