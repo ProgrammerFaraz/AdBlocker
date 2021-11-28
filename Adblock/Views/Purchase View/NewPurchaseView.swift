@@ -370,15 +370,15 @@ struct NewPurchaseView: View {
     
     //MARK: - UI Setup
     
-    func fetchPackages(completion: @escaping ([Purchases.Package]) -> Void) {
-        Purchases.shared.offerings { (offerings, error) in
-            guard let offerings = offerings, error == nil else {
-                return
-            }
-            guard let packages = offerings.all.first?.value.availablePackages else { return }
-                 completion(packages)
-        }
-    }
+//    func fetchPackages(completion: @escaping ([Purchases.Package]) -> Void) {
+//        Purchases.shared.offerings { (offerings, error) in
+//            guard let offerings = offerings, error == nil else {
+//                return
+//            }
+//            guard let packages = offerings.all.first?.value.availablePackages else { return }
+//                 completion(packages)
+//        }
+//    }
     
     func checkIfPurchased() {
         Purchases.shared.purchaserInfo { (info, error) in

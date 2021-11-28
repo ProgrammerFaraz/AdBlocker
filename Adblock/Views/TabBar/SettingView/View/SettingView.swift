@@ -116,21 +116,26 @@ struct SettingRowWithToggle: View {
                         }
                         
                     } else {
-                        fetchPackages() {
-                            (packages, error) in
-                            if error != nil {
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
-                                Drops.hideCurrent()
-                                Drops.show(Drop(title: "Error Fetching Purchase", duration: 2.0))
-                                self.isActive = false
-                            } else {
-                                print(packages)
-                                guard let packages = packages else { return }
-                                self.products = packages
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
-                                ActiveSheet.shared.type = "purchase"
-                                self.showSheet = true
-                                self.isActive = false
+                        if let products = UserDefaultsManager.shared.getProducts() {
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
+                            self.products = products
+                        } else {
+                            PurchaseManager.shared.fetchPackages() {
+                                (packages, error) in
+                                if error != nil {
+                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
+                                    Drops.hideCurrent()
+                                    Drops.show(Drop(title: "Error Fetching Purchase", duration: 2.0))
+                                    self.isActive = false
+                                } else {
+                                    print(packages)
+                                    guard let packages = packages else { return }
+                                    self.products = packages
+                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
+                                    ActiveSheet.shared.type = "purchase"
+                                    self.showSheet = true
+                                    self.isActive = false
+                                }
                             }
                         }
                     }
@@ -265,13 +270,13 @@ struct SettingView: View {
 //        SettingView()
 //    }
 //}
-func fetchPackages(completion: @escaping ([Purchases.Package]?, String?) -> Void) {
-    Purchases.shared.offerings { (offerings, error) in
-        guard let offerings = offerings, error == nil else {
-            completion(nil, error?.localizedDescription)
-            return
-        }
-        guard let packages = offerings.all.first?.value.availablePackages else { return }
-             completion(packages, nil)
-    }
-}
+//func fetchPackages(completion: @escaping ([Purchases.Package]?, String?) -> Void) {
+//    Purchases.shared.offerings { (offerings, error) in
+//        guard let offerings = offerings, error == nil else {
+//            completion(nil, error?.localizedDescription)
+//            return
+//        }
+//        guard let packages = offerings.all.first?.value.availablePackages else { return }
+//             completion(packages, nil)
+//    }
+//}

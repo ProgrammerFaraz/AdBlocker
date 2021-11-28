@@ -1,6 +1,7 @@
 
 import SwiftUI
 import Purchases
+import Drops
 
 struct HowToUseView: View {
     
@@ -83,28 +84,29 @@ struct HowToUseView: View {
                 .frame(height: 50)
         }
         .onAppear() {
-            fetchPackages() {
-                packages in
-                print(packages)
-                self.products = packages
-                //                self.selectedProduct = self.products[0]
-                
-            }
+//            fetchPackages() {
+//                packages in
+//                print(packages)
+//                self.products = packages
+//                //                self.selectedProduct = self.products[0]
+//
+//            }
         }
         .sheet(isPresented: $showSheet) {
             NewPurchaseView(products: self.products)
         }
     }
     
-    func fetchPackages(completion: @escaping ([Purchases.Package]) -> Void) {
-        Purchases.shared.offerings { (offerings, error) in
-            guard let offerings = offerings, error == nil else {
-                return
-            }
-            guard let packages = offerings.all.first?.value.availablePackages else { return }
-                 completion(packages)
-        }
-    }
+//    func fetchPackages(completion: @escaping ([Purchases.Package]?, String?) -> Void) {
+//        Purchases.shared.offerings { (offerings, error) in
+//            guard let offerings = offerings, error == nil else {
+//                completion(nil, error?.localizedDescription)
+//                return
+//            }
+//            guard let packages = offerings.all.first?.value.availablePackages else { return }
+//            completion(packages, nil)
+//        }
+//    }
     
     func containedIndex() -> Text {
         switch currentPage {
@@ -131,7 +133,35 @@ struct HowToUseView: View {
             if isSubscribedUser {
                 currentPage = 0
             }else {
-                self.showSheet = true
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": true])
+                if let products = UserDefaultsManager.shared.getProducts() {
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
+                    self.products = products
+                } else {
+                    PurchaseManager.shared.fetchPackages() {
+                        (packages, error) in
+                        if error != nil {
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
+                            Drops.hideCurrent()
+                            Drops.show(Drop(title: "Error Fetching Purchase", duration: 2.0))
+                            //                        self.isActive = false
+                        } else {
+                            print(packages)
+                            guard let packages = packages else { return }
+                            self.products = packages
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
+                            if !(self.products.isEmpty) {
+                                ActiveSheet.shared.type = "purchase"
+                                self.showSheet = true
+                            } else {
+                                Drops.hideCurrent()
+                                Drops.show(Drop(title: "Error Loading Purchase", duration: 2.0))
+                            }
+                            //                        self.isActive = false
+                        }
+                    }
+                }
+//                self.showSheet = true
             }
 //            currentPage = 0
         }else {
