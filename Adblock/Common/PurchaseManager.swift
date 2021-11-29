@@ -21,7 +21,8 @@ class PurchaseManager {
                 return
             }
             guard let packages = offerings.all.first?.value.availablePackages else { return }
-            UserDefaultsManager.shared.addProducts(products: packages)
+            PurchaseProduct.shared.products = packages
+//            UserDefaultsManager.shared.addProducts(products: packages)
             completion(packages, nil)
         }
     }

@@ -172,9 +172,12 @@ struct StatusView: View {
                             self.showSheet = true
                         }
                     } else {
-                        if let products = UserDefaultsManager.shared.getProducts() {
+                        if let products = PurchaseProduct.shared.products {
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
-                            self.products = products
+                            PurchaseProduct.shared.products = products
+                            ActiveSheet.shared.type = "purchase"
+                            self.showSheet = true
+                            self.isActive = false
                         } else {
                             PurchaseManager.shared.fetchPackages() {
                                 (packages, error) in
@@ -186,7 +189,7 @@ struct StatusView: View {
                                 } else {
                                     print(packages)
                                     guard let packages = packages else { return }
-                                    self.products = packages
+                                    PurchaseProduct.shared.products = packages
                                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
                                     ActiveSheet.shared.type = "purchase"
                                     self.showSheet = true
@@ -224,9 +227,9 @@ struct StatusView: View {
         .onChange(of: trialOverAndNotSubscribed, perform: { (value) in
             if value {
                 //                self.activeSheet = .purchase
-                if let products = UserDefaultsManager.shared.getProducts() {
+                if let products = PurchaseProduct.shared.products {
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
-                    self.products = products
+                    PurchaseProduct.shared.products = products
                 } else {
                     PurchaseManager.shared.fetchPackages() {
                         (packages, error) in
@@ -236,7 +239,7 @@ struct StatusView: View {
                         } else {
                             print(packages)
                             guard let packages = packages else { return }
-                            self.products = packages
+                            PurchaseProduct.shared.products = packages
                             ActiveSheet.shared.type = "purchase"
                             self.showSheet = true
                         }
@@ -247,9 +250,9 @@ struct StatusView: View {
         })
         .sheet(isPresented: $showSheet) {
             if ActiveSheet.shared.type == "download" {
-                WelcomeAndDownloadFiltersView(products: self.products)
+                WelcomeAndDownloadFiltersView(products: PurchaseProduct.shared.products)
             } else if ActiveSheet.shared.type == "purchase" {
-                NewPurchaseView(products: self.products)
+                NewPurchaseView(products: PurchaseProduct.shared.products)
             } else if ActiveSheet.shared.type == "hint" {
                 HintView()
             }

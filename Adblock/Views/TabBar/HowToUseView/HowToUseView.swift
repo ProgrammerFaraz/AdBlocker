@@ -93,7 +93,7 @@ struct HowToUseView: View {
 //            }
         }
         .sheet(isPresented: $showSheet) {
-            NewPurchaseView(products: self.products)
+            NewPurchaseView(products: PurchaseProduct.shared.products)
         }
     }
     
@@ -134,9 +134,11 @@ struct HowToUseView: View {
                 currentPage = 0
             }else {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": true])
-                if let products = UserDefaultsManager.shared.getProducts() {
+                if let products = PurchaseProduct.shared.products {
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
-                    self.products = products
+                    PurchaseProduct.shared.products = products
+                    ActiveSheet.shared.type = "purchase"
+                    self.showSheet = true
                 } else {
                     PurchaseManager.shared.fetchPackages() {
                         (packages, error) in
@@ -148,9 +150,9 @@ struct HowToUseView: View {
                         } else {
                             print(packages)
                             guard let packages = packages else { return }
-                            self.products = packages
+                            PurchaseProduct.shared.products = packages
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderNotification), object: nil, userInfo: ["value": false])
-                            if !(self.products.isEmpty) {
+                            if PurchaseProduct.shared.products != nil {
                                 ActiveSheet.shared.type = "purchase"
                                 self.showSheet = true
                             } else {

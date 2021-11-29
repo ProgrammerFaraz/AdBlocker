@@ -144,9 +144,9 @@ struct WelcomeAndDownloadFiltersView: View {
             }
             .sheet(isPresented: $showSheet) {
                 if ActiveSheet.shared.type == "download" {
-                    WelcomeAndDownloadFiltersView(products: self.products)
+                    WelcomeAndDownloadFiltersView(products: PurchaseProduct.shared.products)
                 } else if ActiveSheet.shared.type == "purchase" {
-                    NewPurchaseView(products: self.products)
+                    NewPurchaseView(products: PurchaseProduct.shared.products)
                 } else if ActiveSheet.shared.type == "hint" {
                     HintView()
                 }
