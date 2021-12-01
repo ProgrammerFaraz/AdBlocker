@@ -7,6 +7,7 @@
 
 import UIKit
 import Purchases
+import Siren
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Purchases.logLevel = .debug
 //        Purchases.debugLogsEnabled = true
         Purchases.configure(withAPIKey: Constants.revenueAPIKey)
+        
+        //Show alert for updating
+        Siren.shared.rulesManager = RulesManager(majorUpdateRules: .critical, minorUpdateRules: .critical, patchUpdateRules: .default, revisionUpdateRules: .default, showAlertAfterCurrentVersionHasBeenReleasedForDays: 1)
+        Siren.shared.wail()
+
 //        if let firstOpen = UserDefaults.standard.object(forKey: "FirstOpen") as? Date {
 //            print("The app was first opened on \(firstOpen)")
 //        } else {

@@ -11,7 +11,8 @@ target 'Adblock' do
   pod 'Purchases', '~> 3.12.3'
   pod 'Introspect'
   pod 'ActivityIndicatorView'
-
+  pod 'Siren'
+  
 end
 
 target 'Adblock Blocker' do

@@ -74,6 +74,8 @@ struct NewPurchaseView: View {
     @State var showingAlert = false
     @State var planDescription : String = ""
     @State var alertMsg = "Something went wrong, try again later."
+    @State var alertTitle = ""
+
     @Environment(\.presentationMode) var presentationMode
     @ViewBuilder var selectedPlanButton: some View {
         Image("")
@@ -275,7 +277,7 @@ struct NewPurchaseView: View {
 //                    checkIfPurchased() // Was causing purchase view to open and close in 1-2 seconds automatically
                 }
                 .alert(isPresented: $showingAlert, content: {
-                    Alert(title: Text(""), message: Text(alertMsg), dismissButton: .default(Text("Ok")) {
+                    Alert(title: Text(alertTitle), message: Text(alertMsg), dismissButton: .default(Text("Ok")) {
                         print("Alert shown")
                     })
                 })
@@ -299,9 +301,23 @@ struct NewPurchaseView: View {
                 self.alertMsg = error?.localizedDescription ?? ""
                 return
             }
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderInPurchaseNotification), object: nil, userInfo: ["value": false])
-            UserDefaults.standard.set(true, forKey: "isBuyed")
-            self.dismiss()
+            if let expirationDate = purchaserInfo.entitlements["Premium"]?.expirationDate {
+                if expirationDate < Date() {
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderInPurchaseNotification), object: nil, userInfo: ["value": false])
+                    self.showingAlert = true
+                    self.alertTitle = "Purchase Expired"
+                    self.alertMsg = "Purchase Expired on \(expirationDate)"
+                } else {
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderInPurchaseNotification), object: nil, userInfo: ["value": false])
+                    UserDefaults.standard.set(true, forKey: "isBuyed")
+                    self.dismiss()
+                }
+            } else {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.showLoaderInPurchaseNotification), object: nil, userInfo: ["value": false])
+                self.showingAlert = true
+                self.alertTitle = "Error!"
+                self.alertMsg = "Unable to restore purchase"
+            }
         }
 //        IAPManager.shared.restorePurchases(success: {
 //            self.isDisabled = false
